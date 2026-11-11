@@ -1,0 +1,45 @@
+name: Import website source
+on:
+  push:
+    paths:
+      - '.source-import/READY'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble and verify source archive
+        run: |
+          cat .source-import/source.zip.part-* > /tmp/website-source.zip
+          cd /tmp
+          sha256sum -c "$GITHUB_WORKSPACE/.source-import/SHA256SUMS"
+      - name: Extract website files
+        shell: python
+        run: |
+          from pathlib import Path
+          import zipfile
+          root = Path.cwd()
+          prefix = "IS_Design_Build_Source/"
+          with zipfile.ZipFile("/tmp/website-source.zip") as archive:
+              for item in archive.infolist():
+                  if item.is_dir():
+                      continue
+                  if not item.filename.startswith(prefix):
+                      raise ValueError("Unexpected archive path")
+                  relative = Path(item.filename[len(prefix):])
+                  if relative.is_absolute() or ".." in relative.parts:
+                      raise ValueError("Unsafe archive path")
+                  destination = root / relative
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  destination.write_bytes(archive.read(item))
+      - name: Commit imported website
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist prepare.py .openai/hosting.json
+          git rm -r .source-import
+          git commit -m "Import I.S Design + Build website source version 21"
+          git push
