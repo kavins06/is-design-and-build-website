@@ -2,6 +2,19 @@
 
 Working notes for planning the new website. Compiled 2026-11-11 from the live site, the two GitHub repos, the original WordPress content, and public listings. Items marked **(unverified)** come from old marketing copy or third-party listings and need the owner's confirmation before they appear on the new site. Open questions are collected at the end.
 
+## 0. Owner decisions (2026-11-11)
+
+These override anything below that conflicts.
+
+- **Positioning:** a general contractor that designs and builds everything for a property (kitchens, whole homes, roofs and more). The site should present a strong construction firm with real expertise in each line.
+- **Sectors:** residential, commercial and government are all real lines of business.
+- **History:** in the industry since 1989. Formerly I.S. Enterprises; the site leads with the new name, I.S Design + Build.
+- **Phone:** +1 (202) 519-1831.
+- **Email:** info@isdesignandbuild.com (company Google account is ready).
+- **Enquiries:** on-site forms. A polished quote experience is wanted; timing (now or later) is open.
+- **SEO:** the owner has a separate tool; can be planned now or added after a bare-bones launch.
+- **Look and feel:** top-tier architecture / construction / interior-design firm. Highly visual, video-led, premium stock video and imagery allowed. Nothing generic or template-like.
+
 ## 1. The company in one paragraph
 
 I.S Design + Build is the new consumer brand of **I.S. Enterprises, Inc.**, a Washington, DC general contractor founded in 1989 by Italo Rodriguez and Eddie Migues. It sells **design-build residential remodeling** (design, permits and construction under one roof) to homeowners in DC, Maryland and Virginia, with a Georgetown office address. Its two distinguishing lines beyond ordinary remodeling are **roofing** and **lead-paint abatement**, the latter backed by EPA / DC certification.
