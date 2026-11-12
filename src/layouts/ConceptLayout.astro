@@ -1,7 +1,7 @@
 ---
 interface Props {
   title: string;
-  current: 'a' | 'b' | 'c' | 'd';
+  current: 'a' | 'b' | 'c' | 'd' | 'e';
 }
 const { title, current } = Astro.props;
 const tabs = [
@@ -9,6 +9,7 @@ const tabs = [
   { id: 'b', label: 'B · Atelier' },
   { id: 'c', label: 'C · Drawing Set' },
   { id: 'd', label: 'D · C + A' },
+  { id: 'e', label: 'E · Heritage' },
 ];
 ---
 
@@ -126,6 +127,9 @@ const tabs = [
       sans-serif;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
+    max-width: calc(100vw - 16px);
+    overflow-x: auto;
+    scrollbar-width: none;
   }
   .concept-switch span {
     padding: 0 8px 0 12px;
