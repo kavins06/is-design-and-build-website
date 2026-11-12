@@ -35,17 +35,17 @@ export const sectors = [
 ];
 
 export const capabilities = [
-  { n: '01', name: 'Kitchens', service: 'kitchen', href: '/kitchen-remodeling/', text: 'Thoughtful layouts, useful storage and finishes that bring the room together.' },
-  { n: '02', name: 'Bathrooms', service: 'bathroom', href: '/bathroom-remodeling/', text: 'Better use of space, from a compact bathroom to a complete primary suite.' },
-  { n: '03', name: 'Whole-home renovations', service: 'whole-home', href: '/whole-home-remodeling/', text: 'Bring layouts, systems and finishes into one coordinated plan.' },
-  { n: '04', name: 'Home additions', service: 'addition', href: '/home-additions/', text: 'Create more room while considering how new space connects with your home.' },
-  { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and replacement to address wear, leaks and the condition of your roof.' },
+  { n: '01', name: 'Kitchens', service: 'kitchen', href: '/kitchen-remodeling/', text: 'Layout, storage and finishes that work together.' },
+  { n: '02', name: 'Bathrooms', service: 'bathroom', href: '/bathroom-remodeling/', text: 'From a powder room to a primary suite.' },
+  { n: '03', name: 'Whole-home renovations', service: 'whole-home', href: '/whole-home-remodeling/', text: 'Every room in one coordinated plan.' },
+  { n: '04', name: 'Home additions', service: 'addition', href: '/home-additions/', text: 'More room that feels like it was always there.' },
+  { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and full replacements.' },
 ];
 
 export const process = [
-  { n: '01', name: 'Tell us about your home', text: 'What you want to change, where the property is and what matters most.' },
-  { n: '02', name: 'Explore the possibilities', text: 'Consider the layout, materials and practical details that shape the work.' },
-  { n: '03', name: 'Define the project', text: 'Discuss the proposed scope, estimate and any approvals the project needs.' },
-  { n: '04', name: 'Bring it to life', text: 'Build with an agreed scope and a clear way to discuss progress and decisions.' },
-  { n: '05', name: 'Review the details', text: 'Walk through the completed work and discuss remaining items and next steps.' },
+  { n: '01', name: 'Tell us about your home', text: 'What you want to change, and what matters most.' },
+  { n: '02', name: 'Explore the possibilities', text: 'Layout, materials and the details that shape the work.' },
+  { n: '03', name: 'Define the project', text: 'Scope, estimate and any permits, agreed up front.' },
+  { n: '04', name: 'Bring it to life', text: 'We build. You always know where things stand.' },
+  { n: '05', name: 'Review the details', text: 'We walk the finished work with you.' },
 ];

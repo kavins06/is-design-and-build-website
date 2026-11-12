@@ -4,11 +4,13 @@ import '@fontsource-variable/geist-mono';
 import '../styles/hero.css';
 import '../styles/home.css';
 import '../styles/content.css';
+import '../styles/interior.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import Cta from '../components/Cta.astro';
 import { site, capabilities, process } from '../data/site';
 import imgKitchen from '../assets/stock/kit-08.jpg';
 import imgBath from '../assets/stock/bath-06.jpg';
@@ -34,12 +36,11 @@ const rooms = [
   { src: projectDeck, name: 'Outdoor spaces', tall: false },
 ];
 const facts = [
-  { n: site.since, label: 'Construction experience since' },
-  { n: years, label: 'Years of construction experience' },
-  { word: 'In-house', label: 'A team that brings the work together' },
-  { word: 'Your home', label: 'Individual rooms to substantial renovations' },
+  { n: site.since, label: 'Building since' },
+  { n: years, label: 'Years of experience' },
+  { word: 'In-house', label: 'One team, start to finish' },
+  { word: '3 areas', label: 'DC, Northern Virginia, Montgomery County' },
 ];
-const quoteTypes = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Something else', service: 'other' }];
 
 // Floor plan drawn in the process section. Each group belongs to one stage.
 const bubbles = [
@@ -88,14 +89,14 @@ const fittings = [
     <Header home />
     <main id="main">
       <Hero />
-      <div class="proof-line"><span>Construction experience since 1989</span><span>In-house team</span><a href="https://maps.google.com/maps?cid=1968106805018591346">Read our Google reviews</a></div>
+      <div class="proof-line"><span>Building since 1989</span><span>One in-house team</span><a href="/about-us/">Our story</a><a href="https://maps.google.com/maps?cid=1968106805018591346">Read our Google reviews</a></div>
 
       <section class="st" id="firm">
         <p class="cg-label">Built around you</p>
         <h2 class="st-text" aria-label={statement.join(' ')}>
           {statement.map((w) => <span aria-hidden="true">{w} </span>)}
         </h2>
-        <div class="st-description"><p>A kitchen that works better. A bathroom that feels right. More space for the people who live there. Tell us what you want to change, and we’ll help you work through the possibilities.</p><a class="text-link" href="/home-remodeling/">Explore remodeling</a></div>
+        <div class="st-description"><p>Tell us what you want to change. We’ll show you what’s possible.</p><a class="text-link" href="/home-remodeling/">Explore remodeling</a></div>
       </section>
 
       <section class="pr" id="process" data-dark>
@@ -155,7 +156,7 @@ const fittings = [
           <span class="media-note">Design reference</span><span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
         </div>
         <div class="ex-list">
-          <p class="cg-label">Home remodeling & roofing</p><h2>Start with the part of your home you want to change.</h2>
+          <p class="cg-label">Home remodeling & roofing</p><h2>What we build.</h2>
           <ol>
             {
               capabilities.map((c, i) => (
@@ -222,19 +223,7 @@ const fittings = [
         <a class="text-link" href="https://maps.google.com/maps?cid=1968106805018591346">Read our Google reviews</a></blockquote>
       </section>
 
-      <section class="home-story"><p class="cg-label">Our story</p><div><h2>An in-house team.<br />Experience since 1989.</h2><p>We bring an in-house team to projects of different sizes—from individual rooms to substantial renovations. Formerly I.S. Enterprises, we continue our work as I.S Design + Build.</p><a class="text-link" href="/about-us/">Meet the company</a></div></section>
-      <section class="home-story"><p class="cg-label">Close to home</p><div><h2>Across the DC area.</h2><p>Washington, DC, Northern Virginia and Montgomery County, Maryland, including Bethesda and Chevy Chase. Share your town or ZIP code so we can confirm coverage for your project.</p><a class="text-link" href="/service-areas/">See our service area</a></div></section>
-      <section class="ct" id="contact" data-dark>
-        <p class="cg-label">Start a project</p>
-        <h2 class="ct-title">
-          <span>What would you</span>
-          <span>like to change?</span>
-        </h2>
-        <div class="ct-pills">
-          {quoteTypes.map((q) => <a href={`/contact-us/?service=${q.service}`}>{q.name}</a>)}
-        </div>
-        <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Your project</span><p>A room, a roof or the way your whole home works.</p></div><div><span>Next step</span><a href="/contact-us/">Tell us what you have in mind</a></div></div>
-      </section>
+      <Cta />
     </main>
     <Footer />
   </div>
