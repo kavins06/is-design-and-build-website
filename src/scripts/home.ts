@@ -66,7 +66,7 @@ function processStory() {
   if (!section) return;
   const steps = gsap.utils.toArray<HTMLElement>('.pr-steps li');
   const stage = section.querySelector<HTMLElement>('.pr-stage');
-  const names = ['Sketch', 'Design', 'Permit set', 'Construction', 'As built'];
+  const names = ['Sketch', 'Design', 'Scope + planning', 'Construction', 'Walkthrough'];
   let current = 0;
 
   const draw = (group: string) => `${group} .draw`;

@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import kitchen from '../assets/photos/kitchen-a.jpg';
+import kitchen2 from '../assets/photos/kitchen-b.jpg';
+import bath from '../assets/photos/bath-a.jpg';
+import bath2 from '../assets/photos/bath-b.jpg';
+import living from '../assets/photos/living-a.jpg';
+import deck from '../assets/photos/deck-a.jpg';
+const { compact = false, category = '' } = Astro.props;
+const photos = [
+  { src: kitchen, alt: 'Completed kitchen with island seating and cabinetry', category: 'kitchen', label: 'Kitchen / layout and storage' },
+  { src: bath, alt: 'Completed bathroom with a vanity and tiled shower', category: 'bathroom', label: 'Bathroom / surfaces and fixtures' },
+  { src: kitchen2, alt: 'Completed kitchen with an island and pendant lighting', category: 'kitchen', label: 'Kitchen / light and gathering' },
+  { src: living, alt: 'Completed living space in a residential project', category: 'whole-home', label: 'Living space / connected rooms' },
+  { src: bath2, alt: 'Completed bathroom with tiled walls and a double vanity', category: 'bathroom', label: 'Bathroom / everyday details' },
+  { src: deck, alt: 'Completed rooftop outdoor living space', category: 'whole-home', label: 'Outdoor space / a different perspective' },
+];
+const selected = compact ? photos.filter(p => !category || category === 'whole-home' || p.category === category).slice(0,2) : photos;
+---
+<section class="project-gallery" id="project-photography"><div class="gallery-heading"><p class="cg-label">Completed work</p><h2>Spaces to look<br />a little closer at.</h2><p>Photographs from the company’s project archive. Explore the rooms and details, then tell us what you have in mind.</p></div><div class="project-grid">{selected.map((photo, i) => <figure><Image src={photo.src} alt={photo.alt} widths={[600,1000,1600]} sizes="(min-width: 900px) 46vw, 92vw" /><figcaption><span>0{i+1}</span>{photo.label}</figcaption></figure>)}</div>{compact && <a class="text-link" href="/portfolio/">See more of our work</a>}</section>

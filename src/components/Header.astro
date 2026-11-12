@@ -1,0 +1,44 @@
+---
+const { home = false } = Astro.props;
+const remodeling = [['Overview', '/home-remodeling/'], ['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/']];
+const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/']];
+---
+<a class="skip-link" href="#main">Skip to content</a>
+<header class:list={['hd', { 'is-solid': !home }]} data-home={home}>
+  <a class="hd-logo" href="/">I.S Design + Build</a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+  <nav id="primary-nav" aria-label="Primary">
+    <details class="nav-group"><summary>Remodeling</summary><div class="nav-dropdown">{remodeling.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
+    <a href="/roofing/">Roofing</a>
+    <a href="/portfolio/">Our Work</a>
+    <details class="nav-group"><summary>About</summary><div class="nav-dropdown">{about.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
+    <a class="mobile-phone" href="tel:+12025191831">(202) 519-1831</a>
+  </nav>
+  <a class="hd-cta" href="/contact-us/">Start a Project</a>
+</header>
+<script>
+  const header = document.querySelector<HTMLElement>('.hd');
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  header?.classList.add('nav-ready');
+  const closeMenu = () => { toggle?.setAttribute('aria-expanded', 'false'); header?.classList.remove('menu-open'); };
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open)); header?.classList.toggle('menu-open', open);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    document.querySelectorAll<HTMLDetailsElement>('.nav-group[open]').forEach(group => { group.open = false; group.querySelector('summary')?.focus(); });
+    if (header?.classList.contains('menu-open')) { closeMenu(); toggle?.focus(); }
+  });
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Node)) return;
+    const target = event.target;
+    document.querySelectorAll<HTMLDetailsElement>('.nav-group[open]').forEach(group => { if (!group.contains(target)) group.open = false; });
+    if (!header?.contains(target)) closeMenu();
+  });
+  // Also usable without GSAP and when reduced motion is requested.
+  if (header?.dataset.home === 'true') {
+    const hero = document.querySelector('.cg-hero');
+    if (hero) new IntersectionObserver(([entry]) => header.classList.toggle('is-solid', !entry.isIntersecting), { rootMargin: '-72px 0px 0px' }).observe(hero);
+  }
+</script>

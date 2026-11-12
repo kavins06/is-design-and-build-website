@@ -1,11 +1,11 @@
 export const site = {
   name: 'I.S Design + Build',
   since: 1989,
-  phone: '+1 (202) 519-1831',
+  phone: '(202) 519-1831',
   phoneHref: 'tel:+12025191831',
   email: 'info@isdesignandbuild.com',
   address: ['1010 Wisconsin Ave NW, Suite 300', 'Washington, DC 20007'],
-  area: 'Washington, DC · Maryland · Virginia',
+  area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
 };
 
 export const sectors = [
@@ -30,18 +30,17 @@ export const sectors = [
 ];
 
 export const capabilities = [
-  { n: '01', name: 'Kitchens', text: 'Layout, cabinetry, surfaces, lighting and appliances, planned as one room.' },
-  { n: '02', name: 'Bathrooms', text: 'Wet rooms, primary suites and powder rooms, tiled and plumbed to last.' },
-  { n: '03', name: 'Whole-home renovation', text: 'Structure, systems and finishes coordinated across every floor.' },
-  { n: '04', name: 'Additions', text: 'New space that reads as part of the original building.' },
-  { n: '05', name: 'Roofing', text: 'Inspection, repair and full replacement in shingle, metal and membrane.' },
-  { n: '06', name: 'Lead-paint abatement', text: 'Certified hazard removal for older homes and occupied buildings.' },
+  { n: '01', name: 'Kitchens', service: 'kitchen', href: '/kitchen-remodeling/', text: 'Thoughtful layouts, useful storage and finishes that bring the room together.' },
+  { n: '02', name: 'Bathrooms', service: 'bathroom', href: '/bathroom-remodeling/', text: 'Better use of space, from a compact bathroom to a complete primary suite.' },
+  { n: '03', name: 'Whole-home renovations', service: 'whole-home', href: '/whole-home-remodeling/', text: 'Bring layouts, systems and finishes into one coordinated plan.' },
+  { n: '04', name: 'Home additions', service: 'addition', href: '/home-additions/', text: 'Create more room while considering how new space connects with your home.' },
+  { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and replacement to address wear, leaks and the condition of your roof.' },
 ];
 
 export const process = [
-  { n: '01', name: 'Conversation', text: 'Your goals, your property, your timing.' },
-  { n: '02', name: 'Design', text: 'Layouts, materials and drawings you can decide from.' },
-  { n: '03', name: 'Scope + permits', text: 'A fixed scope, a clear price, approvals in hand.' },
-  { n: '04', name: 'Build', text: 'One team on site, one point of contact.' },
-  { n: '05', name: 'Walkthrough', text: 'We hand over when you are satisfied.' },
+  { n: '01', name: 'Tell us about your home', text: 'What you want to change, where the property is and what matters most.' },
+  { n: '02', name: 'Explore the possibilities', text: 'Consider the layout, materials and practical details that shape the work.' },
+  { n: '03', name: 'Define the project', text: 'Discuss the proposed scope, estimate and any approvals the project needs.' },
+  { n: '04', name: 'Bring it to life', text: 'Build with an agreed scope and a clear way to discuss progress and decisions.' },
+  { n: '05', name: 'Review the details', text: 'Walk through the completed work and discuss remaining items and next steps.' },
 ];

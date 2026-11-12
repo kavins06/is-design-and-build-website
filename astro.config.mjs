@@ -6,5 +6,5 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://isdesignandbuild.com',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/concepts/') })],
 });

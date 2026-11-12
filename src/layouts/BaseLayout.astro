@@ -9,6 +9,9 @@ const {
   description = 'I.S Design + Build — a Georgetown, DC design + build firm.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const noindex = process.env.VERCEL_ENV !== 'production' || Astro.url.pathname.startsWith('/concepts/');
+const organization = { '@context': 'https://schema.org', '@type': 'Organization', '@id': 'https://isdesignandbuild.com/#organization', name: 'I.S Design + Build', url: 'https://isdesignandbuild.com/', telephone: '+12025191831', email: 'info@isdesignandbuild.com', areaServed: ['Washington, DC', 'Northern Virginia', 'Montgomery County, Maryland'] };
+
 ---
 
 <!doctype html>
@@ -21,6 +24,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="I.S Design + Build" />
+    <script type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g, '\\u003c')} />
     <slot name="head" />
   </head>
   <body>

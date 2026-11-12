@@ -1,0 +1,65 @@
+---
+import InteriorLayout from '../layouts/InteriorLayout.astro';
+import { site, capabilities } from '../data/site';
+---
+<InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isdesignandbuild.com." label="Start a project" headline="Tell us about your project.">
+  <Fragment slot="intro"><p>What would you like to change? Share a few details about the property and the work you have in mind.</p><p>Prefer a conversation? Call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p><p class="contact-explanation">You can also prepare an email below. You’ll review it and send it from your email app. Nothing is submitted through this website.</p></Fragment>
+  <section class="enquiry"><div><p class="cg-label">A useful starting point</p></div><div>
+    <noscript><p>To discuss a project, <a href={`mailto:${site.email}`}>email {site.email}</a> or <a href={site.phoneHref}>call {site.phone}</a>. Include the type of work and the property’s town or ZIP code.</p></noscript>
+    <form id="enquiry-form" hidden>
+      <div class="form-grid">
+        <div class="field full"><label for="service">What are you planning?</label><select name="service" id="service" required><option value="">Choose a project type</option>{capabilities.map(c => <option value={c.service}>{c.name}</option>)}<option value="remodeling">Remodeling — still exploring</option><option value="other">Something else</option><option value="unsure">Not sure yet</option></select></div>
+        <div class="field"><label for="town">Where is the property?</label><input id="town" name="town" autocomplete="address-level2" maxlength="100" required placeholder="Town or city" /><small>A full address isn’t needed at this stage.</small></div>
+        <div class="field"><label for="zip">ZIP code <span>(optional)</span></label><input id="zip" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" /></div>
+        <div class="field full"><label for="brief">Tell us a little about the work.</label><textarea id="brief" name="brief" required maxlength="1500" aria-describedby="brief-help"></textarea><small id="brief-help">What would you like to change, or what problem needs attention?</small></div>
+        <div class="field full" id="roofing-field" hidden><label for="water">Is water currently entering the property?</label><select id="water" name="water"><option>Not sure</option><option>Yes</option><option>No</option></select><small>For a time-sensitive issue, call to discuss availability. This does not request emergency attendance.</small></div>
+        <div class="field"><label for="timing">When are you hoping to start?</label><select id="timing" name="timing"><option>Exploring options</option><option>As soon as practical</option><option>Within 3 months</option><option>3–6 months</option><option>Later</option><option>Not sure</option></select></div>
+        <div class="field"><label for="budget">Have you set a budget? <span>(optional)</span></label><input id="budget" name="budget" maxlength="120" placeholder="Not sure yet is fine" /></div>
+        <div class="field full"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required maxlength="100" /></div>
+        <fieldset class="field full"><legend>How should we contact you?</legend><div class="contact-options"><label><input type="radio" name="preferred" value="email" checked /> Email</label><label><input type="radio" name="preferred" value="phone" /> Phone</label></div></fieldset>
+        <div class="field full"><label for="reply">Your email address</label><input id="reply" name="reply" type="email" autocomplete="email" required maxlength="160" /></div>
+      </div>
+      <p class="form-note">These details stay in this page until you choose to send them through your email app. They are not saved by this form. You may attach photographs or drawings in your email. <a href="/privacy-policy/">Read our Privacy Policy.</a></p>
+      <div class="submit-row"><button type="submit">Prepare my email</button></div>
+      <section class="enquiry-result" id="enquiry-result" aria-labelledby="result-heading" hidden><h2 id="result-heading" tabindex="-1">Your email is ready to review.</h2><p>It has not been sent. Open your email app to review and send it, or copy the text into an email to <a href={`mailto:${site.email}`}>{site.email}</a>.</p><label for="email-preview" class="cg-label">Your prepared enquiry</label><textarea id="email-preview" readonly></textarea><a id="email-link" class="text-link" href={`mailto:${site.email}`}>Open my email app</a><button type="button" id="copy-email">Copy enquiry text</button><p id="copy-status" role="status"></p></section>
+    </form>
+  </div></section>
+</InteriorLayout>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#enquiry-form');
+  const service = document.querySelector<HTMLSelectElement>('#service');
+  const roof = document.querySelector<HTMLElement>('#roofing-field');
+  const reply = document.querySelector<HTMLInputElement>('#reply');
+  const result = document.querySelector<HTMLElement>('#enquiry-result');
+  if (form && service && reply && result) {
+    form.hidden = false;
+    const requested = new URLSearchParams(window.location.search).get('service');
+    if (requested && Array.from(service.options).some(option => option.value === requested)) service.value = requested;
+    const showRoof = () => { if (roof) roof.hidden = service.value !== 'roofing'; };
+    showRoof(); service.addEventListener('change', showRoof);
+    form.querySelectorAll<HTMLInputElement>('input[name="preferred"]').forEach(radio => radio.addEventListener('change', () => {
+      const phone = radio.value === 'phone';
+      reply.type = phone ? 'tel' : 'email'; reply.autocomplete = phone ? 'tel' : 'email';
+      const label = form.querySelector('label[for="reply"]'); if (label) label.textContent = phone ? 'Your phone number' : 'Your email address';
+    }));
+    // Any edits invalidate the prepared email, so an earlier version cannot be sent accidentally.
+    form.addEventListener('input', event => { if (!(event.target instanceof HTMLTextAreaElement && event.target.id === 'email-preview')) result.hidden = true; });
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      const selected = service.selectedOptions[0].text;
+      const lines = [`Project: ${selected}`, `Location: ${data.get('town')}${data.get('zip') ? ' · ' + data.get('zip') : ''}`, '', String(data.get('brief')), '', `Timing: ${data.get('timing')}`, `Budget: ${data.get('budget') || 'Not specified'}`, ...(service.value === 'roofing' ? [`Water currently entering: ${data.get('water')}`] : []), '', `Name: ${data.get('name')}`, `Preferred contact: ${data.get('preferred')}`, `Contact details: ${data.get('reply')}`];
+      const body = lines.join('\n');
+      const preview = document.querySelector<HTMLTextAreaElement>('#email-preview'); if (preview) preview.value = body;
+      const link = document.querySelector<HTMLAnchorElement>('#email-link'); if (link) link.href = `mailto:info@isdesignandbuild.com?subject=${encodeURIComponent('Project enquiry — ' + selected)}&body=${encodeURIComponent(body)}`;
+      result.hidden = false; document.querySelector<HTMLElement>('#result-heading')?.focus();
+    });
+    document.querySelector('#copy-email')?.addEventListener('click', async () => {
+      const preview = document.querySelector<HTMLTextAreaElement>('#email-preview'); const status = document.querySelector('#copy-status');
+      if (!preview || !status) return;
+      try { await navigator.clipboard.writeText(preview.value); status.textContent = 'Copied. Paste this into your email and send when you’re ready.'; }
+      catch { preview.focus(); preview.select(); status.textContent = 'Select and copy the enquiry text above, then paste it into your email.'; }
+    });
+  }
+</script>

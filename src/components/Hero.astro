@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { site } from '../data/site';
 import photo from '../assets/stock/kit-08.jpg';
 
 // Elevation of the hero kitchen, traced in the photo's own 2400 x 1450 coordinate space
@@ -43,16 +42,17 @@ const dims = ['M690 792V1340M674 792h32M674 1340h32'];
     </svg>
   </div>
   <div class="cg-hero-copy">
+    <p class="hero-eyebrow">Home remodeling & roofing · In-house team</p>
     <h1>
-      <span>Drawn.</span>
-      <span>Permitted.</span>
-      <span class="is-built">Built.</span>
+      <span>Your home.</span>
+      <span>In good</span>
+      <span class="is-built">hands.</span>
     </h1>
-    <p>We design and build homes. Washington, DC. Since {site.since}.</p>
+    <p>From a kitchen update to a whole-home renovation, our in-house team brings your plans to life. We also repair and replace roofs.</p><p class="hero-area">Washington, DC · Northern Virginia · Montgomery County, Maryland</p><div class="hero-actions"><a class="text-link" href="/contact-us/">Tell us about your project</a><a class="text-link" href="/portfolio/">Explore our work</a></div>
   </div>
   <dl class="cg-titleblock">
     <div><dt>Drawing</dt><dd>Kitchen elevation</dd></div>
     <div><dt>Scale</dt><dd>1/4" = 1'-0"</dd></div>
-    <div><dt>Status</dt><dd class="cg-status">Built</dd></div>
+    <div><dt>Image</dt><dd class="cg-status">Design reference</dd></div>
   </dl>
 </section>
