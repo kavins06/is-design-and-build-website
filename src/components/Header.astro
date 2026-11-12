@@ -1,10 +1,10 @@
 ---
-const { home = false } = Astro.props;
+const { home = false, overlay = false } = Astro.props;
 const remodeling = [['Overview', '/home-remodeling/'], ['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/']];
 const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/']];
 ---
 <a class="skip-link" href="#main">Skip to content</a>
-<header class:list={['hd', { 'is-solid': !home }]} data-home={home}>
+<header class:list={['hd', { 'is-solid': !home && !overlay }]} data-home={home || overlay}>
   <a class="hd-logo" href="/">I.S Design + Build</a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
   <nav id="primary-nav" aria-label="Primary">
@@ -38,7 +38,7 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
   });
   // Also usable without GSAP and when reduced motion is requested.
   if (header?.dataset.home === 'true') {
-    const hero = document.querySelector('.cg-hero');
+    const hero = document.querySelector('.cg-hero, .page-hero');
     if (hero) new IntersectionObserver(([entry]) => header.classList.toggle('is-solid', !entry.isIntersecting), { rootMargin: '-72px 0px 0px' }).observe(hero);
   }
 </script>

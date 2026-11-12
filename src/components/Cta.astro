@@ -1,0 +1,12 @@
+---
+import { site, capabilities } from '../data/site';
+interface Props { lines?: [string, string]; service?: string; }
+const { lines = ['What would you', 'like to change?'], service } = Astro.props;
+const types = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Something else', service: 'other' }];
+---
+<section class="ct" id="contact" data-dark>
+  <p class="cg-label">Start a project</p>
+  <h2 class="ct-title"><span>{lines[0]}</span><span>{lines[1]}</span></h2>
+  <div class="ct-pills">{types.map((q) => <a class:list={{ 'is-current': q.service === service && service !== 'other' }} href={`/contact-us/?service=${q.service}`}>{q.name}</a>)}</div>
+  <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Where we work</span><a href="/service-areas/">DC · Northern Virginia · Montgomery County</a></div><div><span>Next step</span><a href={`/contact-us/${service ? `?service=${service}` : ''}`}>Tell us what you have in mind</a></div></div>
+</section>

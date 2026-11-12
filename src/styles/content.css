@@ -42,13 +42,6 @@
 .footer-columns p { color: #aaa; }
 .footer-bottom { margin-top: 64px; padding-top: 24px; border-top: 1px solid #ffffff30; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; font-size: 12px; color: #aaa; }
 .footer-bottom nav { display: flex; gap: 24px; }
-.breadcrumb { display: flex; gap: 14px; font-size: 12px; color: #666; margin-bottom: clamp(50px, 8vw, 120px); }
-.breadcrumb a { text-decoration: none; }
-.page-hero { padding: 120px var(--pad) clamp(70px, 8vw, 130px); border-bottom: 1px solid var(--line); background-image: linear-gradient(#0c0c0c03 1px, transparent 1px), linear-gradient(90deg,#0c0c0c03 1px,transparent 1px); background-size: 80px 80px; }
-.page-hero h1 { max-width: 15ch; margin-top: 28px; font-size: clamp(44px, 7vw, 110px); line-height: .98; }
-.page-intro { margin-top: 40px; margin-left: 25%; max-width: 68ch; }
-.page-intro > p { font-size: clamp(18px, 1.7vw, 25px); line-height: 1.5; color: #5b5b56; margin-bottom: 18px; }
-.page-intro .text-link { margin-top: 8px; }
 .copy-section { display: grid; grid-template-columns: 1fr 3fr; gap: 32px; padding: clamp(56px,7vw,110px) var(--pad); border-bottom: 1px solid var(--line); }
 .copy-body { max-width: 780px; }
 .copy-body h2 { font-size: clamp(30px, 4vw, 60px); line-height: 1.06; max-width: 22ch; margin-bottom: 32px; }
