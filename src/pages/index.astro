@@ -1,40 +1,252 @@
 ---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/hero.css';
+import '../styles/home.css';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { site, capabilities, process } from '../data/site';
+import imgKitchen from '../assets/stock/kit-08.jpg';
+import imgBath from '../assets/stock/bath-06.jpg';
+import imgLiving from '../assets/stock/home-04.jpg';
+import imgStair from '../assets/stock/home-10.jpg';
+import imgLibrary from '../assets/stock/home-11.jpg';
+import imgFraming from '../assets/stock/site-02.jpg';
+import imgRoofs from '../assets/stock/town-12.jpg';
 
-const directions = [
-  { href: '/concepts/a/', name: 'A · Monolith', text: 'Dark, cinematic, monumental type.' },
-  { href: '/concepts/b/', name: 'B · Atelier', text: 'Light, editorial, interior-design studio.' },
-  { href: '/concepts/c/', name: 'C · Drawing Set', text: 'Architectural drawing that builds itself.' },
-  { href: '/concepts/d/', name: 'D · C + A', text: 'The drawing set with the weight of Monolith.' },
-  { href: '/concepts/e/', name: 'E · Heritage', text: 'Established, classical, built on craft and proof.' },
-  { href: '/concepts/f/', name: 'F · Institutional', text: 'World-class-firm polish for a family-home builder. Few words, large imagery.' },
-  { href: '/concepts/g/', name: 'G · D + F', text: 'The drawing-to-built hero with institutional restraint.' },
+const years = new Date().getFullYear() - site.since;
+const statement = 'The people who draw your home are the people who build it.'.split(' ');
+
+const capImg = [imgKitchen, imgBath, imgLiving, imgFraming, imgRoofs, imgStair];
+
+const rooms = [
+  { src: imgKitchen, name: 'Kitchens', tall: false },
+  { src: imgBath, name: 'Bathrooms', tall: true },
+  { src: imgLiving, name: 'Living rooms', tall: false },
+  { src: imgStair, name: 'Stairs + halls', tall: true },
+  { src: imgLibrary, name: 'Whole homes', tall: false },
+];
+
+const facts = [
+  { n: site.since, label: 'Founded in Washington, DC' },
+  { n: years, label: 'Years on the job' },
+  { n: 6, label: 'Trades in house' },
+  { n: 1, label: 'Contract, start to finish' },
+];
+
+const quoteTypes = ['Kitchen', 'Bathroom', 'Whole home', 'Addition', 'Roof', 'Lead paint', 'Something else'];
+
+// Floor plan drawn in the process section. Each group belongs to one stage.
+const bubbles = [
+  { cx: 195, cy: 155, rx: 112, ry: 82 },
+  { cx: 195, cy: 368, rx: 112, ry: 82 },
+  { cx: 465, cy: 260, rx: 112, ry: 172 },
+  { cx: 670, cy: 195, rx: 56, ry: 118 },
+  { cx: 670, cy: 405, rx: 52, ry: 52 },
+];
+const labels = [
+  { x: 195, y: 124, t: 'Kitchen' },
+  { x: 195, y: 300, t: 'Dining' },
+  { x: 465, y: 215, t: 'Living' },
+  { x: 670, y: 186, t: 'Bath' },
+  { x: 670, y: 440, t: 'Entry' },
+];
+const walls = [
+  'M60 50H740V470H700M640 470H60V50',
+  'M60 260H250',
+  'M330 50V150M330 370V470',
+  'M600 50V200H740M600 240V340H740M600 340V400',
+];
+const openings = [
+  'M640 470a60 60 0 0 1 60 -60V470',
+  'M600 240a40 40 0 0 0 -40 -40H600',
+  'M120 44H270M120 56H270M390 44H540M390 56H540',
+  'M54 320V410M66 320V410',
+  'M610 214H730M610 228H730M610 242H730M610 256H730M610 270H730M610 284H730M610 298H730M610 312H730M610 326H730',
+];
+const dimLines = ['M60 22H740M60 12v20M740 12v20', 'M32 50V470M22 50h20M22 470h20'];
+const fittings = [
+  'M72 62H318V100H112V248H72z',
+  'M180 68h44v24h-44zM262 74a8 8 0 1 0 0.1 0M290 74a8 8 0 1 0 0.1 0',
+  'M150 142H290V200H150z',
+  'M170 212a10 10 0 1 0 0.1 0M220 212a10 10 0 1 0 0.1 0M270 212a10 10 0 1 0 0.1 0',
+  'M120 322H270V408H120zM140 304h30v12h-30zM220 304h30v12h-30zM140 414h30v12h-30zM220 414h30v12h-30z',
+  'M420 58H510V76H420z',
+  'M370 384H560V440H370zM370 384V370H560V384',
+  'M420 290H530V340H420z',
+  'M612 62H728V112H612zM640 148a14 14 0 1 0 0.1 0M678 132H728V192H678z',
 ];
 ---
 
-<BaseLayout title="I.S Design + Build — design directions">
-  <meta slot="head" name="robots" content="noindex" />
-  <main>
-    <h1>I.S Design + Build</h1>
-    <p>Three home-page design directions. Pick one to develop.</p>
-    <ul>
-      {directions.map((d) => (
-        <li>
-          <a href={d.href}><strong>{d.name}</strong></a> — {d.text}
-        </li>
-      ))}
-    </ul>
-  </main>
+<BaseLayout title="I.S Design + Build — Homes designed and built in Washington, DC" description="I.S Design + Build designs and builds kitchens, bathrooms, additions and whole-home renovations in Washington, DC. One firm, one contract, since 1989.">
+  <div class="cg">
+    <header class="hd">
+      <a class="hd-logo" href="/">I.S Design + Build</a>
+      <nav aria-label="Primary">
+        <a href="#process">Process</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#rooms">Rooms</a>
+        <a href="#firm">Firm</a>
+      </nav>
+      <a class="hd-cta" href="#contact">Start a project</a>
+    </header>
+
+    <main>
+      <Hero />
+
+      <section class="st" id="firm">
+        <p class="cg-label">The firm</p>
+        <h2 class="st-text" aria-label={statement.join(' ')}>
+          {statement.map((w) => <span aria-hidden="true">{w} </span>)}
+        </h2>
+      </section>
+
+      <section class="pr" id="process" data-dark>
+        <div class="pr-pin">
+          <div class="pr-side">
+            <p class="cg-label">How a home gets built</p>
+            <ol class="pr-steps">
+              {
+                process.map((p, i) => (
+                  <li class={i === 0 ? 'is-on' : ''}>
+                    <span>{p.n}</span>
+                    <div>
+                      <h3>{p.name}</h3>
+                      <p>{p.text}</p>
+                    </div>
+                  </li>
+                ))
+              }
+            </ol>
+            <div class="pr-progress"><i></i></div>
+          </div>
+
+          <figure class="pr-sheet">
+            <svg viewBox="0 0 800 520" role="img" aria-label="A floor plan that develops from a sketch to a finished home as you scroll">
+              <g class="pl-bubbles">
+                {bubbles.map((b) => <ellipse cx={b.cx} cy={b.cy} rx={b.rx} ry={b.ry} pathLength="1" class="draw" />)}
+              </g>
+              <g class="pl-labels">
+                {labels.map((l) => <text x={l.x} y={l.y} text-anchor="middle">{l.t}</text>)}
+              </g>
+              <g class="pl-walls">{walls.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
+              <g class="pl-openings">{openings.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
+              <g class="pl-dims">
+                {dimLines.map((d) => <path d={d} pathLength="1" class="draw" />)}
+                <text x="400" y="14" text-anchor="middle">34'-0"</text>
+                <text x="24" y="264" text-anchor="middle" transform="rotate(-90 24 264)">21'-0"</text>
+              </g>
+              <g class="pl-stamp" transform="translate(470 250) rotate(-10)">
+                <rect x="-112" y="-34" width="224" height="68"></rect>
+                <text y="-4" text-anchor="middle">PERMIT APPROVED</text>
+                <text y="18" text-anchor="middle" class="pl-stamp-sub">WASHINGTON, DC</text>
+              </g>
+              <g class="pl-fittings">{fittings.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
+            </svg>
+            <Image src={imgLiving} alt="Finished living room with a stone fireplace" widths={[800, 1400]} sizes="(min-width: 900px) 56vw, 92vw" class="pr-photo" />
+            <figcaption>
+              <span>Sheet A-101 · Floor plan</span>
+              <span class="pr-stage">Sketch</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="ex" id="expertise">
+        <div class="ex-media">
+          {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="eager" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+          <span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
+        </div>
+        <div class="ex-list">
+          <p class="cg-label">Expertise</p>
+          <ol>
+            {
+              capabilities.map((c, i) => (
+                <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
+                  <a href="#contact">
+                    <span>{c.n}</span>
+                    <div>
+                      <h3>{c.name}</h3>
+                      <p>{c.text}</p>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="rm" id="rooms">
+        <div class="rm-pin">
+          <div class="rm-head">
+            <p class="cg-label">Rooms we build</p>
+            <p class="rm-hint">Keep scrolling</p>
+          </div>
+          <div class="rm-track">
+            <h2 class="rm-title">Every room,<br />one team.</h2>
+            {
+              rooms.map((r, i) => (
+                <figure class={r.tall ? 'is-tall' : ''}>
+                  <div><Image src={r.src} alt={r.name} widths={[700, 1200, 1600]} sizes="(min-width: 900px) 50vw, 80vw" /></div>
+                  <figcaption><span>0{i + 1}</span>{r.name}</figcaption>
+                </figure>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="bd" data-dark>
+        <div class="bd-frame">
+          <video autoplay muted loop playsinline preload="metadata" poster="/media/plans-poster.jpg">
+            <source src="/media/plans.mp4" type="video/mp4" />
+          </video>
+          <h2>{years} years of getting the details right.</h2>
+        </div>
+      </section>
+
+      <section class="fc">
+        {
+          facts.map((f) => (
+            <div>
+              <b data-count={f.n}>{f.n}</b>
+              <span>{f.label}</span>
+            </div>
+          ))
+        }
+      </section>
+
+      <section class="rv">
+        <p class="cg-label">Clients</p>
+        <blockquote>
+          <p>“A real Google review will be quoted here.”</p>
+          <footer>Client name — placeholder</footer>
+        </blockquote>
+      </section>
+
+      <section class="ct" id="contact" data-dark>
+        <p class="cg-label">Start a project</p>
+        <h2 class="ct-title">
+          <span>What are we</span>
+          <span>building?</span>
+        </h2>
+        <div class="ct-pills">
+          {quoteTypes.map((q) => <a href="#contact">{q}</a>)}
+        </div>
+        <div class="ct-grid">
+          <div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div>
+          <div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
+          <div><span>Office</span><p>{site.address[0]}<br />{site.address[1]}</p></div>
+          <div><span>Area</span><p>DC · Maryland · Virginia</p></div>
+        </div>
+        <p class="ct-legal">© {new Date().getFullYear()} {site.name}. General contractors since {site.since}. We also take on commercial and government work.</p>
+      </section>
+    </main>
+  </div>
 </BaseLayout>
 
-<style>
-  main {
-    max-width: 640px;
-    margin: 12vh auto;
-    padding: 0 20px;
-    font: 18px/1.6 system-ui, sans-serif;
-  }
-  li {
-    margin: 12px 0;
-  }
-</style>
+<script>
+  import '../scripts/home.ts';
+</script>

@@ -1,0 +1,666 @@
+/* Home page sections below the hero. Tokens come from hero.css (.cg). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+.cg a {
+  color: inherit;
+}
+.cg h1,
+.cg h2,
+.cg h3,
+.cg p,
+.cg ol,
+.cg ul,
+.cg figure,
+.cg blockquote {
+  margin: 0;
+  padding: 0;
+}
+.cg ol,
+.cg ul {
+  list-style: none;
+}
+
+/* ---------- Header ---------- */
+.hd {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.6vw, 40px);
+  padding: 22px var(--pad);
+  color: #fff;
+  transition:
+    background 0.35s,
+    color 0.35s,
+    padding 0.35s,
+    box-shadow 0.35s;
+}
+.hd.is-solid {
+  padding-block: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  box-shadow: 0 1px 0 var(--line);
+}
+.hd.is-solid.on-dark {
+  background: rgba(12, 12, 12, 0.86);
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.hd-logo {
+  margin-right: auto;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.hd nav {
+  display: flex;
+  gap: clamp(18px, 2.4vw, 36px);
+  font-size: 15px;
+}
+.hd nav a {
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.hd nav a:hover {
+  opacity: 1;
+}
+.hd-cta {
+  padding: 11px 18px;
+  border: 1px solid currentColor;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+.hd-cta:hover {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: #fff;
+}
+
+/* ---------- Statement ---------- */
+.st {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 24px;
+  padding: clamp(110px, 15vw, 240px) var(--pad);
+}
+.st-text {
+  font-size: clamp(34px, 6.2vw, 104px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  max-width: 15ch;
+}
+
+/* ---------- Process (pinned floor plan) ---------- */
+.pr {
+  background: #0c0c0c;
+  color: #fff;
+}
+.pr-pin {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: center;
+  min-height: 100svh;
+  padding: 96px var(--pad) 40px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.pr .cg-label {
+  color: rgba(255, 255, 255, 0.55);
+}
+.pr-steps {
+  margin-top: clamp(20px, 3vw, 44px);
+}
+.pr-steps li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  padding: clamp(10px, 1.3vw, 18px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  opacity: 0.32;
+  transition: opacity 0.4s;
+}
+.pr-steps li.is-on {
+  opacity: 1;
+}
+.pr-steps span {
+  padding-top: 0.55em;
+  font: 500 11px 'Geist Mono Variable', monospace;
+  color: var(--signal);
+}
+.pr-steps h3 {
+  font-size: clamp(22px, 2.5vw, 40px);
+  line-height: 1.1;
+}
+.pr-steps p {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(14px, 1.1vw, 17px);
+  transition:
+    grid-template-rows 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    margin 0.45s;
+  min-height: 0;
+  max-height: 0;
+}
+.pr-steps li.is-on p {
+  max-height: 4em;
+  margin-top: 6px;
+}
+.pr-progress {
+  height: 2px;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.pr-progress i {
+  display: block;
+  height: 100%;
+  background: var(--signal);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.pr-sheet {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(12, 12, 12, 0.7);
+}
+.pr-sheet svg {
+  display: block;
+  width: 100%;
+  max-height: calc(100svh - 220px);
+  padding: clamp(10px, 1.6vw, 26px);
+}
+.pr-sheet svg path,
+.pr-sheet svg ellipse,
+.pr-sheet svg rect {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.pl-bubbles ellipse {
+  stroke: rgba(255, 255, 255, 0.6) !important;
+  stroke-dasharray: 1;
+}
+.pl-walls path {
+  stroke-width: 4 !important;
+  stroke-linecap: square;
+  vector-effect: none !important;
+}
+.pl-fittings path,
+.pl-openings path {
+  stroke: rgba(255, 255, 255, 0.78) !important;
+}
+.pl-labels text {
+  font: 500 12px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: rgba(255, 255, 255, 0.7);
+}
+.pl-dims path {
+  stroke: var(--signal) !important;
+  stroke-width: 1 !important;
+}
+.pl-dims text {
+  font: 500 12px 'Geist Mono Variable', monospace;
+  fill: var(--signal);
+}
+.pl-stamp rect {
+  stroke: var(--signal) !important;
+  stroke-width: 3 !important;
+  fill: rgba(12, 12, 12, 0.85) !important;
+}
+.pl-stamp text {
+  font: 700 19px 'Geist Variable', sans-serif;
+  letter-spacing: 0.08em;
+  fill: var(--signal);
+}
+.pl-stamp .pl-stamp-sub {
+  font: 500 10px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.24em;
+}
+.pr-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pr-sheet figcaption {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  background: #0c0c0c;
+  font: 500 11px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pr-stage {
+  color: var(--signal);
+}
+
+/* ---------- Expertise ---------- */
+.ex {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(28px, 6vw, 110px);
+  padding: clamp(90px, 11vw, 180px) var(--pad);
+}
+.ex-media {
+  position: sticky;
+  top: 12svh;
+  align-self: start;
+  height: 76svh;
+  overflow: hidden;
+  background: var(--tint);
+}
+.ex-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.12);
+  transition:
+    clip-path 0.9s cubic-bezier(0.7, 0, 0.2, 1),
+    transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.ex-media img.is-on {
+  clip-path: inset(0);
+  transform: none;
+  z-index: 1;
+}
+.ex-media img.was-on {
+  clip-path: inset(0);
+  transform: none;
+  transition: none;
+}
+.ex-count {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.6);
+  font: 500 11px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.08em;
+}
+.ex-count b {
+  color: #fff;
+  font-weight: 500;
+}
+.ex-list ol {
+  margin-top: 28px;
+}
+.ex-list li a {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  padding: clamp(28px, 4.4vw, 72px) 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+  color: #c4c4be;
+  transition: color 0.45s;
+}
+.ex-list li:last-child a {
+  border-bottom: 1px solid var(--line);
+}
+.ex-list li.is-on a {
+  color: var(--ink);
+}
+.ex-list span {
+  padding-top: 1em;
+  font: 500 11px 'Geist Mono Variable', monospace;
+  color: var(--signal);
+}
+.ex-list h3 {
+  font-size: clamp(32px, 4.8vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.ex-list p {
+  margin-top: 14px;
+  max-width: 40ch;
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: var(--mute);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.45s,
+    transform 0.45s;
+}
+.ex-list li.is-on p {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Rooms (horizontal gallery) ---------- */
+.rm {
+  background: var(--tint);
+  overflow: hidden;
+}
+.rm-pin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 90px 0 40px;
+}
+.rm-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--pad) 22px;
+}
+.rm-hint {
+  font: 500 11px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.rm-hint::after {
+  content: ' →';
+}
+.rm-track {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(16px, 2.4vw, 44px);
+  width: max-content;
+  padding: 0 var(--pad);
+  will-change: transform;
+}
+.rm-title {
+  align-self: center;
+  margin-right: clamp(20px, 5vw, 110px) !important;
+  font-size: clamp(44px, 8vw, 136px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+.rm-track figure {
+  flex: none;
+  width: min(62vw, 980px);
+}
+.rm-track figure.is-tall {
+  width: min(34vw, 520px);
+}
+.rm-track figure div {
+  height: min(62svh, 640px);
+  overflow: hidden;
+}
+.rm-track figure.is-tall div {
+  height: min(72svh, 740px);
+}
+.rm-track img {
+  width: 120%;
+  max-width: none;
+  height: 100%;
+  margin-left: -10%;
+  object-fit: cover;
+}
+.rm-track figcaption {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  padding-top: 14px;
+  font-size: clamp(18px, 1.7vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.rm-track figcaption span {
+  font: 500 11px 'Geist Mono Variable', monospace;
+  letter-spacing: 0;
+  color: var(--signal);
+}
+
+/* ---------- Video band ---------- */
+.bd {
+  background: var(--tint);
+}
+.bd-frame {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--pad);
+  color: #fff;
+  background: #0c0c0c;
+  overflow: hidden;
+}
+.bd-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.62;
+}
+.bd-frame h2 {
+  position: relative;
+  font-size: clamp(38px, 7.4vw, 124px);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  max-width: 12ch;
+}
+
+/* ---------- Facts ---------- */
+.fc {
+  --rule: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 0 var(--pad);
+  padding: 22px 0 clamp(80px, 9vw, 150px);
+  margin-top: clamp(80px, 9vw, 150px);
+}
+.fc::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(var(--rule));
+  transform-origin: left;
+}
+.fc b {
+  display: block;
+  font-size: clamp(48px, 7.4vw, 124px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.fc span {
+  display: block;
+  margin-top: 12px;
+  font-size: 15px;
+  color: var(--mute);
+}
+
+/* ---------- Review ---------- */
+.rv {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 24px;
+  padding: clamp(80px, 10vw, 160px) var(--pad);
+  background: var(--tint);
+}
+.rv blockquote p {
+  font-size: clamp(28px, 4.2vw, 68px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  max-width: 18ch;
+}
+.rv footer {
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--mute);
+}
+
+/* ---------- Contact ---------- */
+.ct {
+  padding: clamp(90px, 11vw, 180px) var(--pad) 40px;
+  background: #0c0c0c;
+  color: #fff;
+}
+.ct .cg-label {
+  color: rgba(255, 255, 255, 0.55);
+}
+.ct-title {
+  margin-top: 24px !important;
+  font-size: clamp(46px, 10.4vw, 176px);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+.ct-title span {
+  display: block;
+}
+.ct-title span:last-child {
+  color: var(--signal);
+}
+.ct-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(32px, 4vw, 64px);
+}
+.ct-pills a {
+  padding: 15px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: clamp(16px, 1.4vw, 21px);
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s,
+    transform 0.25s;
+}
+.ct-pills a:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--ink);
+  transform: translateY(-3px);
+}
+.ct-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: clamp(64px, 9vw, 150px);
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+.ct-grid span {
+  display: block;
+  margin-bottom: 8px;
+  font: 500 11px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.ct-grid a {
+  text-decoration: none;
+}
+.ct-grid a:hover {
+  color: var(--signal);
+}
+.ct-legal {
+  margin-top: 64px !important;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 900px) {
+  .hd nav {
+    display: none;
+  }
+  .hd-cta {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+  .st,
+  .rv,
+  .ex {
+    grid-template-columns: 1fr;
+  }
+  .pr-pin {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 18px;
+    padding-top: 84px;
+  }
+  .pr-sheet {
+    order: -1;
+  }
+  .pr-sheet svg {
+    max-height: 38svh;
+  }
+  .pr-steps {
+    margin-top: 12px;
+  }
+  .pr-steps li {
+    padding: 7px 0;
+  }
+  .pr-steps li:not(.is-on) p {
+    display: none;
+  }
+  .ex-media {
+    top: 64px;
+    height: 34svh;
+    z-index: 3;
+  }
+  .ex-list li a {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: 34px 0;
+  }
+  .rm-track figure {
+    width: 82vw;
+  }
+  .rm-track figure.is-tall {
+    width: 62vw;
+  }
+  .rm-track figure div,
+  .rm-track figure.is-tall div {
+    height: 52svh;
+  }
+  .fc,
+  .ct-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
