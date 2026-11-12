@@ -2,6 +2,7 @@
 import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import geistMono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
 
+import { launched } from '../data/site';
 import { business, website, graph, abs } from '../data/schema';
 
 interface Props {
@@ -21,7 +22,7 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Google tag: loaded on the production site only, so preview visits are not counted.
 const googleTag = process.env.VERCEL_ENV === 'production' ? 'GTM-NSZWBWT2' : '';
-const noindex = process.env.VERCEL_ENV !== 'production' || Astro.url.pathname.startsWith('/concepts/');
+const noindex = !launched || process.env.VERCEL_ENV !== 'production' || Astro.url.pathname.startsWith('/concepts/');
 const jsonLd = graph([business, website, ...schema]);
 const ogImage = abs('/og.jpg');
 

@@ -1,3 +1,7 @@
+// Set to true when the site is ready for search engines. While false, every
+// page tells search engines not to index it, including on the live domain.
+export const launched = false;
+
 export const site = {
   name: 'I.S Design + Build',
   since: 1989,
