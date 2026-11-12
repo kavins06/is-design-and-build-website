@@ -177,3 +177,23 @@
   .cg .ex-list h3 { font-size: 30px; }
   .cg .ex-list p { margin-top: 6px; opacity: 1; transform: none; color: #ffffffcc; font-size: 15px; }
 }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.enquiry button[disabled] { opacity: .6; cursor: progress; }
+.enquiry-sent { border-color: var(--signal); }
+.hd-logo span, .footer-brand span { color: var(--signal); }
+/* Comfortable tap targets on touch screens */
+@media (max-width: 900px) {
+  .breadcrumb a, .breadcrumb [aria-current] { padding-block: 14px; }
+  .breadcrumb { margin-bottom: 12px; align-items: center; }
+  .footer-columns a, .footer-bottom a, .ct-grid a, .proof-line a, .rm-head > a, .copy-body p a, .form-note a { display: inline-block; padding-block: 11px; }
+  .footer-columns nav { gap: 0 20px; }
+  .footer-columns > div { gap: 0; }
+}
+/* Contrast (WCAG AA): dark text on orange, a deeper orange and grey for small text on light backgrounds. */
+.cg.cg { --mute: #62625c; --signal-text: #b83403; }
+.btn, .m-bar a.is-primary, .ct-pills a.is-current { color: #0c0c0c !important; }
+.btn:hover { color: #0c0c0c !important; }
+.project-grid figcaption span, .rm-track figcaption span, .cg .ex-list span, .related-services > a > span, .guide-card .cg-label, .copy-section .cg-label { color: var(--signal-text); }
+.enquiry button:hover { color: #0c0c0c; }
+@media (max-width: 900px) { .cg .ex-list li a > span { color: #fff; } }
+@media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #8a8a84; } }

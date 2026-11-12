@@ -5,7 +5,7 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
 ---
 <a class="skip-link" href="#main">Skip to content</a>
 <header class:list={['hd', { 'is-solid': !home && !overlay }]} data-home={home || overlay}>
-  <a class="hd-logo" href="/">I.S Design + Build</a>
+  <a class="hd-logo" href="/" aria-label="I.S Design + Build, home">I.S Design <span>+</span> Build</a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
   <nav id="primary-nav" aria-label="Primary">
     <details class="nav-group"><summary>Remodeling</summary><div class="nav-dropdown">{remodeling.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
