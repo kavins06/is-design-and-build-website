@@ -4,9 +4,10 @@ import { site, capabilities } from '../data/site';
 ---
 <InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isdesignandbuild.com." label="Start a project" headline="Tell us about your project.">
   <Fragment slot="intro"><p>A few details is all we need to start.</p><div class="hero-actions"><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={`mailto:${site.email}`}>{site.email}</a></div></Fragment>
-  <section class="enquiry"><div><p class="cg-label">Your project</p><address class="enquiry-office">{site.address[0]}<br />{site.address[1]}<br />{site.hours}</address><p class="contact-explanation">This form prepares an email for you to review and send from your own email app.</p></div><div>
+  <section class="enquiry"><div><p class="cg-label">Your project</p><address class="enquiry-office">{site.address[0]}<br />{site.address[1]}<br />{site.hours}</address></div><div>
     <noscript><p>To discuss a project, <a href={`mailto:${site.email}`}>email {site.email}</a> or <a href={site.phoneHref}>call {site.phone}</a>. Include the type of work and the property’s town or ZIP code.</p></noscript>
     <form id="enquiry-form" hidden>
+      <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" tabindex="-1" autocomplete="off" /></div>
       <div class="form-grid">
         <div class="field full"><label for="service">What are you planning?</label><select name="service" id="service" required><option value="">Choose a project type</option>{capabilities.map(c => <option value={c.service}>{c.name}</option>)}<option value="remodeling">Remodeling — still exploring</option><option value="other">Something else</option><option value="unsure">Not sure yet</option></select></div>
         <div class="field"><label for="town">Where is the property?</label><input id="town" name="town" autocomplete="address-level2" maxlength="100" required placeholder="Town or city" /><small>A full address isn’t needed at this stage.</small></div>
@@ -19,9 +20,10 @@ import { site, capabilities } from '../data/site';
         <fieldset class="field full"><legend>How should we contact you?</legend><div class="contact-options"><label><input type="radio" name="preferred" value="email" checked /> Email</label><label><input type="radio" name="preferred" value="phone" /> Phone</label></div></fieldset>
         <div class="field full"><label for="reply">Your email address</label><input id="reply" name="reply" type="email" autocomplete="email" required maxlength="160" /></div>
       </div>
-      <p class="form-note">These details stay in this page until you choose to send them through your email app. They are not saved by this form. You may attach photographs or drawings in your email. <a href="/privacy-policy/">Read our Privacy Policy.</a></p>
-      <div class="submit-row"><button type="submit">Prepare my email</button></div>
-      <section class="enquiry-result" id="enquiry-result" aria-labelledby="result-heading" hidden><h2 id="result-heading" tabindex="-1">Your email is ready to review.</h2><p>It has not been sent. Open your email app to review and send it, or copy the text into an email to <a href={`mailto:${site.email}`}>{site.email}</a>.</p><label for="email-preview" class="cg-label">Your prepared enquiry</label><textarea id="email-preview" readonly></textarea><a id="email-link" class="text-link" href={`mailto:${site.email}`}>Open my email app</a><button type="button" id="copy-email">Copy enquiry text</button><p id="copy-status" role="status"></p></section>
+      <p class="form-note">We use these details only to reply to your enquiry. <a href="/privacy-policy/">Privacy Policy</a></p>
+      <div class="submit-row"><button type="submit">Send enquiry</button></div>
+      <section class="enquiry-result enquiry-sent" id="enquiry-sent" aria-labelledby="sent-heading" hidden><h2 id="sent-heading" tabindex="-1">Thank you. Your enquiry is with us.</h2><p>We’ll reply using the contact details you gave. For anything urgent, call <a href={site.phoneHref}>{site.phone}</a>.</p></section>
+      <section class="enquiry-result" id="enquiry-result" aria-labelledby="result-heading" hidden><h2 id="result-heading" tabindex="-1">One more step: send it from your email.</h2><p>We couldn’t send your enquiry from this page, so it has not been sent yet. Open your email app to review and send it, or copy the text into an email to <a href={`mailto:${site.email}`}>{site.email}</a>.</p><label for="email-preview" class="cg-label">Your prepared enquiry</label><textarea id="email-preview" readonly></textarea><a id="email-link" class="text-link" href={`mailto:${site.email}`}>Open my email app</a><button type="button" id="copy-email">Copy enquiry text</button><p id="copy-status" role="status"></p></section>
     </form>
   </div></section>
 </InteriorLayout>
@@ -44,7 +46,9 @@ import { site, capabilities } from '../data/site';
     }));
     // Any edits invalidate the prepared email, so an earlier version cannot be sent accidentally.
     form.addEventListener('input', event => { if (!(event.target instanceof HTMLTextAreaElement && event.target.id === 'email-preview')) result.hidden = true; });
-    form.addEventListener('submit', event => {
+    const sentPanel = document.querySelector<HTMLElement>('#enquiry-sent');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    form.addEventListener('submit', async event => {
       event.preventDefault();
       if (!form.reportValidity()) return;
       const data = new FormData(form);
@@ -53,6 +57,19 @@ import { site, capabilities } from '../data/site';
       const body = lines.join('\n');
       const preview = document.querySelector<HTMLTextAreaElement>('#email-preview'); if (preview) preview.value = body;
       const link = document.querySelector<HTMLAnchorElement>('#email-link'); if (link) link.href = `mailto:info@isdesignandbuild.com?subject=${encodeURIComponent('Project enquiry — ' + selected)}&body=${encodeURIComponent(body)}`;
+      // Try to deliver the enquiry. If that is not possible, fall back to the visitor's own email app.
+      let delivered = false;
+      if (button) { button.disabled = true; button.textContent = 'Sending…'; }
+      try {
+        const response = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...Object.fromEntries(data), serviceLabel: selected }), signal: AbortSignal.timeout(10000) });
+        delivered = response.ok;
+      } catch { delivered = false; }
+      if (button) { button.disabled = false; button.textContent = 'Send enquiry'; }
+      if (delivered && sentPanel) {
+        form.querySelector<HTMLElement>('.form-grid')!.hidden = true; form.querySelector<HTMLElement>('.submit-row')!.hidden = true; form.querySelector<HTMLElement>('.form-note')!.hidden = true;
+        sentPanel.hidden = false; document.querySelector<HTMLElement>('#sent-heading')?.focus();
+        return;
+      }
       result.hidden = false; document.querySelector<HTMLElement>('#result-heading')?.focus();
     });
     document.querySelector('#copy-email')?.addEventListener('click', async () => {

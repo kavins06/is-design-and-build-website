@@ -13,27 +13,6 @@ export const site = {
   area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
 };
 
-export const sectors = [
-  {
-    slug: 'residential',
-    name: 'Residential',
-    line: 'Homes renovated, extended and rebuilt.',
-    text: 'Kitchens, bathrooms, additions and whole-home renovations for rowhouses, condos and detached homes across the DC area.',
-  },
-  {
-    slug: 'commercial',
-    name: 'Commercial',
-    line: 'Spaces that open on time and work hard.',
-    text: 'Interior build-outs, renovations, roofing and envelope repairs for offices, retail and multifamily properties.',
-  },
-  {
-    slug: 'government',
-    name: 'Government',
-    line: 'Public work, done to the specification.',
-    text: 'Renovation, repair and lead-hazard work for public facilities, delivered with the documentation agencies require.',
-  },
-];
-
 export const capabilities = [
   { n: '01', name: 'Kitchens', service: 'kitchen', href: '/kitchen-remodeling/', text: 'Layout, storage and finishes that work together.' },
   { n: '02', name: 'Bathrooms', service: 'bathroom', href: '/bathroom-remodeling/', text: 'From a powder room to a primary suite.' },

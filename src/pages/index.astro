@@ -162,6 +162,7 @@ const fittings = [
               capabilities.map((c, i) => (
                 <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
                   <a href={c.href}>
+                    <Image src={capImg[i]} alt="" widths={[500, 900]} sizes="92vw" loading="lazy" class="ex-thumb" />
                     <span>{c.n}</span>
                     <div>
                       <h3>{c.name}</h3>

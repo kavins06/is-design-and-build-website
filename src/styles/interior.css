@@ -163,3 +163,37 @@
 }
 @media (max-width: 540px) { .cg .hd-cta { display: none; } .cg .hd.menu-open .hd-cta { display: none; } }
 @media (max-width: 900px) { .cg .hd.menu-open .nav-dropdown a { padding: 6px 0; font-size: 23px; } .cg .hd.menu-open nav > a { font-size: 27px; padding: 13px 0; } }
+.ex-thumb { display: none; }
+/* Phones: each service is its own photo tile instead of a list under a pinned image. */
+@media (max-width: 900px) {
+  .cg .ex { padding-block: 72px; gap: 0; }
+  .cg .ex-media { display: none; }
+  .cg .ex-list ol { display: grid; gap: 12px; margin-top: 26px; }
+  .cg .ex-list li a, .cg .ex-list li.is-on a { position: relative; display: block; aspect-ratio: 4 / 3; padding: 0; border: 0; overflow: hidden; background: #0c0c0c; color: #fff; }
+  .cg .ex-thumb { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cg .ex-list li a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #0c0c0c26 30%, #0c0c0ce6); }
+  .cg .ex-list li a > span { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
+  .cg .ex-list li a > div { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 18px; }
+  .cg .ex-list h3 { font-size: 30px; }
+  .cg .ex-list p { margin-top: 6px; opacity: 1; transform: none; color: #ffffffcc; font-size: 15px; }
+}
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.enquiry button[disabled] { opacity: .6; cursor: progress; }
+.enquiry-sent { border-color: var(--signal); }
+.hd-logo span, .footer-brand span { color: var(--signal); }
+/* Comfortable tap targets on touch screens */
+@media (max-width: 900px) {
+  .breadcrumb a, .breadcrumb [aria-current] { padding-block: 14px; }
+  .breadcrumb { margin-bottom: 12px; align-items: center; }
+  .footer-columns a, .footer-bottom a, .ct-grid a, .proof-line a, .rm-head > a, .copy-body p a, .form-note a { display: inline-block; padding-block: 11px; }
+  .footer-columns nav { gap: 0 20px; }
+  .footer-columns > div { gap: 0; }
+}
+/* Contrast (WCAG AA): dark text on orange, a deeper orange and grey for small text on light backgrounds. */
+.cg.cg { --mute: #62625c; --signal-text: #b83403; }
+.btn, .m-bar a.is-primary, .ct-pills a.is-current { color: #0c0c0c !important; }
+.btn:hover { color: #0c0c0c !important; }
+.project-grid figcaption span, .rm-track figcaption span, .cg .ex-list span, .related-services > a > span, .guide-card .cg-label, .copy-section .cg-label { color: var(--signal-text); }
+.enquiry button:hover { color: #0c0c0c; }
+@media (max-width: 900px) { .cg .ex-list li a > span { color: #fff; } }
+@media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #8a8a84; } }

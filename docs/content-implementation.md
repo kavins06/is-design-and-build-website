@@ -20,7 +20,7 @@ No Grok service, Google Sheet, operational agent, upload storage, calendar or no
 
 - Canonicals and the sitemap use `https://isdesignandbuild.com/` and retain the approved established paths.
 - Builds default to `noindex, nofollow` and `robots.txt: Disallow: /`. Only `VERCEL_ENV=production` enables public indexing. Vercel supplies this system environment variable. For another host, set it deliberately only for the intended public production build.
-- Design experiments remain at `/concepts/`, marked noindex and excluded from the sitemap.
+- The design experiments at `/concepts/` have been removed; old links redirect to the home page.
 - Existing routes in this Astro branch were retained. The static robots file is replaced by a build-time environment-aware endpoint.
 - **This preview is not a complete migration of the separate live website.** Before a production switch, inventory its legacy neighborhood pages, planning guides, cabinet PDF, financing and lead-abatement content. Decide each URL individually; reconcile `/kitchen-remodeling-washington-dc/` with the core kitchen page. Do not use blanket homepage redirects. No DNS, production domain or old-domain redirect changes are part of this implementation.
 
