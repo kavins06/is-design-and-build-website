@@ -7,10 +7,12 @@ import '../styles/content.css';
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-interface Props { title: string; description: string; label: string; headline: string; }
-const { title, description, label, headline } = Astro.props;
+import { breadcrumbs } from '../data/schema';
+interface Props { title: string; description: string; label: string; headline: string; schema?: object[]; }
+const { title, description, label, headline, schema = [] } = Astro.props;
+const crumbs = breadcrumbs([{ name: 'Home', path: '/' }, { name: label, path: Astro.url.pathname }]);
 ---
-<BaseLayout preloadFonts title={title} description={description}>
+<BaseLayout preloadFonts title={title} description={description} schema={[crumbs, ...schema]}>
   <div class="cg interior"><Header /><main id="main">
     <section class="page-hero"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{label}</span></nav><p class="cg-label">{label}</p><h1>{headline}</h1><div class="page-intro"><slot name="intro" /></div></section>
     <slot />

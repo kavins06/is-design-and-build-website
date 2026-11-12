@@ -31,3 +31,9 @@ No Grok service, Google Sheet, operational agent, upload storage, calendar or no
 - Production-mode build checked separately: public pages have no inherited preview noindex; production robots allows public pages. Preview build restored afterward.
 - Local Chromium checks cover desktop/mobile hero fit, navigation, roofing preselection, phone/email enquiry preparation, stale-draft invalidation, reduced motion, no-JavaScript direct contact and console errors. No email is sent by these checks.
 - Visual review compares the existing Direction G hero with the revised hero and checks service, contact, gallery and process layouts. These checks do not establish field Core Web Vitals or backend delivery.
+
+## Search and sharing additions
+
+- Every page carries a share image (`public/og.jpg`, 1200×630), Open Graph and Twitter card tags.
+- Structured data is built in `src/data/schema.ts`: a site-wide business and website entry, breadcrumbs on interior pages, a service entry on each service page, and question-and-answer markup generated from the questions visible on the page. It states no street address, opening hours, rating or price, because none is published on the site. Add them there once confirmed.
+- `vercel.json` permanently redirects the old neighbourhood landing pages to the matching service page (kitchen, bathroom, roofing) and `/services/` to `/home-remodeling/`. Still undecided, and currently unhandled: `/financing/`, `/lead-paint-abatement/`, `/blogs/` and its four articles, and the cabinet catalogue PDF.
