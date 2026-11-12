@@ -19,6 +19,8 @@ const {
   description = 'I.S Design + Build — a Georgetown, DC design + build firm.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Google tag: loaded on the production site only, so preview visits are not counted.
+const googleTag = process.env.VERCEL_ENV === 'production' ? 'GTM-NSZWBWT2' : '';
 const noindex = process.env.VERCEL_ENV !== 'production' || Astro.url.pathname.startsWith('/concepts/');
 const jsonLd = graph([business, website, ...schema]);
 const ogImage = abs('/og.jpg');
@@ -28,6 +30,7 @@ const ogImage = abs('/og.jpg');
 <!doctype html>
 <html lang="en">
   <head>
+    {googleTag && <><script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${googleTag}`}></script><script is:inline>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date());</script></>}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
