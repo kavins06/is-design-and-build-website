@@ -31,7 +31,7 @@ const dims = ['M690 792V1340M674 792h32M674 1340h32'];
 
 <section class="cg-hero">
   <div class="cg-stage">
-    <Image src={photo} alt={"Kitchen with walnut and matte black cabinetry, an island and two stools"} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" class="cg-photo" />
+    <Image src={photo} alt={"Kitchen with walnut and matte black cabinetry, an island and two stools"} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" class="cg-photo" />
     <div class="cg-hero-shade"></div>
     <svg class="cg-elev" viewBox="0 0 2400 1450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <g class="cg-strokes">{strokes.map((d, i) => <path d={d} pathLength="1" style={`--i:${i}`} />)}</g>

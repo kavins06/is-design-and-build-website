@@ -83,7 +83,7 @@ const fittings = [
 ];
 ---
 
-<BaseLayout title="Home Remodeling & Roofing in DC | I.S Design + Build" description="Kitchens, bathrooms, additions, whole-home renovations and roofing from an in-house team serving DC, Northern Virginia and Montgomery County.">
+<BaseLayout preloadFonts title="Home Remodeling & Roofing in DC | I.S Design + Build" description="Kitchens, bathrooms, additions, whole-home renovations and roofing from an in-house team serving DC, Northern Virginia and Montgomery County.">
   <div class="cg">
     <Header home />
     <main id="main">
@@ -151,7 +151,7 @@ const fittings = [
 
       <section class="ex" id="expertise">
         <div class="ex-media">
-          {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="eager" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+          {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
           <span class="media-note">Design reference</span><span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
         </div>
         <div class="ex-list">
@@ -196,8 +196,8 @@ const fittings = [
 
       <section class="bd" data-dark>
         <div class="bd-frame">
-          <video autoplay muted loop playsinline preload="metadata" poster="/media/plans-poster.jpg">
-            <source src="/media/plans.mp4" type="video/mp4" />
+          <video data-deferred-video muted loop playsinline preload="none" poster="/media/plans-poster.jpg">
+            <source data-src="/media/plans.mp4" type="video/mp4" />
           </video>
           <h2>Experience you<br />can build on.</h2>
         </div>
@@ -241,5 +241,9 @@ const fittings = [
 </BaseLayout>
 
 <script>
-  import '../scripts/home.ts';
+  import '../scripts/media.ts';
+  // Keep the static reduced-motion experience free of animation dependencies.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    import('../scripts/home.ts');
+  }
 </script>
