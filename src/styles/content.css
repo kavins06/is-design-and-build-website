@@ -115,3 +115,8 @@ html:not(.has-motion) .pr-steps li p { display: block; }
 .contact-options input[type='radio'] { width: 18px; height: 18px; min-height: 18px; margin: 0; accent-color: #0c0c0c; }
 #result-heading { scroll-margin-top: 100px; }
 @media(max-width: 900px) { .hd:not(.nav-ready) { position: relative; background: white; color: #0c0c0c; } .hd:not(.nav-ready) nav { display: flex; flex-wrap: wrap; order: 5; flex-basis: 100%; } .hd:not(.nav-ready) .menu-toggle { display: none; } }
+/* A static gallery must wrap inside the viewport rather than keep the animated track's max-content width. */
+html:not(.has-motion) .rm-track { width: 100%; gap: 36px; }
+html:not(.has-motion) .rm-title { flex-basis: 100%; white-space: normal; margin-right: 0 !important; }
+html:not(.has-motion) .rm-track figure, html:not(.has-motion) .rm-track figure.is-tall { width: min(100%, 620px); }
+html:not(.has-motion) .rm-hint { display: none; }
