@@ -1,7 +1,7 @@
 ---
 interface Props {
   title: string;
-  current: 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+  current: 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g';
 }
 const { title, current } = Astro.props;
 const tabs = [
@@ -11,6 +11,7 @@ const tabs = [
   { id: 'd', label: 'D · C + A' },
   { id: 'e', label: 'E · Heritage' },
   { id: 'f', label: 'F · Institutional' },
+  { id: 'g', label: 'G · D + F' },
 ];
 ---
 

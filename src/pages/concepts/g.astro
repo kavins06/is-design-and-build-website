@@ -1,0 +1,753 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import { Image } from 'astro:assets';
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import { site, capabilities, process } from '../../data/site';
+import heroHouse from '../../assets/stock/town-13.jpg';
+import heroLiving from '../../assets/stock/home-04.jpg';
+import heroBath from '../../assets/stock/bath-06.jpg';
+import grpExtend from '../../assets/stock/site-02.jpg';
+import grpProtect from '../../assets/stock/town-12.jpg';
+import capKitchen from '../../assets/stock/kit-08.jpg';
+import capBath from '../../assets/stock/bath-06.jpg';
+import capHome from '../../assets/stock/home-04.jpg';
+import capAddition from '../../assets/stock/site-02.jpg';
+import capRoof from '../../assets/stock/town-12.jpg';
+import capLead from '../../assets/stock/town-13.jpg';
+
+const slides = [
+  { src: heroHouse, name: 'Whole homes', alt: 'Brick townhouse with dark shutters on a tree-lined Washington street' },
+  { src: heroLiving, name: 'Living spaces', alt: 'Living room with a stone fireplace and built-in shelving' },
+  { src: heroBath, name: 'Bathrooms', alt: 'Bathroom with a stone vanity and warm concealed lighting' },
+];
+// Elevation of the hero house, traced in the photo's own 2400 x 1600 coordinate space
+// so the drawing lines up with the building once the photo is revealed.
+const win = (x: number, y: number, w: number, h: number) =>
+  `M${x} ${y}h${w}v${h}h${-w}zM${x + w / 2} ${y}v${h}M${x} ${y + h / 2}h${w}`;
+const box = (x1: number, y1: number, x2: number, y2: number) => `M${x1} ${y1}H${x2}V${y2}H${x1}z`;
+const strokes = [
+  'M677 0V1066H1800',
+  win(891, 48, 150, 269),
+  win(1222, 48, 167, 269),
+  win(1574, 48, 166, 261),
+  box(814, 40, 888, 312) + box(1044, 40, 1118, 312),
+  box(1149, 40, 1219, 312) + box(1392, 40, 1456, 312),
+  box(1491, 40, 1571, 304) + box(1743, 40, 1800, 304),
+  box(886, 429, 1046, 509) + box(1238, 423, 1392, 501) + box(1591, 417, 1745, 497),
+  'M866 1066V720a94 94 0 0 1 188 0V1066',
+  'M866 720H1054M960 720V630M960 720L896 656M960 720L1024 656',
+  box(882, 734, 1038, 1060),
+  win(1248, 609, 183, 325),
+  win(1606, 600, 185, 317),
+  box(1169, 604, 1245, 928) + box(1434, 604, 1502, 928),
+  box(1529, 596, 1603, 912),
+];
+const dims = ['M866 1120H1054M866 1104v32M1054 1104v32'];
+
+const groups = [
+  { src: heroLiving, name: 'Renovate', items: 'Kitchens · Bathrooms · Whole homes' },
+  { src: grpExtend, name: 'Extend', items: 'Additions' },
+  { src: grpProtect, name: 'Protect', items: 'Roofing · Lead-paint abatement' },
+];
+const capImg = [capKitchen, capBath, capHome, capAddition, capRoof, capLead];
+const years = new Date().getFullYear() - site.since;
+const facts = [
+  { n: String(site.since), label: 'Founded' },
+  { n: String(years), label: 'Years in Washington' },
+  { n: '6', label: 'Trades in house' },
+  { n: '1', label: 'Contract' },
+];
+---
+
+<ConceptLayout title="Direction G · Drawn to built — I.S Design + Build" current="g">
+  <div class="cg">
+    <header class="cg-head">
+      <a class="cg-logo" href="/concepts/g/">I.S Design + Build</a>
+      <nav aria-label="Primary">
+        <a href="#homes">Homes</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#firm">Firm</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="cg-hero">
+      <div class="cg-stage">
+        <Image src={slides[0].src} alt={slides[0].alt} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" class="cg-photo" />
+        <div class="cg-hero-shade"></div>
+        <svg class="cg-elev" viewBox="0 0 2400 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g class="cg-strokes">{strokes.map((d, i) => <path d={d} pathLength="1" style={`--i:${i}`} />)}</g>
+          <g class="cg-dims">
+            {dims.map((d) => <path d={d} pathLength="1" style={`--i:${strokes.length}`} />)}
+            <text x="960" y="1176" text-anchor="middle" style={`--i:${strokes.length + 1}`}>3'-6"</text>
+          </g>
+        </svg>
+      </div>
+      <div class="cg-hero-copy">
+        <h1>
+          <span>Drawn.</span>
+          <span>Permitted.</span>
+          <span class="is-built">Built.</span>
+        </h1>
+        <p>We design and build homes. Washington, DC. Since {site.since}.</p>
+      </div>
+      <dl class="cg-titleblock">
+        <div><dt>Drawing</dt><dd>Front elevation</dd></div>
+        <div><dt>Scale</dt><dd>1/4" = 1'-0"</dd></div>
+        <div><dt>Status</dt><dd class="cg-status">Built</dd></div>
+      </dl>
+    </section>
+
+    <section class="cg-statement" id="firm">
+      <p class="cg-label">Firm</p>
+      <h2 data-reveal>The people who draw your home are the people who build it.</h2>
+    </section>
+
+    <section class="cg-facts">
+      {
+        facts.map((f) => (
+          <div data-reveal>
+            <b>{f.n}</b>
+            <span>{f.label}</span>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="cg-sectors" id="homes">
+      <p class="cg-label">For your home</p>
+      <div class="cg-sector-grid">
+        {
+          groups.map((g, i) => (
+            <a class="cg-sector" href="#contact" data-reveal style={`transition-delay:${i * 80}ms`}>
+              <figure><Image src={g.src} alt="" widths={[600, 1000]} sizes="(min-width: 900px) 31vw, 92vw" /></figure>
+              <h3>{g.name}<i>→</i></h3>
+              <p>{g.items}</p>
+            </a>
+          ))
+        }
+      </div>
+      <a class="cg-also" href="#contact">We also take on commercial and government work <i>→</i></a>
+    </section>
+
+    <section class="cg-expertise" id="expertise">
+      <div class="cg-expertise-media">
+        {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 40vw, 92vw" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+      </div>
+      <div>
+        <p class="cg-label">Expertise</p>
+        <ol>
+          {
+            capabilities.map((c, i) => (
+              <li>
+                <a href="#contact" data-cap-link={i}>
+                  <span>{c.n}</span>
+                  <h3>{c.name}</h3>
+                  <i>→</i>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section class="cg-band">
+      <video autoplay muted loop playsinline preload="metadata" poster="/media/plans-poster.jpg">
+        <source src="/media/plans.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <section class="cg-process">
+      <p class="cg-label">Process</p>
+      <ol>
+        {
+          process.map((p, i) => (
+            <li data-reveal style={`--start:${i + 1}`}>
+              <div class="cg-bar"></div>
+              <span>{p.n}</span>
+              <h3>{p.name}</h3>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="cg-review">
+      <p class="cg-label">Clients</p>
+      <blockquote data-reveal>
+        <p>“A real Google review will be quoted here.”</p>
+        <footer>Client name — placeholder</footer>
+      </blockquote>
+    </section>
+
+    <section class="cg-contact" id="contact">
+      <a class="cg-start" href="#contact">Start a project <i>→</i></a>
+      <div class="cg-contact-grid">
+        <div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div>
+        <div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
+        <div><span>Office</span><p>{site.address[0]}<br />{site.address[1]}</p></div>
+        <div><span>Area</span><p>DC · Maryland · Virginia</p></div>
+      </div>
+      <p class="cg-legal">© {new Date().getFullYear()} {site.name}. General contractors since {site.since}.</p>
+    </section>
+  </div>
+</ConceptLayout>
+
+<script>
+  const imgs = document.querySelectorAll<HTMLElement>('.cg-expertise-media [data-cap]');
+  document.querySelectorAll<HTMLElement>('[data-cap-link]').forEach((link) => {
+    const show = () => imgs.forEach((img) => img.classList.toggle('is-on', img.dataset.cap === link.dataset.capLink));
+    link.addEventListener('mouseenter', show);
+    link.addEventListener('focus', show);
+  });
+</script>
+
+<style is:global>
+  .cg {
+    --ink: #0c0c0c;
+    --paper: #ffffff;
+    --tint: #f3f3f1;
+    --mute: #76766f;
+    --line: #dcdcd7;
+    --pad: clamp(20px, 3.4vw, 56px);
+    --signal: #ff5418;
+    --t-built: 3.4s;
+    background: var(--paper);
+    color: var(--ink);
+    font:
+      400 16px/1.5 'Geist Variable',
+      'Helvetica Neue',
+      Arial,
+      sans-serif;
+    overflow-x: clip;
+  }
+  .cg h1,
+  .cg h2,
+  .cg h3 {
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+  .cg-label {
+    font: 500 11px/1.4 'Geist Mono Variable', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+    padding-top: 0.5em;
+  }
+  .cg-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    background: var(--signal);
+  }
+
+  .cg-head {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px var(--pad);
+    color: #fff;
+  }
+  .cg-logo {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .cg-head nav {
+    display: flex;
+    gap: clamp(18px, 2.6vw, 40px);
+    font-size: 15px;
+  }
+  .cg-head nav a {
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .cg-head nav a:hover {
+    opacity: 1;
+  }
+
+  /* Hero: the elevation is drafted first, then the built photo is revealed under it. */
+  .cg-hero {
+    position: relative;
+    height: 100svh;
+    min-height: 600px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 0 var(--pad) clamp(28px, 3.4vw, 56px);
+    color: #fff;
+    background-color: #0c0c0c;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 40px 40px;
+    overflow: hidden;
+  }
+  .cg-stage {
+    position: absolute;
+    inset: 0;
+    animation: cg-zoom 24s ease-out var(--t-built) both;
+  }
+  @keyframes cg-zoom {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.07);
+    }
+  }
+  .cg-photo,
+  .cg-elev,
+  .cg-hero-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .cg-photo {
+    object-fit: cover;
+    clip-path: inset(100% 0 0 0);
+    animation: cg-reveal 1.8s cubic-bezier(0.7, 0, 0.2, 1) var(--t-built) forwards;
+  }
+  @keyframes cg-reveal {
+    to {
+      clip-path: inset(0);
+    }
+  }
+  .cg-hero-shade {
+    opacity: 0;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 22%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 42%),
+      linear-gradient(75deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 34%, rgba(0, 0, 0, 0.12) 68%);
+    animation: cg-fade 1.8s var(--t-built) forwards;
+  }
+  .cg-elev {
+    animation: cg-dim 2s calc(var(--t-built) + 1.2s) forwards;
+  }
+  @keyframes cg-dim {
+    to {
+      opacity: 0.38;
+    }
+  }
+  .cg-strokes path,
+  .cg-dims path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.6;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: cg-draw 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: calc(0.2s + var(--i) * 0.16s);
+  }
+  .cg-strokes path {
+    stroke-width: 1.3;
+  }
+  .cg-dims path {
+    stroke: var(--signal);
+    stroke-width: 1;
+  }
+  .cg-dims text {
+    font: 500 26px 'Geist Mono Variable', monospace;
+    fill: var(--signal);
+    opacity: 0;
+    animation: cg-fade 0.6s forwards;
+    animation-delay: calc(0.2s + var(--i) * 0.16s);
+  }
+  @keyframes cg-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes cg-fade {
+    to {
+      opacity: 1;
+    }
+  }
+  .cg-hero-copy {
+    position: relative;
+  }
+  .cg h1 {
+    font-size: clamp(44px, 7vw, 124px);
+    line-height: 0.93;
+    letter-spacing: -0.055em;
+  }
+  .cg h1 span {
+    display: block;
+    animation: cg-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .cg h1 span:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  .cg h1 span:nth-child(2) {
+    animation-delay: 1.6s;
+  }
+  .cg h1 span.is-built {
+    color: var(--signal);
+    animation-delay: var(--t-built);
+  }
+  @keyframes cg-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.25em);
+    }
+  }
+  .cg-hero-copy p {
+    margin-top: clamp(16px, 1.8vw, 28px);
+    font-size: clamp(16px, 1.35vw, 20px);
+    opacity: 0.9;
+  }
+  .cg-titleblock {
+    position: relative;
+    display: grid;
+    gap: 7px;
+    margin: 0;
+    font: 500 11px/1.2 'Geist Mono Variable', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .cg-titleblock div {
+    display: grid;
+    grid-template-columns: 76px auto;
+  }
+  .cg-titleblock dt {
+    opacity: 0.55;
+  }
+  .cg-titleblock dd {
+    margin: 0;
+  }
+  .cg-status {
+    color: var(--signal);
+    opacity: 0;
+    animation: cg-fade 0.4s var(--t-built) forwards;
+  }
+
+  /* Shared two-column rhythm: small label left, content right. */
+  .cg-statement,
+  .cg-sectors,
+  .cg-process,
+  .cg-review {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    gap: 24px;
+    padding: clamp(72px, 9vw, 150px) var(--pad);
+  }
+  .cg-statement h2 {
+    font-size: clamp(30px, 4.6vw, 76px);
+    line-height: 1.04;
+    max-width: 17ch;
+  }
+
+  .cg-facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 var(--pad);
+    border-top: 1px solid var(--ink);
+  }
+  .cg-facts div {
+    padding: 20px 0 clamp(60px, 7vw, 110px);
+  }
+  .cg-facts b {
+    display: block;
+    font-size: clamp(44px, 6.4vw, 108px);
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+  .cg-facts span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .cg-sectors {
+    grid-template-columns: 1fr;
+    background: var(--tint);
+  }
+  .cg-sector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.4vw, 24px);
+  }
+  .cg-sector {
+    text-decoration: none;
+  }
+  .cg-sector figure {
+    margin: 0;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--line);
+  }
+  .cg-sector img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .cg-sector:hover img {
+    transform: scale(1.05);
+  }
+  .cg-sector h3 {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    font-size: clamp(22px, 2.2vw, 34px);
+  }
+  .cg-sector p {
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--mute);
+  }
+  .cg-also {
+    display: inline-flex;
+    gap: 10px;
+    margin-top: clamp(20px, 2.4vw, 40px);
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .cg-also:hover i {
+    transform: translateX(6px);
+  }
+  .cg-also i,
+  .cg-sector i,
+  .cg-expertise i,
+  .cg-start i {
+    font-style: normal;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .cg-sector:hover i {
+    transform: translateX(6px);
+  }
+
+  .cg-expertise {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: clamp(28px, 5vw, 96px);
+    padding: clamp(72px, 9vw, 150px) var(--pad);
+  }
+  .cg-expertise-media {
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--tint);
+  }
+  .cg-expertise-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  .cg-expertise-media img.is-on {
+    opacity: 1;
+  }
+  .cg-expertise ol {
+    margin-top: 28px;
+    border-top: 1px solid var(--ink);
+  }
+  .cg-expertise li a {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    align-items: baseline;
+    padding: clamp(16px, 1.7vw, 26px) 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.25s;
+  }
+  .cg-expertise li span {
+    font-size: 13px;
+    color: var(--mute);
+    font-variant-numeric: tabular-nums;
+  }
+  .cg-expertise li h3 {
+    font-size: clamp(26px, 3.4vw, 56px);
+    line-height: 1.05;
+  }
+  .cg-expertise li i {
+    font-size: clamp(20px, 2vw, 30px);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.3s,
+      transform 0.35s;
+  }
+  .cg-expertise ol:hover a {
+    color: #b4b4ae;
+  }
+  .cg-expertise ol a:hover {
+    color: var(--ink);
+  }
+  .cg-expertise li a:hover i {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cg-band video {
+    display: block;
+    width: 100%;
+    height: min(78svh, 56vw);
+    object-fit: cover;
+  }
+
+  .cg-process ol {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .cg-process ol {
+    border-top: 0 !important;
+  }
+  .cg-bar {
+    height: 10px;
+    margin-bottom: 16px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--start) * 0.14s);
+  }
+  .cg-process li:last-child .cg-bar {
+    background: var(--signal);
+  }
+  .cg-process li.is-in .cg-bar {
+    transform: none;
+  }
+  .cg-process li span {
+    font-size: 13px;
+    color: var(--mute);
+  }
+  .cg-process li h3 {
+    margin-top: clamp(28px, 4vw, 64px);
+    font-size: clamp(18px, 1.8vw, 28px);
+  }
+
+  .cg-review {
+    background: var(--tint);
+  }
+  .cg-review blockquote {
+    margin: 0;
+  }
+  .cg-review blockquote p {
+    font-size: clamp(26px, 3.6vw, 58px);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    max-width: 20ch;
+  }
+  .cg-review footer {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .cg-contact {
+    padding: clamp(72px, 9vw, 150px) var(--pad) 96px;
+    background: var(--ink);
+    color: #fff;
+  }
+  .cg-start {
+    display: inline-flex;
+    gap: 0.25em;
+    font-size: clamp(44px, 9.4vw, 160px);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .cg-start:hover i {
+    transform: translateX(0.12em);
+  }
+  .cg-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: clamp(56px, 8vw, 130px);
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 16px;
+  }
+  .cg-contact-grid span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .cg-contact-grid a {
+    text-decoration: none;
+  }
+  .cg-contact-grid a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .cg-legal {
+    margin-top: 56px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (max-width: 900px) {
+    .cg-head nav a:not(:last-child) {
+      display: none;
+    }
+    .cg-hero {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+    .cg-titleblock div:not(:last-child) {
+      display: none;
+    }
+    .cg-statement,
+    .cg-process,
+    .cg-review,
+    .cg-expertise,
+    .cg-sector-grid {
+      grid-template-columns: 1fr;
+    }
+    .cg-facts,
+    .cg-contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cg-facts div {
+      padding-bottom: 32px;
+    }
+    .cg-sector figure {
+      aspect-ratio: 4 / 3;
+    }
+    .cg-expertise-media {
+      position: relative;
+      top: 0;
+      aspect-ratio: 4 / 3;
+    }
+    .cg-process ol {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 24px;
+    }
+    .cg-process li h3 {
+      margin-top: 10px;
+    }
+    .cg-band video {
+      height: 60vw;
+    }
+  }
+</style>
