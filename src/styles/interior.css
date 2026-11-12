@@ -111,3 +111,55 @@
 .enquiry-office { margin-top: 26px; font-style: normal; font-size: 15px; line-height: 1.6; color: #55554f; }
 .enquiry .contact-explanation { margin-top: 18px; max-width: 28ch; font-size: 13px; color: #76766f; }
 @media (max-width: 900px) { .gallery-heading { grid-template-columns: 1fr; } }
+
+/* Menus share the dark sheet */
+.cg .nav-dropdown { background: #0c0c0c; color: #fff; border-color: #ffffff33; }
+.cg .nav-dropdown a:hover { background: #ffffff14; color: var(--signal); }
+.m-bar { display: none; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 900px) {
+  html.menu-locked { overflow: hidden; }
+  .cg .hd.menu-open { position: fixed; inset: 0; height: 100dvh; align-content: flex-start; overflow-y: auto; background: #0c0c0c !important; color: #fff !important; backdrop-filter: none; box-shadow: none; }
+  .cg .hd.menu-open nav { display: flex; flex-direction: column; flex-basis: 100%; order: 5; gap: 0; padding: 26px 0 40px; font-size: 30px; letter-spacing: -.035em; }
+  .cg .hd.menu-open nav > a, .cg .hd.menu-open .nav-group summary { display: block; padding: 16px 0; border: 0; border-top: 1px solid #ffffff2e; opacity: 1; }
+  .cg .hd.menu-open .nav-group summary::after { content: none; }
+  .cg .hd.menu-open .nav-group summary { pointer-events: none; color: #ffffff80; font: 500 11px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; padding-bottom: 4px; }
+  .cg .hd.menu-open .nav-dropdown { position: static; display: grid; min-width: 0; padding: 0 0 12px; border: 0; background: none; box-shadow: none; }
+  .cg .hd.menu-open .nav-dropdown a { padding: 9px 0; border: 0; }
+  .cg .hd.menu-open .mobile-phone { display: block; color: var(--signal); }
+  .menu-toggle span { display: inline-block; transition: transform .3s; }
+  .menu-toggle[aria-expanded='true'] span { transform: rotate(45deg); }
+
+  .st { padding-block: 84px; }
+  .ex-list li a { padding: 22px 0; }
+  .rm-swipe .rm-pin { min-height: 0; padding: 70px 0 56px; }
+  .rm-swipe .rm-track { width: auto; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none; }
+  .rm-swipe .rm-track::-webkit-scrollbar { display: none; }
+  .rm-swipe .rm-title { flex: none; align-self: flex-start; width: 78vw; margin-right: 0 !important; font-size: 44px; white-space: normal; scroll-snap-align: start; }
+  .rm-swipe .rm-track figure, .rm-swipe .rm-track figure.is-tall { width: 80vw; scroll-snap-align: start; }
+  .rm-swipe .rm-track figure div, .rm-swipe .rm-track figure.is-tall div { height: 46svh; }
+  .rm-swipe .rm-track img { width: 100%; margin-left: 0; }
+}
+@media (max-width: 700px) {
+  .m-bar { position: fixed; inset: auto 0 0 0; z-index: 40; display: grid; grid-template-columns: 1fr 1.6fr; gap: 1px; padding-bottom: env(safe-area-inset-bottom); background: #0c0c0c; border-top: 1px solid #ffffff33; transform: translateY(110%); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .m-bar.is-on { transform: none; }
+  html.menu-locked .m-bar { transform: translateY(110%); }
+  .m-bar a { padding: 17px 12px; color: #fff; font-weight: 500; font-size: 16px; text-align: center; text-decoration: none; }
+  .m-bar a.is-primary { background: var(--signal); }
+  .site-footer { padding-bottom: 96px; }
+}
+@media (max-width: 540px) {
+  .cg .cg-hero { height: 100svh; min-height: 560px; }
+  .cg .cg-hero-copy .hero-area { display: none; }
+  .cg .cg-hero-copy h1 { font-size: clamp(52px, 15vw, 72px); }
+  .cg-hero .hero-actions { flex-direction: column; align-items: stretch; gap: 6px; }
+  .cg-hero .hero-actions .btn { text-align: center; }
+  .page-hero h1 { font-size: clamp(42px, 12.5vw, 60px); }
+  .sv-grid { grid-template-columns: 1fr; }
+  .sv-grid a { aspect-ratio: 4 / 3; }
+  .ct-pills a { padding: 13px 18px; }
+  .fq-list summary { padding: 22px 0; }
+}
+@media (max-width: 540px) { .cg .hd-cta { display: none; } .cg .hd.menu-open .hd-cta { display: none; } }
+@media (max-width: 900px) { .cg .hd.menu-open .nav-dropdown a { padding: 6px 0; font-size: 23px; } .cg .hd.menu-open nav > a { font-size: 27px; padding: 13px 0; } }

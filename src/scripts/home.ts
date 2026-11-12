@@ -169,6 +169,13 @@ function expertise() {
 function rooms() {
   const track = document.querySelector<HTMLElement>('.rm-track');
   if (!track) return;
+  // Phones get a native swipe gallery: a pinned sideways scroll fights the thumb.
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    document.documentElement.classList.add('rm-swipe');
+    const hint = document.querySelector('.rm-hint');
+    if (hint) hint.textContent = 'Swipe';
+    return;
+  }
   const distance = () => track.scrollWidth - window.innerWidth;
   const slide = gsap.to(track, {
     x: () => -distance(),

@@ -20,10 +20,13 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
   const header = document.querySelector<HTMLElement>('.hd');
   const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
   header?.classList.add('nav-ready');
-  const closeMenu = () => { toggle?.setAttribute('aria-expanded', 'false'); header?.classList.remove('menu-open'); };
+  const closeMenu = () => { toggle?.setAttribute('aria-expanded', 'false'); header?.classList.remove('menu-open'); document.documentElement.classList.remove('menu-locked'); };
   toggle?.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') !== 'true';
     toggle.setAttribute('aria-expanded', String(open)); header?.classList.toggle('menu-open', open);
+    document.documentElement.classList.toggle('menu-locked', open);
+    // The phone menu shows every link at once.
+    document.querySelectorAll<HTMLDetailsElement>('.nav-group').forEach(group => { group.open = open; });
   });
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
@@ -33,7 +36,7 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Node)) return;
     const target = event.target;
-    document.querySelectorAll<HTMLDetailsElement>('.nav-group[open]').forEach(group => { if (!group.contains(target)) group.open = false; });
+    if (!header?.classList.contains('menu-open')) document.querySelectorAll<HTMLDetailsElement>('.nav-group[open]').forEach(group => { if (!group.contains(target)) group.open = false; });
     if (!header?.contains(target)) closeMenu();
   });
   // Also usable without GSAP and when reduced motion is requested.

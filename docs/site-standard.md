@@ -39,6 +39,12 @@ A homeowner in the DC area arrives, sees work they would want in their own home,
 2. Proof near every ask: real project photographs, years in business, Google reviews.
 3. The enquiry form must actually deliver the enquiry, confirm it, and fail visibly if it cannot.
 
+### Phone first, not phone as an afterthought
+1. Every page is designed and checked separately at phone width, as a phone user would use it: thumb reach, one column, text readable without zooming.
+2. The first screen on a phone shows the headline and the main action without scrolling.
+3. Phones get their own patterns where the desktop one fights the thumb: a full-screen menu, swipe galleries instead of pinned sideways scrolling, and a fixed Call / Start a project bar.
+4. Tap targets are at least 44px. Nothing scrolls sideways by accident.
+
 ### Production grade
 1. Works on phone, tablet and desktop in Chrome, Safari and Firefox.
 2. Accessible to WCAG 2.1 AA: contrast, keyboard use, focus, alt text, reduced motion.

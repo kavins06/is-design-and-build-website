@@ -1,9 +1,18 @@
 ---
 import { site } from '../data/site';
 const links = [['Remodeling', '/home-remodeling/'], ['Roofing', '/roofing/'], ['Our Work', '/portfolio/'], ['Our Story', '/about-us/'], ['Our Process', '/our-process/'], ['Service Areas', '/service-areas/'], ['Guides', '/blogs/'], ['Financing', '/financing/'], ['Lead Paint', '/lead-paint-abatement/'], ['FAQs', '/faqs/']];
+const bar = !Astro.url.pathname.startsWith('/contact-us');
 ---
 <footer class="site-footer" data-dark>
   <div class="footer-top"><a class="footer-brand" href="/">I.S Design + Build</a><p>Home remodeling and roofing.<br />Construction experience since 1989.</p></div>
   <div class="footer-columns"><nav aria-label="Explore">{links.map(([label,href]) => <a href={href}>{label}</a>)}</nav><div><a href={site.phoneHref}>{site.phone}</a><a href={`mailto:${site.email}`}>{site.email}</a><a class="text-link" href="/contact-us/">Start a Project</a></div><address>{site.address[0]}<br />{site.address[1]}<br />{site.hours}</address></div>
   <div class="footer-bottom"><p>© {new Date().getFullYear()} {site.name}.</p><nav aria-label="Legal"><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></nav></div>
 </footer>
+{bar && <div class="m-bar" data-m-bar><a href={site.phoneHref}>Call</a><a class="is-primary" href="/contact-us/">Start a project</a></div>}
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-m-bar]');
+  if (bar) {
+    const update = () => bar.classList.toggle('is-on', window.scrollY > 480);
+    update(); window.addEventListener('scroll', update, { passive: true });
+  }
+</script>
