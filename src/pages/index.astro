@@ -1,10 +1,36 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const directions = [
+  { href: '/concepts/a/', name: 'A · Monolith', text: 'Dark, cinematic, monumental type.' },
+  { href: '/concepts/b/', name: 'B · Atelier', text: 'Light, editorial, interior-design studio.' },
+  { href: '/concepts/c/', name: 'C · Drawing Set', text: 'Architectural drawing that builds itself.' },
+];
 ---
 
-<BaseLayout title="I.S Design + Build">
+<BaseLayout title="I.S Design + Build — design directions">
+  <meta slot="head" name="robots" content="noindex" />
   <main>
     <h1>I.S Design + Build</h1>
-    <p>New website in progress.</p>
+    <p>Three home-page design directions. Pick one to develop.</p>
+    <ul>
+      {directions.map((d) => (
+        <li>
+          <a href={d.href}><strong>{d.name}</strong></a> — {d.text}
+        </li>
+      ))}
+    </ul>
   </main>
 </BaseLayout>
+
+<style>
+  main {
+    max-width: 640px;
+    margin: 12vh auto;
+    padding: 0 20px;
+    font: 18px/1.6 system-ui, sans-serif;
+  }
+  li {
+    margin: 12px 0;
+  }
+</style>

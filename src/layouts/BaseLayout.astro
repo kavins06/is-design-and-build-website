@@ -21,6 +21,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <slot name="head" />
   </head>
   <body>
     <slot />
