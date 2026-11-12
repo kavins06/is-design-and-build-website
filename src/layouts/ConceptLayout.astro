@@ -1,13 +1,14 @@
 ---
 interface Props {
   title: string;
-  current: 'a' | 'b' | 'c';
+  current: 'a' | 'b' | 'c' | 'd';
 }
 const { title, current } = Astro.props;
 const tabs = [
   { id: 'a', label: 'A · Monolith' },
   { id: 'b', label: 'B · Atelier' },
   { id: 'c', label: 'C · Drawing Set' },
+  { id: 'd', label: 'D · C + A' },
 ];
 ---
 
