@@ -4,7 +4,7 @@ import '@fontsource-variable/geist-mono';
 import { Image } from 'astro:assets';
 import ConceptLayout from '../../layouts/ConceptLayout.astro';
 import { site, capabilities, process } from '../../data/site';
-import heroHouse from '../../assets/stock/town-13.jpg';
+import heroKitchen from '../../assets/stock/kit-08.jpg';
 import heroLiving from '../../assets/stock/home-04.jpg';
 import heroBath from '../../assets/stock/bath-06.jpg';
 import grpExtend from '../../assets/stock/site-02.jpg';
@@ -14,36 +14,38 @@ import capBath from '../../assets/stock/bath-06.jpg';
 import capHome from '../../assets/stock/home-04.jpg';
 import capAddition from '../../assets/stock/site-02.jpg';
 import capRoof from '../../assets/stock/town-12.jpg';
-import capLead from '../../assets/stock/town-13.jpg';
+import capLead from '../../assets/stock/home-10.jpg';
 
 const slides = [
-  { src: heroHouse, name: 'Whole homes', alt: 'Brick townhouse with dark shutters on a tree-lined Washington street' },
+  { src: heroKitchen, name: 'Kitchens', alt: 'Kitchen with walnut and matte black cabinetry, an island and two stools' },
   { src: heroLiving, name: 'Living spaces', alt: 'Living room with a stone fireplace and built-in shelving' },
   { src: heroBath, name: 'Bathrooms', alt: 'Bathroom with a stone vanity and warm concealed lighting' },
 ];
-// Elevation of the hero house, traced in the photo's own 2400 x 1600 coordinate space
-// so the drawing lines up with the building once the photo is revealed.
-const win = (x: number, y: number, w: number, h: number) =>
-  `M${x} ${y}h${w}v${h}h${-w}zM${x + w / 2} ${y}v${h}M${x} ${y + h / 2}h${w}`;
+// Elevation of the hero kitchen, traced in the photo's own 2400 x 1450 coordinate space
+// so the drawing lines up with the room once the photo is revealed.
 const box = (x1: number, y1: number, x2: number, y2: number) => `M${x1} ${y1}H${x2}V${y2}H${x1}z`;
+const stool = (x: number) =>
+  `M${x} 800q145 -22 290 0l-30 150q-115 40 -230 0zM${x + 45} 975L${x - 10} 1420M${x + 235} 975L${x + 295} 1420M${x + 22} 1175H${x + 265}`;
+const pendant = (x: number, y: number) => `M${x} 0V${y}M${x} ${y}q-12 70 -56 112q56 46 112 0q-44 -42 -56 -112`;
 const strokes = [
-  'M677 0V1066H1800',
-  win(891, 48, 150, 269),
-  win(1222, 48, 167, 269),
-  win(1574, 48, 166, 261),
-  box(814, 40, 888, 312) + box(1044, 40, 1118, 312),
-  box(1149, 40, 1219, 312) + box(1392, 40, 1456, 312),
-  box(1491, 40, 1571, 304) + box(1743, 40, 1800, 304),
-  box(886, 429, 1046, 509) + box(1238, 423, 1392, 501) + box(1591, 417, 1745, 497),
-  'M866 1066V720a94 94 0 0 1 188 0V1066',
-  'M866 720H1054M960 720V630M960 720L896 656M960 720L1024 656',
-  box(882, 734, 1038, 1060),
-  win(1248, 609, 183, 325),
-  win(1606, 600, 185, 317),
-  box(1169, 604, 1245, 928) + box(1434, 604, 1502, 928),
-  box(1529, 596, 1603, 912),
+  'M20 1195H740M1640 1195H2090',
+  box(25, 105, 375, 1195) + 'M25 288H375M25 195H375M113 105V288M200 105V288M288 105V288',
+  box(400, 105, 810, 820) + 'M400 288H810M400 462H810M400 640H810M604 105V288',
+  box(400, 830, 740, 1195) + 'M604 830V1195',
+  box(835, 85, 2085, 225) + 'M1150 85V225M1470 85V225M1780 85V225',
+  box(840, 230, 1780, 540) + 'M1150 230V540M1455 230V540',
+  box(840, 545, 1780, 770),
+  box(1785, 230, 2085, 555),
+  box(1800, 565, 2075, 700) + box(1800, 720, 2075, 960),
+  box(1795, 985, 2080, 1195),
+  box(730, 770, 1640, 792) + 'M740 792V1340H1640V792',
+  'M1180 770V520q0 -30 -22 -30',
+  stool(860),
+  stool(1215),
+  pendant(1345, 240),
+  pendant(1535, 300),
 ];
-const dims = ['M866 1120H1054M866 1104v32M1054 1104v32'];
+const dims = ['M690 792V1340M674 792h32M674 1340h32'];
 
 const groups = [
   { src: heroLiving, name: 'Renovate', items: 'Kitchens · Bathrooms · Whole homes' },
@@ -76,11 +78,11 @@ const facts = [
       <div class="cg-stage">
         <Image src={slides[0].src} alt={slides[0].alt} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" class="cg-photo" />
         <div class="cg-hero-shade"></div>
-        <svg class="cg-elev" viewBox="0 0 2400 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <svg class="cg-elev" viewBox="0 0 2400 1450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g class="cg-strokes">{strokes.map((d, i) => <path d={d} pathLength="1" style={`--i:${i}`} />)}</g>
           <g class="cg-dims">
             {dims.map((d) => <path d={d} pathLength="1" style={`--i:${strokes.length}`} />)}
-            <text x="960" y="1176" text-anchor="middle" style={`--i:${strokes.length + 1}`}>3'-6"</text>
+            <text x="664" y="1076" text-anchor="end" style={`--i:${strokes.length + 1}`}>3'-0"</text>
           </g>
         </svg>
       </div>
@@ -93,7 +95,7 @@ const facts = [
         <p>We design and build homes. Washington, DC. Since {site.since}.</p>
       </div>
       <dl class="cg-titleblock">
-        <div><dt>Drawing</dt><dd>Front elevation</dd></div>
+        <div><dt>Drawing</dt><dd>Kitchen elevation</dd></div>
         <div><dt>Scale</dt><dd>1/4" = 1'-0"</dd></div>
         <div><dt>Status</dt><dd class="cg-status">Built</dd></div>
       </dl>
