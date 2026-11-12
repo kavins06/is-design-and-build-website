@@ -33,6 +33,6 @@ Open http://localhost:4321.
 
 `dist/` is build output and is not committed.
 
-Builds are noindex by default. Only `VERCEL_ENV=production` enables indexing of public pages; design concepts stay excluded. The contact experience prepares an email for the visitor to review and send from their own email app. It does not submit a lead to a backend.
+Builds are noindex by default. Only `VERCEL_ENV=production` enables indexing of public pages. The contact experience prepares an email for the visitor to review and send from their own email app. It does not submit a lead to a backend.
 
 See [content implementation notes](docs/content-implementation.md) for sources, verification, future integration requirements and the remaining live-site migration work.

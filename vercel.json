@@ -3,6 +3,7 @@
   "framework": "astro",
   "trailingSlash": true,
   "redirects": [
+    { "source": "/concepts/:path*", "destination": "/", "permanent": true },
     {
       "source": "/:old(kitchen-remodeling-.+-dc|custom-kitchen-designs-.+-dc)",
       "destination": "/kitchen-remodeling/",
