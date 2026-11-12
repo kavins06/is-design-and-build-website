@@ -5,6 +5,7 @@ export const site = {
   phoneHref: 'tel:+12025191831',
   email: 'info@isdesignandbuild.com',
   address: ['1010 Wisconsin Ave NW, Suite 300', 'Washington, DC 20007'],
+  hours: 'Monday to Friday, 9:00 AM to 5:00 PM',
   area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
 };
 

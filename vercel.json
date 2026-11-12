@@ -1,5 +1,62 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/:old(kitchen-remodeling-.+-dc|custom-kitchen-designs-.+-dc)",
+      "destination": "/kitchen-remodeling/",
+      "permanent": true
+    },
+    {
+      "source": "/:old(kitchen-remodeling-.+-dc|custom-kitchen-designs-.+-dc)/",
+      "destination": "/kitchen-remodeling/",
+      "permanent": true
+    },
+    {
+      "source": "/:old(bathroom-remodeling-.+-dc)",
+      "destination": "/bathroom-remodeling/",
+      "permanent": true
+    },
+    {
+      "source": "/:old(bathroom-remodeling-.+-dc)/",
+      "destination": "/bathroom-remodeling/",
+      "permanent": true
+    },
+    {
+      "source": "/:old(roof-repair-.+-dc|roof-installation-.+-dc|roof-inspection-.+-dc|roof-maintenance-.+-dc|top-roofing-services-.+-dc)",
+      "destination": "/roofing/",
+      "permanent": true
+    },
+    {
+      "source": "/:old(roof-repair-.+-dc|roof-installation-.+-dc|roof-inspection-.+-dc|roof-maintenance-.+-dc|top-roofing-services-.+-dc)/",
+      "destination": "/roofing/",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/home-remodeling/",
+      "permanent": true
+    },
+    {
+      "source": "/services/",
+      "destination": "/home-remodeling/",
+      "permanent": true
+    },
+    {
+      "source": "/:old(index\\.html__p.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:page(blogs|contact-us|about-us|faqs|financing|portfolio|roofing|our-process|home-remodeling|kitchen-remodeling|bathroom-remodeling|whole-home-remodeling|home-additions|lead-paint-abatement|privacy-policy|terms-of-service).html",
+      "destination": "/:page/",
+      "permanent": true
+    }
+  ]
 }

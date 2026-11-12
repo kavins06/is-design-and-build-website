@@ -2,7 +2,11 @@
 import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import geistMono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
 
+import { business, website, graph, abs } from '../data/schema';
+
 interface Props {
+  /** Extra schema.org nodes for this page, added to the site-wide graph. */
+  schema?: object[];
   preloadFonts?: boolean;
   title: string;
   description?: string;
@@ -10,18 +14,23 @@ interface Props {
 
 const {
   preloadFonts = false,
+  schema = [],
   title,
   description = 'I.S Design + Build — a Georgetown, DC design + build firm.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Google tag: loaded on the production site only, so preview visits are not counted.
+const googleTag = process.env.VERCEL_ENV === 'production' ? 'GTM-NSZWBWT2' : '';
 const noindex = process.env.VERCEL_ENV !== 'production' || Astro.url.pathname.startsWith('/concepts/');
-const organization = { '@context': 'https://schema.org', '@type': 'Organization', '@id': 'https://isdesignandbuild.com/#organization', name: 'I.S Design + Build', url: 'https://isdesignandbuild.com/', telephone: '+12025191831', email: 'info@isdesignandbuild.com', areaServed: ['Washington, DC', 'Northern Virginia', 'Montgomery County, Maryland'] };
+const jsonLd = graph([business, website, ...schema]);
+const ogImage = abs('/og.jpg');
 
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    {googleTag && <><script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${googleTag}`}></script><script is:inline>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date());</script></>}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -36,7 +45,16 @@ const organization = { '@context': 'https://schema.org', '@type': 'Organization'
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="I.S Design + Build" />
-    <script type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g, '\\u003c')} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="I.S Design + Build. Homes designed and built in the Washington, DC area since 1989." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
     <slot name="head" />
   </head>
   <body>

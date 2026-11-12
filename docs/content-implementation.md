@@ -31,3 +31,10 @@ No Grok service, Google Sheet, operational agent, upload storage, calendar or no
 - Production-mode build checked separately: public pages have no inherited preview noindex; production robots allows public pages. Preview build restored afterward.
 - Local Chromium checks cover desktop/mobile hero fit, navigation, roofing preselection, phone/email enquiry preparation, stale-draft invalidation, reduced motion, no-JavaScript direct contact and console errors. No email is sent by these checks.
 - Visual review compares the existing Direction G hero with the revised hero and checks service, contact, gallery and process layouts. These checks do not establish field Core Web Vitals or backend delivery.
+
+## Search and sharing additions
+
+- Every page carries a share image (`public/og.jpg`, 1200×630), Open Graph and Twitter card tags.
+- Structured data is built in `src/data/schema.ts`: a site-wide business and website entry, breadcrumbs on interior pages, a service entry on each service page, and question-and-answer markup generated from the questions visible on the page. It includes the office address and opening hours confirmed by the owner (Monday to Friday is assumed for the 9:00 AM to 5:00 PM hours). It states no rating or price.
+- `vercel.json` permanently redirects the old neighbourhood landing pages to the matching service page (kitchen, bathroom, roofing) and `/services/` to `/home-remodeling/`. The old neighbourhood pages had no recorded search rankings (OpenSEO, 2026-11-12), so they were redirected, not rebuilt.
+- Rebuilt from the live site: `/blogs/` and its four guides (text carried over unchanged, in `src/data/articles.json`), `/financing/` and `/lead-paint-abatement/` (rewritten in `src/data/content.json`; the old pages' placeholder testimonials and unverified claims about interest, penalties and certification were not carried over), and the cabinet catalogue PDF at its existing URL. The lead-paint page makes no certification claim; add one only with a current certificate.

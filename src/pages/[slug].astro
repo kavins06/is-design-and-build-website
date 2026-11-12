@@ -3,14 +3,31 @@ import InteriorLayout from '../layouts/InteriorLayout.astro';
 import ProjectGallery from '../components/ProjectGallery.astro';
 import pages from '../data/content.json';
 import { capabilities } from '../data/site';
+import { service, faqPage, questionsFromBlocks } from '../data/schema';
 export function getStaticPaths() { return pages.map(page => ({ params: { slug: page.slug }, props: { page } })); }
 const { page } = Astro.props;
+const path = `/${page.slug}/`;
+const schema: object[] = [];
+const serviceNames: Record<string, string> = {
+  'home-remodeling': 'Home remodeling',
+  'kitchen-remodeling': 'Kitchen remodeling',
+  'bathroom-remodeling': 'Bathroom remodeling',
+  'whole-home-remodeling': 'Whole-home renovation',
+  'home-additions': 'Home additions',
+  roofing: 'Roof repair and replacement',
+};
+if (serviceNames[page.slug]) schema.push(service(serviceNames[page.slug], page.description, path));
+// Questions are taken from the visible copy so the markup always matches the page.
+const questions = page.slug === 'faqs'
+  ? page.sections.map((s) => ({ q: s.title, a: s.blocks.join(' ') }))
+  : page.sections.filter((s) => /questions$/i.test(s.title)).flatMap((s) => questionsFromBlocks(s.blocks));
+if (questions.length) schema.push(faqPage(questions));
 ---
-<InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline}>
+<InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline} schema={schema}>
   <Fragment slot="intro">{page.intro.map(block => <Fragment set:html={block} />)}</Fragment>
   {page.slug === 'portfolio' && <ProjectGallery />}
   {page.sections.map((section, i) => <section class="copy-section"><div class="section-index"><span class="cg-label">{String(i + 1).padStart(2, '0')} / {page.label}</span></div><div class="copy-body"><h2>{section.title}</h2>{section.blocks.map(block => <Fragment set:html={block} />)}</div></section>)}
   {page.slug === 'home-remodeling' && <section class="related-services"><p class="cg-label">Explore the possibilities</p>{capabilities.filter(service => service.service !== 'roofing').map(service => <a href={service.href}><span>{service.n}</span><h2>{service.name}</h2><span aria-hidden="true"></span></a>)}</section>}
   {['kitchen-remodeling', 'bathroom-remodeling', 'whole-home-remodeling'].includes(page.slug) && <ProjectGallery compact category={page.service} />}
-  <section class="page-next" data-dark><p class="cg-label">A clear way forward</p><h2>Start with the<br />information you have.</h2><a class="text-link" href={`/contact-us/?service=${page.service || 'other'}`}>Tell us about your project</a><nav aria-label="Continue exploring"><a href="/our-process/">Our process</a><a href="/portfolio/">Our work</a><a href="/service-areas/">Service areas</a><a href="/faqs/">FAQs</a></nav></section>
+  <section class="page-next" data-dark><p class="cg-label">A clear way forward</p><h2>Start with the<br />information you have.</h2><a class="text-link" href={`/contact-us/?service=${page.service || 'other'}`}>Tell us about your project</a><nav aria-label="Continue exploring"><a href="/our-process/">Our process</a><a href="/portfolio/">Our work</a><a href="/service-areas/">Service areas</a><a href="/blogs/">Guides</a><a href="/faqs/">FAQs</a></nav></section>
 </InteriorLayout>

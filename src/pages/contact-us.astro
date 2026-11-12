@@ -3,7 +3,7 @@ import InteriorLayout from '../layouts/InteriorLayout.astro';
 import { site, capabilities } from '../data/site';
 ---
 <InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isdesignandbuild.com." label="Start a project" headline="Tell us about your project.">
-  <Fragment slot="intro"><p>What would you like to change? Share a few details about the property and the work you have in mind.</p><p>Prefer a conversation? Call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p><p class="contact-explanation">You can also prepare an email below. You’ll review it and send it from your email app. Nothing is submitted through this website.</p></Fragment>
+  <Fragment slot="intro"><p>What would you like to change? Share a few details about the property and the work you have in mind.</p><p>Prefer a conversation? Call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p><p>Office: {site.address[0]}, {site.address[1]}. {site.hours}.</p><p class="contact-explanation">You can also prepare an email below. You’ll review it and send it from your email app. Nothing is submitted through this website.</p></Fragment>
   <section class="enquiry"><div><p class="cg-label">A useful starting point</p></div><div>
     <noscript><p>To discuss a project, <a href={`mailto:${site.email}`}>email {site.email}</a> or <a href={site.phoneHref}>call {site.phone}</a>. Include the type of work and the property’s town or ZIP code.</p></noscript>
     <form id="enquiry-form" hidden>
