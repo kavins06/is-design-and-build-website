@@ -117,11 +117,35 @@ function processStory() {
 /** Expertise: the image and counter follow whichever service is centred. */
 function expertise() {
   const items = gsap.utils.toArray<HTMLElement>('[data-cap-item]');
-  const imgs = gsap.utils.toArray<HTMLElement>('.ex-media [data-cap]');
+  const imgs = gsap.utils.toArray<HTMLImageElement>('.ex-media [data-cap]');
   const count = document.querySelector('.ex-count b');
   let active = 0;
-  const activate = (index: number) => {
+  let requested = 0;
+  // Clipped images may never enter the browser's native lazy-load threshold.
+  // Warm the whole stack near the section, without competing with the hero.
+  const media = document.querySelector('.ex-media');
+  if (media) {
+    const prewarm = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      imgs.forEach((img) => { img.loading = 'eager'; });
+      prewarm.disconnect();
+    }, { rootMargin: '800px 0px' });
+    prewarm.observe(media);
+  }
+  const activate = async (index: number) => {
+    requested = index;
     if (index === active) return;
+    const image = imgs[index];
+    if (!image) return;
+    image.loading = 'eager';
+    try {
+      await image.decode();
+    } catch {
+      // Keep the current image and label if the requested image cannot load.
+      return;
+    }
+    // A newer hover/scroll selection must win over an older network response.
+    if (requested !== index || index === active) return;
     // The outgoing image stays in place underneath while the new one wipes in.
     imgs.forEach((el, i) => el.classList.toggle('was-on', i === active));
     active = index;
