@@ -1,21 +1,38 @@
 # I.S Design + Build Website
 
-Website files exported from Sites version 21 (source commit `2007b23d309062917fbc7c025c13a09deb9a8e13`).
+Marketing website for **https://isdesignandbuild.com**, built with [Astro](https://astro.build).
 
-## Contents
+## Run
 
-- `dist/`: website HTML, CSS, JavaScript, images, video, and documents.
-- `prepare.py`: original static-site preparation script.
-- `.openai/hosting.json`: original Sites hosting configuration.
-
-## Local preview
-
-From the repository root, run:
+Requires Node 22.12 or later.
 
 ```sh
-python3 -m http.server 8000 --directory dist
+npm install
+npm run dev
 ```
 
-Then open http://localhost:8000.
+Open http://localhost:4321.
 
-This is a static website export. Any forms or services that call external endpoints still depend on those services.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the local dev server |
+| `npm run build` | Build the static site into `dist/` |
+| `npm run preview` | Serve the built site locally |
+| `npm run check` | Type-check `.astro` and TypeScript files |
+
+## Layout
+
+- `src/pages/`: homepage, contact and operational notices; `[slug].astro` builds approved content pages.
+- `src/data/content.json`: approved interior-page copy and metadata.
+- `src/components/`: shared navigation, footer, hero and genuine project photography.
+- `src/styles/content.css`: Direction G extensions for interior pages and accessible navigation.
+- `src/layouts/BaseLayout.astro`: shared `<head>`, canonical URL, and page shell.
+- `public/`: files served as-is (favicon and media).
+- `src/pages/robots.txt.ts`: environment-aware robots output.
+- `astro.config.mjs`: site URL, trailing-slash policy, sitemap.
+
+`dist/` is build output and is not committed.
+
+Builds are noindex by default. Only `VERCEL_ENV=production` enables indexing of public pages; design concepts stay excluded. The contact experience prepares an email for the visitor to review and send from their own email app. It does not submit a lead to a backend.
+
+See [content implementation notes](docs/content-implementation.md) for sources, verification, future integration requirements and the remaining live-site migration work.

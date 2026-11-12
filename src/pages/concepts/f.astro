@@ -1,0 +1,627 @@
+---
+import '@fontsource-variable/geist';
+import { Image } from 'astro:assets';
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import { site, capabilities, process } from '../../data/site';
+import heroKitchen from '../../assets/stock/kit-08.jpg';
+import heroLiving from '../../assets/stock/home-04.jpg';
+import heroBath from '../../assets/stock/bath-06.jpg';
+import grpExtend from '../../assets/stock/site-02.jpg';
+import grpProtect from '../../assets/stock/town-12.jpg';
+import capKitchen from '../../assets/stock/kit-08.jpg';
+import capBath from '../../assets/stock/bath-06.jpg';
+import capHome from '../../assets/stock/home-04.jpg';
+import capAddition from '../../assets/stock/site-02.jpg';
+import capRoof from '../../assets/stock/town-12.jpg';
+import capLead from '../../assets/stock/home-10.jpg';
+
+const slides = [
+  { src: heroKitchen, name: 'Kitchens', alt: 'Kitchen with walnut and matte black cabinetry, an island and two stools' },
+  { src: heroLiving, name: 'Living spaces', alt: 'Living room with a stone fireplace and built-in shelving' },
+  { src: heroBath, name: 'Bathrooms', alt: 'Bathroom with a stone vanity and warm concealed lighting' },
+];
+const groups = [
+  { src: heroLiving, name: 'Renovate', items: 'Kitchens · Bathrooms · Whole homes' },
+  { src: grpExtend, name: 'Extend', items: 'Additions' },
+  { src: grpProtect, name: 'Protect', items: 'Roofing · Lead-paint abatement' },
+];
+const capImg = [capKitchen, capBath, capHome, capAddition, capRoof, capLead];
+const years = new Date().getFullYear() - site.since;
+const facts = [
+  { n: String(site.since), label: 'Founded' },
+  { n: String(years), label: 'Years in Washington' },
+  { n: '6', label: 'Trades in house' },
+  { n: '1', label: 'Contract' },
+];
+---
+
+<ConceptLayout title="Direction F · Institutional — I.S Design + Build" current="f">
+  <div class="cf">
+    <header class="cf-head">
+      <a class="cf-logo" href="/concepts/f/">I.S Design + Build</a>
+      <nav aria-label="Primary">
+        <a href="#homes">Homes</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#firm">Firm</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="cf-hero">
+      {
+        slides.map((s, i) => (
+          <Image src={s.src} alt={s.alt} widths={[900, 1600, 2400]} sizes="100vw" loading={i === 0 ? 'eager' : 'lazy'} class="cf-slide" style={`--i:${i}`} />
+        ))
+      }
+      <div class="cf-hero-shade"></div>
+      <div class="cf-hero-copy">
+        <h1>We design and build homes.</h1>
+        <p>Washington, DC. Since {site.since}.</p>
+      </div>
+      <ol class="cf-index" aria-hidden="true">
+        {slides.map((s, i) => <li style={`--i:${i}`}><span>0{i + 1}</span>{s.name}</li>)}
+      </ol>
+    </section>
+
+    <section class="cf-statement" id="firm">
+      <p class="cf-label">Firm</p>
+      <h2 data-reveal>The people who draw your home are the people who build it.</h2>
+    </section>
+
+    <section class="cf-facts">
+      {
+        facts.map((f) => (
+          <div data-reveal>
+            <b>{f.n}</b>
+            <span>{f.label}</span>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="cf-sectors" id="homes">
+      <p class="cf-label">For your home</p>
+      <div class="cf-sector-grid">
+        {
+          groups.map((g, i) => (
+            <a class="cf-sector" href="#contact" data-reveal style={`transition-delay:${i * 80}ms`}>
+              <figure><Image src={g.src} alt="" widths={[600, 1000]} sizes="(min-width: 900px) 31vw, 92vw" /></figure>
+              <h3>{g.name}<i>→</i></h3>
+              <p>{g.items}</p>
+            </a>
+          ))
+        }
+      </div>
+      <a class="cf-also" href="#contact">We also take on commercial and government work <i>→</i></a>
+    </section>
+
+    <section class="cf-expertise" id="expertise">
+      <div class="cf-expertise-media">
+        {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 40vw, 92vw" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+      </div>
+      <div>
+        <p class="cf-label">Expertise</p>
+        <ol>
+          {
+            capabilities.map((c, i) => (
+              <li>
+                <a href="#contact" data-cap-link={i}>
+                  <span>{c.n}</span>
+                  <h3>{c.name}</h3>
+                  <i>→</i>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section class="cf-band">
+      <video autoplay muted loop playsinline preload="metadata" poster="/media/plans-poster.jpg">
+        <source src="/media/plans.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <section class="cf-process">
+      <p class="cf-label">Process</p>
+      <ol>
+        {
+          process.map((p) => (
+            <li data-reveal>
+              <span>{p.n}</span>
+              <h3>{p.name}</h3>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="cf-review">
+      <p class="cf-label">Clients</p>
+      <blockquote data-reveal>
+        <p>“A real Google review will be quoted here.”</p>
+        <footer>Client name — placeholder</footer>
+      </blockquote>
+    </section>
+
+    <section class="cf-contact" id="contact">
+      <a class="cf-start" href="#contact">Start a project <i>→</i></a>
+      <div class="cf-contact-grid">
+        <div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div>
+        <div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
+        <div><span>Office</span><p>{site.address[0]}<br />{site.address[1]}</p></div>
+        <div><span>Area</span><p>DC · Maryland · Virginia</p></div>
+      </div>
+      <p class="cf-legal">© {new Date().getFullYear()} {site.name}. General contractors since {site.since}.</p>
+    </section>
+  </div>
+</ConceptLayout>
+
+<script>
+  const imgs = document.querySelectorAll<HTMLElement>('.cf-expertise-media [data-cap]');
+  document.querySelectorAll<HTMLElement>('[data-cap-link]').forEach((link) => {
+    const show = () => imgs.forEach((img) => img.classList.toggle('is-on', img.dataset.cap === link.dataset.capLink));
+    link.addEventListener('mouseenter', show);
+    link.addEventListener('focus', show);
+  });
+</script>
+
+<style is:global>
+  .cf {
+    --ink: #0c0c0c;
+    --paper: #ffffff;
+    --tint: #f3f3f1;
+    --mute: #76766f;
+    --line: #dcdcd7;
+    --pad: clamp(20px, 3.4vw, 56px);
+    --cycle: 21s;
+    background: var(--paper);
+    color: var(--ink);
+    font:
+      400 16px/1.5 'Geist Variable',
+      'Helvetica Neue',
+      Arial,
+      sans-serif;
+    overflow-x: clip;
+  }
+  .cf h1,
+  .cf h2,
+  .cf h3 {
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+  .cf-label {
+    font-size: 13px;
+    color: var(--mute);
+    padding-top: 0.5em;
+  }
+
+  .cf-head {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px var(--pad);
+    color: #fff;
+  }
+  .cf-logo {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .cf-head nav {
+    display: flex;
+    gap: clamp(18px, 2.6vw, 40px);
+    font-size: 15px;
+  }
+  .cf-head nav a {
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .cf-head nav a:hover {
+    opacity: 1;
+  }
+
+  /* Hero: three sector images crossfade; the index on the right tracks them. */
+  .cf-hero {
+    position: relative;
+    height: 100svh;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 0 var(--pad) clamp(28px, 3.4vw, 56px);
+    color: #fff;
+    background: #0c0c0c;
+    overflow: hidden;
+  }
+  .cf-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: cf-fade var(--cycle) linear infinite;
+    animation-delay: calc(var(--i) * var(--cycle) / 3 - 0.6s);
+  }
+  @keyframes cf-fade {
+    0% {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+    5%,
+    33% {
+      opacity: 1;
+    }
+    39%,
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+  .cf-hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 24%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.72) 100%);
+  }
+  .cf-hero-copy {
+    position: relative;
+  }
+  .cf h1 {
+    font-size: clamp(40px, 7.4vw, 128px);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+  }
+  .cf-hero-copy p {
+    margin-top: clamp(14px, 1.6vw, 24px);
+    font-size: clamp(16px, 1.35vw, 20px);
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+  .cf-index {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .cf-index li {
+    opacity: 0.45;
+    animation: cf-index var(--cycle) linear infinite;
+    animation-delay: calc(var(--i) * var(--cycle) / 3 - 0.6s);
+  }
+  .cf-index span {
+    display: inline-block;
+    width: 34px;
+    font-variant-numeric: tabular-nums;
+  }
+  @keyframes cf-index {
+    0%,
+    4% {
+      opacity: 0.45;
+    }
+    6%,
+    33% {
+      opacity: 1;
+    }
+    37%,
+    100% {
+      opacity: 0.45;
+    }
+  }
+
+  /* Shared two-column rhythm: small label left, content right. */
+  .cf-statement,
+  .cf-sectors,
+  .cf-process,
+  .cf-review {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    gap: 24px;
+    padding: clamp(72px, 9vw, 150px) var(--pad);
+  }
+  .cf-statement h2 {
+    font-size: clamp(30px, 4.6vw, 76px);
+    line-height: 1.04;
+    max-width: 17ch;
+  }
+
+  .cf-facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 var(--pad);
+    border-top: 1px solid var(--ink);
+  }
+  .cf-facts div {
+    padding: 20px 0 clamp(60px, 7vw, 110px);
+  }
+  .cf-facts b {
+    display: block;
+    font-size: clamp(44px, 6.4vw, 108px);
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+  .cf-facts span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .cf-sectors {
+    grid-template-columns: 1fr;
+    background: var(--tint);
+  }
+  .cf-sector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.4vw, 24px);
+  }
+  .cf-sector {
+    text-decoration: none;
+  }
+  .cf-sector figure {
+    margin: 0;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--line);
+  }
+  .cf-sector img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .cf-sector:hover img {
+    transform: scale(1.05);
+  }
+  .cf-sector h3 {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    font-size: clamp(22px, 2.2vw, 34px);
+  }
+  .cf-sector p {
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--mute);
+  }
+  .cf-also {
+    display: inline-flex;
+    gap: 10px;
+    margin-top: clamp(20px, 2.4vw, 40px);
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .cf-also:hover i {
+    transform: translateX(6px);
+  }
+  .cf-also i,
+  .cf-sector i,
+  .cf-expertise i,
+  .cf-start i {
+    font-style: normal;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .cf-sector:hover i {
+    transform: translateX(6px);
+  }
+
+  .cf-expertise {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: clamp(28px, 5vw, 96px);
+    padding: clamp(72px, 9vw, 150px) var(--pad);
+  }
+  .cf-expertise-media {
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--tint);
+  }
+  .cf-expertise-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  .cf-expertise-media img.is-on {
+    opacity: 1;
+  }
+  .cf-expertise ol {
+    margin-top: 28px;
+    border-top: 1px solid var(--ink);
+  }
+  .cf-expertise li a {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    align-items: baseline;
+    padding: clamp(16px, 1.7vw, 26px) 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.25s;
+  }
+  .cf-expertise li span {
+    font-size: 13px;
+    color: var(--mute);
+    font-variant-numeric: tabular-nums;
+  }
+  .cf-expertise li h3 {
+    font-size: clamp(26px, 3.4vw, 56px);
+    line-height: 1.05;
+  }
+  .cf-expertise li i {
+    font-size: clamp(20px, 2vw, 30px);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.3s,
+      transform 0.35s;
+  }
+  .cf-expertise ol:hover a {
+    color: #b4b4ae;
+  }
+  .cf-expertise ol a:hover {
+    color: var(--ink);
+  }
+  .cf-expertise li a:hover i {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cf-band video {
+    display: block;
+    width: 100%;
+    height: min(78svh, 56vw);
+    object-fit: cover;
+  }
+
+  .cf-process ol {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+  .cf-process li {
+    padding-top: 16px;
+  }
+  .cf-process li span {
+    font-size: 13px;
+    color: var(--mute);
+  }
+  .cf-process li h3 {
+    margin-top: clamp(28px, 4vw, 64px);
+    font-size: clamp(18px, 1.8vw, 28px);
+  }
+
+  .cf-review {
+    background: var(--tint);
+  }
+  .cf-review blockquote {
+    margin: 0;
+  }
+  .cf-review blockquote p {
+    font-size: clamp(26px, 3.6vw, 58px);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    max-width: 20ch;
+  }
+  .cf-review footer {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .cf-contact {
+    padding: clamp(72px, 9vw, 150px) var(--pad) 96px;
+    background: var(--ink);
+    color: #fff;
+  }
+  .cf-start {
+    display: inline-flex;
+    gap: 0.25em;
+    font-size: clamp(44px, 9.4vw, 160px);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .cf-start:hover i {
+    transform: translateX(0.12em);
+  }
+  .cf-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: clamp(56px, 8vw, 130px);
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 16px;
+  }
+  .cf-contact-grid span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .cf-contact-grid a {
+    text-decoration: none;
+  }
+  .cf-contact-grid a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .cf-legal {
+    margin-top: 56px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (max-width: 900px) {
+    .cf-head nav a:not(:last-child) {
+      display: none;
+    }
+    .cf-hero {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+    .cf-index {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+    }
+    .cf-index span {
+      width: 24px;
+    }
+    .cf-statement,
+    .cf-process,
+    .cf-review,
+    .cf-expertise,
+    .cf-sector-grid {
+      grid-template-columns: 1fr;
+    }
+    .cf-facts,
+    .cf-contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cf-facts div {
+      padding-bottom: 32px;
+    }
+    .cf-sector figure {
+      aspect-ratio: 4 / 3;
+    }
+    .cf-expertise-media {
+      position: relative;
+      top: 0;
+      aspect-ratio: 4 / 3;
+    }
+    .cf-process ol {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 24px;
+    }
+    .cf-process li h3 {
+      margin-top: 10px;
+    }
+    .cf-band video {
+      height: 60vw;
+    }
+  }
+</style>

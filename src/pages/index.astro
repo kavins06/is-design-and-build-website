@@ -1,0 +1,249 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/hero.css';
+import '../styles/home.css';
+import '../styles/content.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { site, capabilities, process } from '../data/site';
+import imgKitchen from '../assets/stock/kit-08.jpg';
+import imgBath from '../assets/stock/bath-06.jpg';
+import imgLiving from '../assets/stock/home-04.jpg';
+import projectKitchen from '../assets/photos/kitchen-a.jpg';
+import projectBath from '../assets/photos/bath-a.jpg';
+import projectLiving from '../assets/photos/living-a.jpg';
+import projectKitchen2 from '../assets/photos/kitchen-b.jpg';
+import projectDeck from '../assets/photos/deck-a.jpg';
+import imgFraming from '../assets/stock/site-02.jpg';
+import imgRoofs from '../assets/stock/town-12.jpg';
+
+const years = new Date().getFullYear() - site.since;
+const statement = 'Make room for what matters.'.split(' ');
+
+const capImg = [imgKitchen, imgBath, imgLiving, imgFraming, imgRoofs];
+
+const rooms = [
+  { src: projectKitchen, name: 'Kitchens', tall: false },
+  { src: projectBath, name: 'Bathrooms', tall: true },
+  { src: projectLiving, name: 'Living spaces', tall: false },
+  { src: projectKitchen2, name: 'Everyday details', tall: true },
+  { src: projectDeck, name: 'Outdoor spaces', tall: false },
+];
+const facts = [
+  { n: site.since, label: 'Construction experience since' },
+  { n: years, label: 'Years of construction experience' },
+  { word: 'In-house', label: 'A team that brings the work together' },
+  { word: 'Your home', label: 'Individual rooms to substantial renovations' },
+];
+const quoteTypes = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Something else', service: 'other' }];
+
+// Floor plan drawn in the process section. Each group belongs to one stage.
+const bubbles = [
+  { cx: 195, cy: 155, rx: 112, ry: 82 },
+  { cx: 195, cy: 368, rx: 112, ry: 82 },
+  { cx: 465, cy: 260, rx: 112, ry: 172 },
+  { cx: 670, cy: 195, rx: 56, ry: 118 },
+  { cx: 670, cy: 405, rx: 52, ry: 52 },
+];
+const labels = [
+  { x: 195, y: 124, t: 'Kitchen' },
+  { x: 195, y: 300, t: 'Dining' },
+  { x: 465, y: 215, t: 'Living' },
+  { x: 670, y: 186, t: 'Bath' },
+  { x: 670, y: 440, t: 'Entry' },
+];
+const walls = [
+  'M60 50H740V470H700M640 470H60V50',
+  'M60 260H250',
+  'M330 50V150M330 370V470',
+  'M600 50V200H740M600 240V340H740M600 340V400',
+];
+const openings = [
+  'M640 470a60 60 0 0 1 60 -60V470',
+  'M600 240a40 40 0 0 0 -40 -40H600',
+  'M120 44H270M120 56H270M390 44H540M390 56H540',
+  'M54 320V410M66 320V410',
+  'M610 214H730M610 228H730M610 242H730M610 256H730M610 270H730M610 284H730M610 298H730M610 312H730M610 326H730',
+];
+const dimLines = ['M60 22H740M60 12v20M740 12v20', 'M32 50V470M22 50h20M22 470h20'];
+const fittings = [
+  'M72 62H318V100H112V248H72z',
+  'M180 68h44v24h-44zM262 74a8 8 0 1 0 0.1 0M290 74a8 8 0 1 0 0.1 0',
+  'M150 142H290V200H150z',
+  'M170 212a10 10 0 1 0 0.1 0M220 212a10 10 0 1 0 0.1 0M270 212a10 10 0 1 0 0.1 0',
+  'M120 322H270V408H120zM140 304h30v12h-30zM220 304h30v12h-30zM140 414h30v12h-30zM220 414h30v12h-30z',
+  'M420 58H510V76H420z',
+  'M370 384H560V440H370zM370 384V370H560V384',
+  'M420 290H530V340H420z',
+  'M612 62H728V112H612zM640 148a14 14 0 1 0 0.1 0M678 132H728V192H678z',
+];
+---
+
+<BaseLayout preloadFonts title="Home Remodeling & Roofing in DC | I.S Design + Build" description="Kitchens, bathrooms, additions, whole-home renovations and roofing from an in-house team serving DC, Northern Virginia and Montgomery County.">
+  <div class="cg">
+    <Header home />
+    <main id="main">
+      <Hero />
+      <div class="proof-line"><span>Construction experience since 1989</span><span>In-house team</span><a href="https://maps.google.com/maps?cid=1968106805018591346">Read our Google reviews</a></div>
+
+      <section class="st" id="firm">
+        <p class="cg-label">Built around you</p>
+        <h2 class="st-text" aria-label={statement.join(' ')}>
+          {statement.map((w) => <span aria-hidden="true">{w} </span>)}
+        </h2>
+        <div class="st-description"><p>A kitchen that works better. A bathroom that feels right. More space for the people who live there. Tell us what you want to change, and we’ll help you work through the possibilities.</p><a class="text-link" href="/home-remodeling/">Explore remodeling</a></div>
+      </section>
+
+      <section class="pr" id="process" data-dark>
+        <div class="pr-pin">
+          <div class="pr-side">
+            <p class="cg-label">A clear way forward</p>
+            <ol class="pr-steps">
+              {
+                process.map((p, i) => (
+                  <li class={i === 0 ? 'is-on' : ''}>
+                    <span>{p.n}</span>
+                    <div>
+                      <h3>{p.name}</h3>
+                      <p>{p.text}</p>
+                    </div>
+                  </li>
+                ))
+              }
+            </ol>
+            <div class="pr-progress"><i></i></div><a class="text-link" href="/our-process/">See our process</a>
+          </div>
+
+          <figure class="pr-sheet">
+            <svg viewBox="0 0 800 520" role="img" aria-label="A floor plan that develops from a sketch to a finished home as you scroll">
+              <g class="pl-bubbles">
+                {bubbles.map((b) => <ellipse cx={b.cx} cy={b.cy} rx={b.rx} ry={b.ry} pathLength="1" class="draw" />)}
+              </g>
+              <g class="pl-labels">
+                {labels.map((l) => <text x={l.x} y={l.y} text-anchor="middle">{l.t}</text>)}
+              </g>
+              <g class="pl-walls">{walls.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
+              <g class="pl-openings">{openings.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
+              <g class="pl-dims">
+                {dimLines.map((d) => <path d={d} pathLength="1" class="draw" />)}
+                <text x="400" y="14" text-anchor="middle">34'-0"</text>
+                <text x="24" y="264" text-anchor="middle" transform="rotate(-90 24 264)">21'-0"</text>
+              </g>
+              <g class="pl-stamp" transform="translate(470 250) rotate(-10)">
+                <rect x="-112" y="-34" width="224" height="68"></rect>
+                <text y="-4" text-anchor="middle">SCOPE + PLANNING</text>
+                <text y="18" text-anchor="middle" class="pl-stamp-sub">PROJECT REVIEW</text>
+              </g>
+              <g class="pl-fittings">{fittings.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
+            </svg>
+            <Image src={imgLiving} alt="Finished living room with a stone fireplace" widths={[800, 1400]} sizes="(min-width: 900px) 56vw, 92vw" class="pr-photo" />
+            <figcaption>
+              <span>Illustrative plan · Design reference</span>
+              <span class="pr-stage">Sketch</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="ex" id="expertise">
+        <div class="ex-media">
+          {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+          <span class="media-note">Design reference</span><span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
+        </div>
+        <div class="ex-list">
+          <p class="cg-label">Home remodeling & roofing</p><h2>Start with the part of your home you want to change.</h2>
+          <ol>
+            {
+              capabilities.map((c, i) => (
+                <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
+                  <a href={c.href}>
+                    <span>{c.n}</span>
+                    <div>
+                      <h3>{c.name}</h3>
+                      <p>{c.text}</p>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="rm" id="rooms">
+        <div class="rm-pin">
+          <div class="rm-head">
+            <p class="cg-label">From our completed work</p><a href="/portfolio/">View our projects</a>
+            <p class="rm-hint">Keep scrolling</p>
+          </div>
+          <div class="rm-track">
+            <h2 class="rm-title">See the details<br />come together.</h2>
+            {
+              rooms.map((r, i) => (
+                <figure class={r.tall ? 'is-tall' : ''}>
+                  <a href="/portfolio/" aria-label={`View our work: ${r.name}`}><div><Image src={r.src} alt={r.name} widths={[700, 1200, 1600]} sizes="(min-width: 900px) 50vw, 80vw" /></div>
+                  <figcaption><span>0{i + 1}</span>{r.name}</figcaption></a>
+                </figure>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="bd" data-dark>
+        <div class="bd-frame">
+          <video data-deferred-video muted loop playsinline preload="none" poster="/media/plans-poster.jpg">
+            <source data-src="/media/plans.mp4" type="video/mp4" />
+          </video>
+          <h2>Experience you<br />can build on.</h2>
+        </div>
+      </section>
+
+      <section class="fc">
+        {
+          facts.map((f) => (
+            <div>
+              {f.n ? <b data-count={f.n}>{f.n}</b> : <b class="fact-word">{f.word}</b>}
+              <span>{f.label}</span>
+            </div>
+          ))
+        }
+      </section>
+
+      <section class="rv">
+        <p class="cg-label">Clients</p>
+        <blockquote>
+          <p>“They delivered high-quality work, with clear communication and strong attention to detail.”</p>
+          <footer>Lia Dean — Google review excerpt</footer>
+        <a class="text-link" href="https://maps.google.com/maps?cid=1968106805018591346">Read our Google reviews</a></blockquote>
+      </section>
+
+      <section class="home-story"><p class="cg-label">Our story</p><div><h2>An in-house team.<br />Experience since 1989.</h2><p>We bring an in-house team to projects of different sizes—from individual rooms to substantial renovations. Formerly I.S. Enterprises, we continue our work as I.S Design + Build.</p><a class="text-link" href="/about-us/">Meet the company</a></div></section>
+      <section class="home-story"><p class="cg-label">Close to home</p><div><h2>Across the DC area.</h2><p>Washington, DC, Northern Virginia and Montgomery County, Maryland, including Bethesda and Chevy Chase. Share your town or ZIP code so we can confirm coverage for your project.</p><a class="text-link" href="/service-areas/">See our service area</a></div></section>
+      <section class="ct" id="contact" data-dark>
+        <p class="cg-label">Start a project</p>
+        <h2 class="ct-title">
+          <span>What would you</span>
+          <span>like to change?</span>
+        </h2>
+        <div class="ct-pills">
+          {quoteTypes.map((q) => <a href={`/contact-us/?service=${q.service}`}>{q.name}</a>)}
+        </div>
+        <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Your project</span><p>A room, a roof or the way your whole home works.</p></div><div><span>Next step</span><a href="/contact-us/">Tell us what you have in mind</a></div></div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/media.ts';
+  // Keep the static reduced-motion experience free of animation dependencies.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    import('../scripts/home.ts');
+  }
+</script>

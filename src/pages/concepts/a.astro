@@ -1,0 +1,704 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import { Image } from 'astro:assets';
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import { site, sectors, capabilities, process } from '../../data/site';
+import hero from '../../assets/photos/kitchen-a.jpg';
+import res from '../../assets/photos/kitchen-c.jpg';
+import com from '../../assets/photos/exterior-a.jpg';
+import gov from '../../assets/photos/roof-a.jpg';
+import band from '../../assets/photos/bath-a.jpg';
+
+const sectorImg = { residential: res, commercial: com, government: gov } as const;
+const years = new Date().getFullYear() - site.since;
+---
+
+<ConceptLayout title="Direction A · Monolith — I.S Design + Build" current="a">
+  <div class="ca">
+    <header class="ca-head">
+      <a class="ca-logo" href="/concepts/a/" aria-label={site.name}>
+        <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="37" height="37" fill="none" stroke="currentColor" stroke-width="3"></rect>
+          <path d="M20 10v20M10 20h20" stroke="var(--accent)" stroke-width="3"></path>
+        </svg>
+        <span><b>I.S</b> Design + Build</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#sectors">Residential</a>
+        <a href="#sectors">Commercial</a>
+        <a href="#sectors">Government</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#firm">Firm</a>
+      </nav>
+      <a class="ca-btn" href="#start">Start a project</a>
+    </header>
+
+    <section class="ca-hero">
+      <Image src={hero} alt="Open kitchen with timber cabinetry and a long island" widths={[900, 1500, 2200]} sizes="100vw" loading="eager" class="ca-hero-img" />
+      <div class="ca-hero-shade"></div>
+      <p class="ca-est">Est. {site.since} — Washington, DC</p>
+      <div class="ca-hero-copy">
+        <h1>
+          <span>We design it.</span>
+          <span>We build it.</span>
+        </h1>
+        <div class="ca-hero-foot">
+          <p>
+            A general contractor for homes, commercial spaces and public buildings. One firm, from the first drawing to the final
+            inspection.
+          </p>
+          <a class="ca-btn ca-btn-solid" href="#start">Get a quote <i>→</i></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="ca-marquee" aria-hidden="true">
+      <div>
+        {[0, 1].map(() => capabilities.map((c) => <span>{c.name}</span>))}
+      </div>
+    </div>
+
+    <section class="ca-statement" id="firm">
+      <p class="ca-label">The firm</p>
+      <h2 data-reveal>
+        Most projects fail in the gaps between the designer, the permit office and the builder. <em>We closed the gaps.</em> One
+        team draws it, prices it, permits it and builds it.
+      </h2>
+    </section>
+
+    <section class="ca-sectors" id="sectors">
+      {
+        sectors.map((s, i) => (
+          <a class="ca-sector" href="#start" data-reveal style={`transition-delay:${i * 90}ms`}>
+            <Image src={sectorImg[s.slug as keyof typeof sectorImg]} alt="" widths={[600, 900]} sizes="(min-width: 900px) 33vw, 100vw" />
+            <div>
+              <span>0{i + 1}</span>
+              <h3>{s.name}</h3>
+              <p>{s.text}</p>
+            </div>
+          </a>
+        ))
+      }
+    </section>
+
+    <section class="ca-caps" id="capabilities">
+      <div class="ca-caps-head">
+        <p class="ca-label">Capabilities</p>
+        <h2>Six disciplines.<br />One contract.</h2>
+      </div>
+      <ol>
+        {
+          capabilities.map((c) => (
+            <li data-reveal>
+              <a href="#start">
+                <span>{c.n}</span>
+                <h3>{c.name}</h3>
+                <p>{c.text}</p>
+                <i>→</i>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="ca-year">
+      <Image src={band} alt="" widths={[900, 1600]} sizes="100vw" class="ca-year-img" />
+      <div class="ca-year-inner">
+        <p class="ca-year-num" aria-hidden="true">{site.since}</p>
+        <div data-reveal>
+          <h2>{years} years on DC job sites.</h2>
+          <p>
+            We have been building in this city since {site.since}. Its rowhouses, its permit process and its inspectors are familiar
+            ground.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ca-process">
+      <p class="ca-label">How a project runs</p>
+      <ol>
+        {
+          process.map((p) => (
+            <li data-reveal>
+              <span>{p.n}</span>
+              <h3>{p.name}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="ca-reviews">
+      <p class="ca-label">Clients</p>
+      <blockquote data-reveal>
+        <p>Your Google reviews appear here, quoted in full with the client's name.</p>
+        <footer>Placeholder · real review to be supplied</footer>
+      </blockquote>
+    </section>
+
+    <section class="ca-cta" id="start">
+      <h2 data-reveal>Tell us what you're building.</h2>
+      <div>
+        <a class="ca-btn ca-btn-solid" href="#start">Start a project <i>→</i></a>
+        <a class="ca-btn" href={site.phoneHref}>{site.phone}</a>
+      </div>
+    </section>
+
+    <footer class="ca-foot">
+      <p><b>{site.name}</b><br />General contractor · Since {site.since}</p>
+      <p>{site.address[0]}<br />{site.address[1]}</p>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a><br /><a href={site.phoneHref}>{site.phone}</a></p>
+      <p>{site.area}</p>
+    </footer>
+  </div>
+</ConceptLayout>
+
+<style is:global>
+  .ca {
+    --bg: #0c0c0b;
+    --ink: #efece5;
+    --mute: #8f8b82;
+    --line: rgba(239, 236, 229, 0.14);
+    --accent: #d0703c;
+    --pad: clamp(20px, 4vw, 64px);
+    background: var(--bg);
+    color: var(--ink);
+    font:
+      400 16px/1.55 'Archivo Variable',
+      system-ui,
+      sans-serif;
+    overflow-x: clip;
+  }
+  .ca h1,
+  .ca h2,
+  .ca .ca-year-num {
+    font-stretch: 125%;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+  }
+  .ca-label {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .ca-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: var(--accent);
+  }
+
+  .ca-head {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 22px var(--pad);
+  }
+  .ca-logo,
+  .ca-btn {
+    white-space: nowrap;
+  }
+  .ca-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .ca-logo b {
+    font-weight: 800;
+    font-stretch: 125%;
+  }
+  .ca-head nav {
+    display: flex;
+    gap: 28px;
+    margin-left: auto;
+    font-size: 14px;
+  }
+  .ca-head nav a {
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .ca-head nav a:hover {
+    opacity: 1;
+  }
+  .ca-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 20px;
+    border: 1px solid rgba(239, 236, 229, 0.45);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+      background 0.25s,
+      color 0.25s,
+      border-color 0.25s;
+  }
+  .ca-btn i {
+    font-style: normal;
+    transition: transform 0.25s;
+  }
+  .ca-btn:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .ca-btn:hover i {
+    transform: translateX(4px);
+  }
+  .ca-btn-solid {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0c0c0b;
+  }
+
+  .ca-hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .ca-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: ca-zoom 22s ease-out forwards;
+  }
+  @keyframes ca-zoom {
+    from {
+      transform: scale(1.12);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  .ca-hero-shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(12, 12, 11, 0.7) 0%, rgba(12, 12, 11, 0.1) 30%, rgba(12, 12, 11, 0.55) 62%, #0c0c0b 100%);
+  }
+  .ca-est {
+    position: absolute;
+    right: var(--pad);
+    top: 50%;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .ca-hero-copy {
+    position: relative;
+    width: 100%;
+    padding: 0 var(--pad) clamp(28px, 5vw, 64px);
+  }
+  .ca h1 {
+    font-size: clamp(36px, 8.7vw, 160px);
+    white-space: nowrap;
+  }
+  .ca h1 span {
+    display: block;
+    animation: ca-rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .ca h1 span:nth-child(2) {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+    animation-delay: 0.15s;
+  }
+  @keyframes ca-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.35em);
+    }
+  }
+  .ca-hero-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-top: clamp(20px, 3vw, 40px);
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .ca-hero-foot p {
+    max-width: 46ch;
+    font-size: clamp(15px, 1.3vw, 19px);
+    color: #d6d2c9;
+  }
+
+  .ca-marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    padding: 18px 0;
+  }
+  .ca-marquee div {
+    display: flex;
+    width: max-content;
+    animation: ca-marquee 38s linear infinite;
+  }
+  .ca-marquee span {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mute);
+    white-space: nowrap;
+  }
+  .ca-marquee span::after {
+    content: '+';
+    margin: 0 28px;
+    color: var(--accent);
+  }
+  @keyframes ca-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ca-statement {
+    padding: clamp(80px, 12vw, 180px) var(--pad);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    gap: 32px;
+  }
+  .ca-statement h2 {
+    font-stretch: 100%;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    font-size: clamp(28px, 4.2vw, 68px);
+    color: var(--mute);
+    max-width: 22ch;
+  }
+  .ca-statement em {
+    font-style: normal;
+    color: var(--ink);
+  }
+
+  .ca-sectors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border-block: 1px solid var(--line);
+  }
+  .ca-sector {
+    position: relative;
+    min-height: clamp(420px, 62vw, 760px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--bg);
+    text-decoration: none;
+  }
+  .ca-sector img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) brightness(0.5);
+    transition:
+      filter 0.7s,
+      transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .ca-sector:hover img {
+    filter: grayscale(0) brightness(0.75);
+    transform: scale(1.05);
+  }
+  .ca-sector div {
+    position: relative;
+    padding: clamp(20px, 2.6vw, 40px);
+    background: linear-gradient(0deg, rgba(12, 12, 11, 0.9), transparent);
+    width: 100%;
+  }
+  .ca-sector span {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .ca-sector h3 {
+    margin: 10px 0 12px;
+    font-size: clamp(26px, 3.2vw, 52px);
+    font-weight: 800;
+    font-stretch: 125%;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .ca-sector p {
+    max-width: 34ch;
+    color: #cfcbc2;
+    font-size: 15px;
+  }
+
+  .ca-caps {
+    padding: clamp(80px, 11vw, 160px) var(--pad);
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: clamp(32px, 6vw, 96px);
+  }
+  .ca-caps-head {
+    position: sticky;
+    top: 40px;
+    align-self: start;
+  }
+  .ca-caps h2 {
+    margin-top: 24px;
+    font-size: clamp(34px, 5vw, 84px);
+  }
+  .ca-caps li a {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 24px;
+    column-gap: 16px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+    transition:
+      padding 0.35s,
+      color 0.35s;
+  }
+  .ca-caps li:last-child a {
+    border-bottom: 1px solid var(--line);
+  }
+  .ca-caps li span {
+    grid-row: span 2;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--mute);
+    padding-top: 9px;
+  }
+  .ca-caps li h3 {
+    font-size: clamp(22px, 2.5vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .ca-caps li p {
+    grid-column: 2;
+    margin-top: 6px;
+    color: var(--mute);
+    max-width: 48ch;
+  }
+  .ca-caps li i {
+    grid-row: 1 / span 2;
+    grid-column: 3;
+    align-self: center;
+    font-style: normal;
+    font-size: 22px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.35s,
+      transform 0.35s;
+  }
+  .ca-caps li a:hover {
+    padding-left: 14px;
+    color: var(--accent);
+  }
+  .ca-caps li a:hover i {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ca-year {
+    position: relative;
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+  }
+  .ca-year-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) brightness(0.28);
+  }
+  .ca-year-inner {
+    position: relative;
+    padding: clamp(60px, 9vw, 130px) var(--pad);
+  }
+  .ca-year-num {
+    font-size: clamp(110px, 30vw, 520px);
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(239, 236, 229, 0.55);
+    line-height: 0.8 !important;
+    margin-left: -0.04em;
+  }
+  .ca-year-inner div {
+    margin-top: clamp(24px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    align-items: end;
+  }
+  .ca-year h2 {
+    font-size: clamp(28px, 4vw, 64px);
+  }
+  .ca-year-inner div p {
+    max-width: 44ch;
+    color: #cfcbc2;
+    font-size: clamp(15px, 1.3vw, 19px);
+  }
+
+  .ca-process {
+    padding: clamp(80px, 11vw, 160px) var(--pad);
+  }
+  .ca-process ol {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .ca-process li {
+    padding-top: 22px;
+    border-top: 2px solid var(--ink);
+  }
+  .ca-process li span {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .ca-process li h3 {
+    margin: 36px 0 8px;
+    font-size: clamp(18px, 1.7vw, 26px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .ca-process li p {
+    color: var(--mute);
+    font-size: 15px;
+  }
+
+  .ca-reviews {
+    padding: 0 var(--pad) clamp(80px, 11vw, 160px);
+  }
+  .ca-reviews blockquote {
+    margin: 40px 0 0;
+    padding: clamp(28px, 5vw, 72px);
+    border: 1px dashed rgba(239, 236, 229, 0.3);
+  }
+  .ca-reviews blockquote p {
+    font-size: clamp(24px, 3.4vw, 54px);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    max-width: 24ch;
+  }
+  .ca-reviews footer {
+    margin-top: 28px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .ca-cta {
+    padding: clamp(90px, 13vw, 200px) var(--pad);
+    background: var(--accent);
+    color: #0c0c0b;
+  }
+  .ca-cta h2 {
+    font-size: clamp(40px, 9vw, 160px);
+    max-width: 10ch;
+  }
+  .ca-cta div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: clamp(28px, 4vw, 56px);
+  }
+  .ca-cta .ca-btn {
+    border-color: #0c0c0b;
+  }
+  .ca-cta .ca-btn-solid {
+    background: #0c0c0b;
+    color: var(--ink);
+  }
+  .ca-cta .ca-btn:hover {
+    background: var(--ink);
+    color: #0c0c0b;
+    border-color: var(--ink);
+  }
+
+  .ca-foot {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    padding: 48px var(--pad) 96px;
+    font-size: 14px;
+    color: var(--mute);
+  }
+  .ca-foot b {
+    color: var(--ink);
+  }
+  .ca-foot a {
+    text-decoration: none;
+  }
+  .ca-foot a:hover {
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) {
+    .ca-head nav {
+      display: none;
+    }
+    .ca-head .ca-btn {
+      margin-left: auto;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+    .ca-est {
+      display: none;
+    }
+    .ca-hero-foot {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .ca-statement,
+    .ca-caps,
+    .ca-sectors,
+    .ca-year-inner div {
+      grid-template-columns: 1fr;
+    }
+    .ca-caps-head {
+      position: static;
+    }
+    .ca-sector {
+      min-height: 380px;
+    }
+    .ca-process ol {
+      grid-template-columns: 1fr 1fr;
+    }
+    .ca-process li h3 {
+      margin-top: 16px;
+    }
+    .ca-foot {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
