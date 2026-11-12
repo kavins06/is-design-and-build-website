@@ -60,7 +60,8 @@
           "<p><strong>Layout and circulation.</strong> Consider where you prepare food, cook, clean and sit, and how people move through the room.</p>",
           "<p><strong>Cabinetry and storage.</strong> Make space for the items you use most, with choices that fit the room and your priorities.</p>",
           "<p><strong>Surfaces and finishes.</strong> Compare appearance, maintenance and everyday use when choosing counters, flooring and other finishes.</p>",
-          "<p><strong>Lighting and fixtures.</strong> Think about task lighting, the atmosphere of the room, and how appliances and fixtures fit the plan.</p>"
+          "<p><strong>Lighting and fixtures.</strong> Think about task lighting, the atmosphere of the room, and how appliances and fixtures fit the plan.</p>",
+          "<a class=\"text-link\" href=\"/wp-content/uploads/2025/04/Assembled-Catalog-IS-Enterprises.pdf\">Browse the cabinet catalogue (PDF, 13 MB)</a>"
         ]
       },
       {
@@ -470,5 +471,94 @@
       }
     ],
     "service": ""
+  },
+  {
+    "slug": "financing",
+    "label": "Financing",
+    "title": "Remodeling Financing Options | I.S Design + Build",
+    "description": "Ask about paying for a remodeling or roofing project over time. Financing is arranged through independent lenders, subject to their approval and terms.",
+    "headline": "Spread the cost of your project.",
+    "intro": [
+      "<p>Some homeowners prefer to pay for a renovation or a new roof over time. I.S Design + Build can point you to independent lenders that offer home-improvement loans.</p>",
+      "<a class=\"text-link\" href=\"/contact-us/?service=other\">Ask about financing</a>"
+    ],
+    "sections": [
+      {
+        "title": "How it works.",
+        "blocks": [
+          "<p>Financing is provided by the lender, not by I.S Design + Build. You apply to the lender directly, and the lender decides whether to approve the loan and on what terms.</p>",
+          "<p>Rates, monthly payments, fees and repayment periods depend on the lender, the loan and your circumstances. Read the lender’s own terms before you commit, and compare more than one offer.</p>"
+        ]
+      },
+      {
+        "title": "Lenders you can approach.",
+        "blocks": [
+          "<p><strong>Hearth.</strong> Compare home-improvement loan offers from several lenders in one application.</p>",
+          "<a class=\"text-link\" href=\"https://app.gethearth.com/partners/is-enterprises\" rel=\"noopener\">See options with Hearth</a>",
+          "<p><strong>HFS Financial.</strong> Home-improvement loans arranged directly with the lender.</p>",
+          "<a class=\"text-link\" href=\"https://www.hfsfinancial.net/promo/6823bf91adea67cdffe06266\" rel=\"noopener\">See options with HFS Financial</a>",
+          "<p>These links open the lenders’ own websites. I.S Design + Build does not receive or store the details you give them.</p>"
+        ]
+      },
+      {
+        "title": "Start with the scope.",
+        "blocks": [
+          "<p>A loan amount is easier to judge once the work is defined. Tell us about the project first, so the estimate reflects the property and the scope you have in mind.</p>",
+          "<a class=\"text-link\" href=\"/our-process/\">See how a project is defined</a>"
+        ]
+      },
+      {
+        "title": "Financing questions",
+        "blocks": [
+          "<p><strong>Do I have to use financing?</strong><br/>No. It is one way to pay for a project. Discuss payment arrangements when the scope and estimate are prepared.</p>",
+          "<p><strong>Does applying commit me to a project?</strong><br/>Applying to a lender is separate from agreeing a project with us. Check with the lender how an application affects you before you apply.</p>",
+          "<p><strong>Can I finance roofing work?</strong><br/>Ask the lender whether the work you are planning qualifies. Eligibility is the lender’s decision.</p>"
+        ]
+      }
+    ],
+    "service": "other"
+  },
+  {
+    "slug": "lead-paint-abatement",
+    "label": "Lead paint",
+    "title": "Lead Paint in Older DC Homes | I.S Design + Build",
+    "description": "Planning work on a home built before 1978? Tell us what you know about lead paint so it can be considered in the scope from the start.",
+    "headline": "Older home? Plan for lead paint early.",
+    "intro": [
+      "<p>Many homes in Washington, DC were built before 1978, when lead-based paint was still in use. If your project will disturb painted surfaces in an older home, raise it at the beginning.</p>",
+      "<a class=\"text-link\" href=\"/contact-us/?service=other\">Tell us about your home</a>"
+    ],
+    "sections": [
+      {
+        "title": "Why it matters before work starts.",
+        "blocks": [
+          "<p>Sanding, cutting and demolition can turn old paint into dust. Lead dust is harmful, particularly to young children and during pregnancy. The U.S. Environmental Protection Agency sets rules for renovation work that disturbs lead-based paint in pre-1978 homes.</p>",
+          "<p><a href=\"https://www.epa.gov/lead\" rel=\"noopener\">Read the EPA’s guidance on lead</a>.</p>"
+        ]
+      },
+      {
+        "title": "What to tell us.",
+        "blocks": [
+          "<p>Share the age of the property if you know it, which rooms and surfaces the work will affect, and whether paint is peeling or damaged. Include any inspection or risk-assessment reports you already have.</p>",
+          "<p>Say who lives in the home, especially young children or anyone who is pregnant, so the way the work is carried out can be discussed.</p>"
+        ]
+      },
+      {
+        "title": "How it fits into a project.",
+        "blocks": [
+          "<p>Lead paint affects how a kitchen, bathroom or whole-home renovation is planned: which areas are contained, how dust and debris are handled, and how the space is cleaned before you use it again. Raising it early keeps it inside the scope and the estimate.</p>",
+          "<p>If you need a lead inspection or risk assessment, that is carried out by a licensed inspector or risk assessor. Ask us what is appropriate for your property.</p>"
+        ]
+      },
+      {
+        "title": "Lead paint questions",
+        "blocks": [
+          "<p><strong>How do I know whether my home has lead paint?</strong><br/>The age of the home is the first indication. Only testing by a qualified professional can confirm it. Do not sand or scrape paint to find out.</p>",
+          "<p><strong>Can I stay at home during the work?</strong><br/>That depends on the areas affected and how they can be separated from the rest of the home. Discuss it before the work is scheduled.</p>",
+          "<p><strong>Is this a separate project?</strong><br/>It can be part of a renovation or a request on its own. Describe what you need in the enquiry.</p>"
+        ]
+      }
+    ],
+    "service": "other"
   }
 ]

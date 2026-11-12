@@ -120,3 +120,21 @@ html:not(.has-motion) .rm-track { width: 100%; gap: 36px; }
 html:not(.has-motion) .rm-title { flex-basis: 100%; white-space: normal; margin-right: 0 !important; }
 html:not(.has-motion) .rm-track figure, html:not(.has-motion) .rm-track figure.is-tall { width: min(100%, 620px); }
 html:not(.has-motion) .rm-hint { display: none; }
+
+/* Guides */
+.guide-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(32px,4vw,64px) clamp(24px,3vw,48px); padding: clamp(56px,7vw,110px) var(--pad); border-bottom: 1px solid var(--line); }
+.guide-card { display: block; color: inherit; text-decoration: none; }
+.guide-card-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--tint); }
+.guide-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+.guide-card:hover .guide-card-media img { transform: scale(1.04); }
+.guide-card-body { padding-top: 22px; }
+.guide-card-body h2 { font-size: clamp(24px,2.6vw,38px); line-height: 1.1; margin: 14px 0 12px; max-width: 20ch; }
+.guide-card-body > p:not(.cg-label) { color: #55554f; font-size: 17px; line-height: 1.6; max-width: 46ch; }
+.guide-card-body .text-link { margin-top: 10px; text-decoration: underline; }
+.guide-byline { font-size: 14px; color: var(--mute); }
+.guide-figure { padding: 0 var(--pad) clamp(40px,5vw,72px); border-bottom: 1px solid var(--line); }
+.guide-figure img { width: 100%; height: auto; max-height: 78svh; object-fit: cover; }
+.guide-figure figcaption { margin-top: 12px; font-size: 13px; color: var(--mute); }
+.copy-body p a { text-underline-offset: 4px; }
+.site-footer address { font-style: normal; color: #aaa; }
+@media (max-width: 900px) { .guide-list { grid-template-columns: 1fr; } }
