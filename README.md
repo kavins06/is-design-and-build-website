@@ -24,8 +24,11 @@ Open http://localhost:4321.
 
 - `src/pages/`: homepage, contact and operational notices; `[slug].astro` builds approved content pages.
 - `src/data/content.json`: approved interior-page copy and metadata.
-- `src/components/`: shared navigation, footer, hero and genuine project photography.
-- `src/styles/content.css`: Direction G extensions for interior pages and accessible navigation.
+- `src/components/`: shared navigation, footer and hero. `src/components/scenes/` holds the scroll scenes used on interior pages (pinned drawing, photo band, sideways gallery, process sheets, portfolio, service panels).
+- `src/scripts/motion.ts`, `scenes.ts`, `site.ts`: smooth scrolling and the scroll scenes (GSAP, ScrollTrigger, SplitText, Lenis). `home.ts` is the home page's own sequence. None of it loads when reduced motion is requested.
+- `src/data/drawings.ts`: the architectural drawings for each service page. `src/data/photos.ts`: company photographs with alt text and gallery order. `src/data/traces.json`: line drawings traced from page-top photographs.
+- `scripts/trace-photos.py`: regenerates `traces.json`. Run it after adding or replacing a page-top photograph (needs Python with `opencv-python-headless`).
+- `src/styles/content.css`: Direction G extensions for interior pages and accessible navigation. `src/styles/scenes.css`: the scroll scenes and page transitions.
 - `src/layouts/BaseLayout.astro`: shared `<head>`, canonical URL, and page shell.
 - `public/`: files served as-is (favicon and media).
 - `src/pages/robots.txt.ts`: environment-aware robots output.

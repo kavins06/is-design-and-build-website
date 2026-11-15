@@ -1,0 +1,18 @@
+---
+import { site } from '../../data/site';
+// Years in business drawn as a dimension line, from the founding year to today.
+const now = new Date().getFullYear();
+const years = now - site.since;
+---
+<section class="span" data-scene="span">
+  <p class="cg-label">Since {site.since}</p>
+  <div class="span-dim">
+    <div class="span-end"><b>{site.since}</b><span>Founded, as I.S. Enterprises</span></div>
+    <div class="span-line"><i aria-hidden="true"></i><em>{years} years of experience</em></div>
+    <div class="span-end"><b data-span-to={now} data-span-from={site.since}>{now}</b><span>Today</span></div>
+  </div>
+  <div class="span-facts">
+    <div><b>In-house</b><span>One team, start to finish</span></div>
+    <div><b>3 areas</b><span>DC, Northern Virginia, Montgomery County</span></div>
+  </div>
+</section>

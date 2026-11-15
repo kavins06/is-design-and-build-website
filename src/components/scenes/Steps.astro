@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import finished from '../../assets/photos/kitchen-a.jpg';
+// The process as a run of drawing sheets: each step has a small drawing that draws
+// itself as the sheet arrives, and the run ends on a finished room.
+interface Props { items: { name: string; text: string }[] }
+const { items } = Astro.props;
+const ring = (cx: number, cy: number, r: number) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0`;
+const box = (x1: number, y1: number, x2: number, y2: number) => `M${x1} ${y1}H${x2}V${y2}H${x1}z`;
+// One drawing per step, in a 200 x 140 sheet. The last path of each is drawn in orange.
+const icons = [
+  ['M30 122V64L72 30L114 64V122Z', 'M62 122V92H82V122', 'M122 24H188V70H152L138 84V70H122Z', 'M134 40H176M134 54H164'],
+  ['M24 122V66L64 34L104 66V122Z', box(50, 80, 78, 102), ring(142, 70, 28), 'M162 90L188 116'],
+  [box(56, 18, 144, 128), box(82, 10, 118, 26), 'M98 50H130M98 78H130M98 106H124', 'M70 50l7 7l12 -14M70 78l7 7l12 -14M70 106l7 7l12 -14'],
+  [box(36, 14, 124, 128), 'M50 36H110M50 52H110M50 68H96', 'M50 104c8 -14 16 10 24 0s14 -12 22 0', ring(152, 98, 24) + ring(152, 98, 16)],
+  ['M38 128V20M38 20H182M38 40L58 20M66 20L38 48', 'M70 128V86H122V128M70 107H122', 'M150 20V56', 'M136 62H164V86H136z'],
+  [box(64, 16, 128, 128), 'M64 16L98 28V116L64 128', ring(90, 74, 3), ring(160, 62, 13) + 'M173 62H194M186 62v9M193 62v6'],
+];
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<section class="steps" data-scene="steps" data-dark>
+  <div class="steps-pin">
+    <div class="steps-ruler" aria-hidden="true"><i></i>{items.map((_, i) => <b style={`--x:${(i + 0.5) / (items.length + 1)}`}>{pad(i + 1)}</b>)}</div>
+    <ol class="steps-track">
+      {items.map((it, i) => (
+        <li class="sheet" style={`--i:${i}`}>
+          <p class="sheet-top"><span>Step {pad(i + 1)}</span><span>Sheet P-{pad(i + 1)}</span></p>
+          <svg viewBox="0 0 200 140" aria-hidden="true">
+            {icons[i % icons.length].map((d, j, all) => <path d={d} pathLength="1" class={j === all.length - 1 ? 'is-key' : undefined} />)}
+          </svg>
+          <h2>{it.name}</h2>
+          <p>{it.text}</p>
+        </li>
+      ))}
+      <li class="sheet sheet-photo" style={`--i:${items.length}`}>
+        <Image src={finished} alt="Finished kitchen with walnut cabinets and a waterfall island with four stools" widths={[600, 1000, 1400]} sizes="(min-width: 900px) 40vw, 90vw" loading="lazy" />
+        <p class="sheet-top"><span>Built</span><span>Our project</span></p>
+      </li>
+    </ol>
+  </div>
+</section>

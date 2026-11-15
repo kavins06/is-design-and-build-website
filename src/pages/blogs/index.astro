@@ -8,20 +8,21 @@ import articles from '../../data/articles.json';
 const photos = import.meta.glob<{ default: ImageMetadata }>('../../assets/photos/*.jpg', { eager: true });
 const photo = (name: string) => photos[`../../assets/photos/${name}.jpg`].default;
 ---
-<InteriorLayout title="Remodeling Guides for DC Homes | I.S Design + Build" description="Practical guides to planning a kitchen, bathroom or whole-home renovation in Georgetown and the wider Washington, DC area." label="Guides" headline="Ideas worth having before you start." image={photo('living-a')}>
+<InteriorLayout title="Remodeling Guides for DC Homes | I.S Design + Build" description="Practical guides to planning a kitchen, bathroom or whole-home renovation in Georgetown and the wider Washington, DC area." label="Guides" headline="Ideas worth having before you start." image={photo('living-a')} photo="photos/living-a" sheet="G-00">
   <Fragment slot="intro"><p>Short guides to planning a renovation in Georgetown and the wider Washington, DC area.</p></Fragment>
-  <section class="guide-list">
-    {articles.map((a, i) => (
-      <a class="guide-card" href={`/blogs/${a.slug}/`}>
-        <div class="guide-card-media"><Image src={photo(a.image)} alt="" widths={[500, 900]} sizes="(min-width: 900px) 30vw, 92vw" /></div>
-        <div class="guide-card-body">
-          <p class="cg-label">{String(i + 1).padStart(2, '0')} / {a.kicker}</p>
-          <h2>{a.title}</h2>
-          <p>{a.description}</p>
-          <span class="text-link">Read the guide</span>
-        </div>
-      </a>
-    ))}
+  <section class="gl" data-scene="guides">
+    <ol class="gl-list">
+      {articles.map((a, i) => (
+        <li>
+          <a class="gl-row" href={`/blogs/${a.slug}/`}>
+            <span class="gl-n">{String(i + 1).padStart(2, '0')}</span>
+            <span class="gl-body"><span class="gl-kicker">{a.kicker}</span><h2>{a.title}</h2><span class="gl-desc">{a.description}</span></span>
+            <span class="gl-thumb"><Image src={photo(a.image)} alt="" widths={[500, 900]} sizes="(min-width: 900px) 18vw, 92vw" /></span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <div class="gl-float" aria-hidden="true">{articles.map((a) => <Image src={photo(a.image)} alt="" widths={[700]} sizes="26vw" loading="lazy" />)}</div>
   </section>
   <Cta />
 </InteriorLayout>

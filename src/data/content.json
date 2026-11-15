@@ -48,6 +48,7 @@
   "sections": [
    {
     "kind": "points",
+    "drawing": "kitchen",
     "label": "What we plan with you",
     "title": "The details that make the difference.",
     "items": [
@@ -78,7 +79,7 @@
     "alt": "Completed kitchen with a waterfall island and range hood",
     "title": "Keep the layout, or change everything.",
     "text": [
-     "They are different projects. We agree the scope with you before anything is built, so the estimate matches the work."
+     "We agree the scope with you before anything is built, so the estimate matches the work."
     ]
    },
    {
@@ -122,6 +123,7 @@
   "sections": [
    {
     "kind": "points",
+    "drawing": "bathroom",
     "label": "What we plan with you",
     "title": "More than tile and fixtures.",
     "items": [
@@ -150,7 +152,7 @@
     "alt": "Completed bathroom with marble tile and a double vanity",
     "title": "A powder room or a primary suite.",
     "text": [
-     "We take single bathrooms and bathrooms within a larger renovation. If it is the only one in the home, we plan access during the work with you."
+     "One bathroom on its own, or several within a larger renovation."
     ]
    },
    {
@@ -194,6 +196,7 @@
   "sections": [
    {
     "kind": "points",
+    "drawing": "whole-home",
     "label": "One plan",
     "title": "Every room, considered together.",
     "items": [
@@ -222,7 +225,7 @@
     "alt": "Bedroom with balcony doors from a completed renovation",
     "title": "Start with how you want to live.",
     "text": [
-     "Tell us how you use the home, what falls short and any dates that matter. Clear priorities keep a large project on course."
+     "Tell us how you use the home and what falls short. Clear priorities keep a large project on course."
     ]
    },
    {
@@ -262,6 +265,7 @@
   "sections": [
    {
     "kind": "points",
+    "drawing": "addition",
     "label": "How an addition comes together",
     "title": "Three things decide a good addition.",
     "items": [
@@ -286,7 +290,7 @@
     "alt": "Rear deck with outdoor seating and a spiral stair",
     "title": "Built to belong.",
     "text": [
-     "An addition often changes the rooms beside it. We scope both together, so the new space connects properly with your home."
+     "An addition changes the rooms beside it, so we plan both together."
     ]
    },
    {
@@ -323,6 +327,7 @@
   "sections": [
    {
     "kind": "points",
+    "drawing": "roofing",
     "label": "What we do",
     "title": "Repair it or replace it. We’ll tell you which.",
     "items": [
@@ -347,7 +352,7 @@
     "alt": "Brick rowhouses on a tree-lined street",
     "title": "Tell us what you’re seeing.",
     "text": [
-     "Where the property is, whether water is coming in, and where it shows. Photos taken from the ground help. Please don’t climb onto the roof."
+     "Where the property is and whether water is coming in. Photos from the ground help. Please don’t climb onto the roof."
     ]
    },
    {
@@ -394,7 +399,7 @@
     "alt": "Carpenter marking a length of timber",
     "title": "One team, from first sketch to final walkthrough.",
     "text": [
-     "Our own people plan the work and build it. The team you meet at the start is the team that finishes the job."
+     "The team you meet at the start is the team that finishes the job."
     ]
    },
    {
@@ -477,6 +482,7 @@
   "sections": [
    {
     "kind": "points",
+    "drawing": "map",
     "label": "Where we work",
     "title": "Three areas. One team.",
     "items": [
@@ -602,7 +608,7 @@
     "alt": "Completed kitchen with a waterfall island",
     "title": "Know the project before the loan.",
     "text": [
-     "A loan amount is easier to judge once the work is defined. Tell us about the project first."
+     "A loan is easier to judge once the work is defined."
     ],
     "link": {
      "href": "/our-process/",
@@ -660,6 +666,7 @@
    },
    {
     "kind": "points",
+    "drawing": "lead-paint",
     "label": "What to tell us",
     "title": "Raise it at the start.",
     "items": [

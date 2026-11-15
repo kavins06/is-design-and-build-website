@@ -4,15 +4,15 @@ import { site, capabilities } from '../data/site';
 import photo from '../assets/photos/living-a.jpg';
 const reviews = 'https://maps.google.com/maps?cid=1968106805018591346';
 ---
-<InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isdesignandbuild.com." label="Start a project" headline="Tell us about your project." image={photo} compact>
+<InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isdesignandbuild.com." label="Start a project" headline="Tell us about your project." image={photo} photo="photos/living-a" sheet="A-14" compact>
   <Fragment slot="intro"><p>A few details is all we need to start.</p><div class="hero-actions"><a class="text-link" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={`mailto:${site.email}`}>{site.email}</a></div></Fragment>
   <section class="enquiry">
-    <aside class="enquiry-proof" aria-label="About I.S Design + Build">
+    <aside class="enquiry-proof" aria-label="About I.S Design + Build" data-reveal style="--d:120ms">
       <p class="enquiry-since"><b>{site.since}</b><span>Building homes in the DC area since {site.since}.</span></p>
       <blockquote class="enquiry-review"><p>“They delivered high-quality work, with clear communication and strong attention to detail.”</p><footer>Lia Dean, Google review excerpt</footer><a class="text-link" href={reviews} rel="noopener">Read our Google reviews</a></blockquote>
       <address class="enquiry-office">{site.address[0]}<br />{site.address[1]}<br />{site.hours}</address>
     </aside>
-    <div class="enquiry-main">
+    <div class="enquiry-main" data-reveal>
     <noscript><p>To discuss a project, <a href={`mailto:${site.email}`}>email {site.email}</a> or <a href={site.phoneHref}>call {site.phone}</a>. Include the type of work and the property’s town.</p></noscript>
     <form id="enquiry-form" hidden>
       <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" tabindex="-1" autocomplete="off" /></div>
@@ -31,7 +31,7 @@ const reviews = 'https://maps.google.com/maps?cid=1968106805018591346';
       </div>
       <p class="form-note">We use these details only to reply to your enquiry. <a href="/privacy-policy/">Privacy Policy</a></p>
       <div class="submit-row"><button type="submit" class="btn">Send enquiry</button></div>
-      <section class="enquiry-result enquiry-sent" id="enquiry-sent" aria-labelledby="sent-heading" hidden><h2 id="sent-heading" tabindex="-1">Thank you. Your enquiry is with us.</h2><p>We’ll reply using the contact details you gave. For anything urgent, call <a href={site.phoneHref}>{site.phone}</a>.</p></section>
+      <section class="enquiry-result enquiry-sent" id="enquiry-sent" aria-labelledby="sent-heading" hidden><svg class="sent-mark" viewBox="0 0 56 56" aria-hidden="true"><path d="M28 3a25 25 0 1 1 0 50a25 25 0 1 1 0-50" pathLength="1" /><path d="M17 29l8 8l15-17" pathLength="1" /></svg><h2 id="sent-heading" tabindex="-1">Thank you. Your enquiry is with us.</h2><p>We’ll reply using the contact details you gave. For anything urgent, call <a href={site.phoneHref}>{site.phone}</a>.</p></section>
       <section class="enquiry-result" id="enquiry-result" aria-labelledby="result-heading" hidden><h2 id="result-heading" tabindex="-1">One more step: send it from your email.</h2><p>We couldn’t send your enquiry from this page, so it has not been sent yet. Open your email app to review and send it, or copy the text into an email to <a href={`mailto:${site.email}`}>{site.email}</a>.</p><label for="email-preview" class="cg-label">Your prepared enquiry</label><textarea id="email-preview" readonly></textarea><a id="email-link" class="text-link" href={`mailto:${site.email}`}>Open my email app</a><button type="button" id="copy-email">Copy enquiry text</button><p id="copy-status" role="status"></p></section>
     </form>
     </div>

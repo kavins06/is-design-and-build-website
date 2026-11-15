@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import { capabilities } from '../../data/site';
+import { photos } from '../../data/photos';
+// Remodeling services as tall panels: the one under the pointer or keyboard focus opens wide.
+interface Props { label: string; title: string }
+const { label, title } = Astro.props;
+const pictures: Record<string, string> = { kitchen: 'kitchen-a', bathroom: 'bath-a', 'whole-home': 'bed-a', addition: 'exterior-a' };
+const items = capabilities.filter((c) => c.service in pictures);
+---
+<section class="pn">
+  <div class="pn-head"><p class="cg-label">{label}</p><h2 data-split>{title}</h2></div>
+  <div class="pn-row">
+    {items.map((c, i) => (
+      <a href={c.href} class:list={['pn-item', { 'is-on': i === 0 }]} data-reveal style={`--d:${i * 90}ms`}>
+        <Image src={photos[pictures[c.service]].src} alt="" widths={[600, 1000, 1400]} sizes="(min-width: 900px) 46vw, 92vw" loading="lazy" />
+        <span class="pn-n">{c.n}</span>
+        <span class="pn-copy"><span class="pn-name">{c.name}</span><span class="pn-text">{c.text}</span><span class="pn-go">Explore</span></span>
+      </a>
+    ))}
+  </div>
+</section>

@@ -2,6 +2,26 @@
 
 Written 2026-11-12. This is where the work stands after a design review of the built site against [the site standard](site-standard.md). Read the standard first. Every change is judged against it.
 
+## Update, 2026-11-15 (later): interior pages animated like the home page
+
+On branch `claude/zen-rubin-knws7s`. The owner asked for the home page's "wow" on every page, with fewer words on screen and the SEO kept under the hood.
+
+What every interior page now does:
+- **Page top, drafted then built.** A line drawing traced from the page's own photograph draws itself on the dark grid, then the photograph wipes up under it, as on the home hero. The headline rises word by word. A title block (drawing, sheet, and "Our project" or "Design reference") sits top right on wide screens. The traces come from `scripts/trace-photos.py` (OpenCV line detection plus hand-placed ellipses for the bathroom mirrors) and live in `src/data/traces.json`. A page whose photograph has no trace simply opens without the drawing.
+- **Service points as a pinned drawing.** Kitchen, bathroom, whole-home, additions, roofing, service areas and lead paint each have their own illustrative drawing in `src/data/drawings.ts` (kitchen plan, bathroom plan, house section, site plan, house elevation, area map, rowhouse facade). As each point becomes active its part of the drawing is drawn and shown in orange, and only that point's description is open. Selected by `"drawing"` on the points section in `content.json`; financing keeps the plain numbered cards.
+- **First photo-and-statement section** opens from a framed inset to full bleed (`Band`). Later ones sit beside their text and open from a band across the middle.
+- **Galleries** are the home page's sideways rail on desktop and a swipe gallery on phones, using more of the company photographs (`src/data/photos.ts`).
+- **Showpieces:** process steps as a sideways run of drawing sheets ending on a finished kitchen (stacked cards on phones); About's "since 1989" as a dimension line drawn to today while the year counts up; remodeling services as panels that open under the pointer; the portfolio as three columns moving at different speeds with a full-screen viewer (arrow keys, swipe, Escape); guides as a big-type list with the photograph riding beside it; a reading line on articles; an orange underline and a drawn check mark on the contact form.
+- **Everywhere:** smooth scrolling, headings revealed line by line, the closing question rising, a large footer wordmark, smooth opening questions, and a sheet-over-sheet transition between pages (cross-document view transitions; browsers without support navigate normally).
+
+Words: split texts were shortened (kitchen, bathroom, whole-home, additions, roofing, about, financing). Point descriptions show one at a time. Nothing else in the copy changed.
+
+SEO: a comparison of the old and new builds shows identical titles, descriptions, canonicals, robots, H1 text, structured data, internal links and FAQ text on all 22 pages and the 404. The galleries show more photographs, some with rewritten, more precise alt text, and the portfolio links to its large images.
+
+Checked: `npm run check` (0 errors, 0 warnings, 0 hints) and `npm run build` (23 pages). Every page screenshotted at 1440×900 and as an iPhone 13; no console errors, one H1, alt on every image, no sideways scroll, no phone tap target under 44px (the contact radios sit in 44px labels). With reduced motion or without JavaScript every heading, paragraph, photograph and drawing is visible and complete; the animation bundle (about 54 KB gzipped) is not loaded for reduced motion. Chromium only; Safari and Firefox still to check on real devices.
+
+Not done: the stock page-top photographs (roofing, about, process, service areas, lead paint) still need owner photographs (O2); when one is replaced, run `scripts/trace-photos.py` again.
+
 ## Update, 2026-11-15: review fixes implemented
 
 On branch `claude/magical-shannon-k616b0`. `npm run check` and `npm run build` (23 pages) pass. Re-running the review's checks finds no tap targets under 44px on a phone, no sideways scroll, no console errors, one H1 and alt text on every page.

@@ -599,11 +599,6 @@ video {
 .ct-grid a:hover {
   color: var(--signal);
 }
-.ct-legal {
-  margin-top: 64px !important;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
-}
 
 /* ---------- Small screens ---------- */
 @media (max-width: 900px) {
