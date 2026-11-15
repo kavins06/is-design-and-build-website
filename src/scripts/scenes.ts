@@ -20,7 +20,7 @@ export function closingScenes() {
       duration: 1.1,
       stagger: 0.12,
       ease,
-      scrollTrigger: { trigger: title, start: 'top 85%' },
+      scrollTrigger: { trigger: title, start: 'top 95%' },
     });
   }
   rise('.ct-pills a', '.ct-pills', 0.05);
@@ -42,7 +42,7 @@ export function closingScenes() {
 export function rise(items: string, group: string, stagger = 0.08) {
   const trigger = document.querySelector(group);
   if (!trigger) return;
-  gsap.from(items, { y: 34, opacity: 0, duration: 0.9, stagger, ease: 'power3.out', scrollTrigger: { trigger, start: 'top 90%' } });
+  gsap.from(items, { y: 34, opacity: 0, duration: 0.9, stagger, ease: 'power3.out', scrollTrigger: { trigger, start: 'top 96%' } });
 }
 
 /** Headings marked data-split reveal line by line from behind a mask. */
@@ -58,7 +58,7 @@ export function headings() {
           duration: 1.1,
           stagger: 0.09,
           ease,
-          scrollTrigger: { trigger: el, start: 'top 88%' },
+          scrollTrigger: { trigger: el, start: 'top 94%' },
         }),
     });
   });
@@ -78,6 +78,11 @@ export function plan(section: HTMLElement) {
   const pin = section.querySelector<HTMLElement>('.dw-pin');
   const base = section.querySelector('.dw-base');
   if (!pin || !base) return;
+  // Phones get the finished drawing with every point open: a pinned sheet fights the thumb.
+  if (!desktop()) {
+    section.classList.add('dw-static');
+    return;
+  }
   const steps = Array.from(section.querySelectorAll<HTMLElement>('.dw-steps li'));
   const parts = Array.from(section.querySelectorAll<SVGGElement>('.dw-part'));
   const names = steps.map((li) => li.querySelector('h3')?.textContent ?? '');
@@ -88,9 +93,11 @@ export function plan(section: HTMLElement) {
   const marks = (scope: Element) => Array.from(scope.querySelectorAll('text, .x, .xo, .dw-stamp'));
   const n = parts.length;
 
-  gsap.set(section.querySelectorAll('[pathLength]'), { strokeDasharray: 1, strokeDashoffset: 1 });
-  gsap.set([...marks(base), ...parts.flatMap(marks)], { opacity: 0 });
-  gsap.set(outs, { opacity: 1 });
+  const allLines = Array.from(section.querySelectorAll('[pathLength]'));
+  const allMarks = [...marks(base), ...parts.flatMap(marks)];
+  if (allLines.length) gsap.set(allLines, { strokeDasharray: 1, strokeDashoffset: 1 });
+  if (allMarks.length) gsap.set(allMarks, { opacity: 0 });
+  if (outs.length) gsap.set(outs, { opacity: 1 });
   if (bar) gsap.set(bar, { scaleX: 0 });
   parts[0]?.classList.add('is-on');
 
@@ -100,11 +107,15 @@ export function plan(section: HTMLElement) {
     defaults: { ease: 'none' },
     scrollTrigger: { trigger: section, start: 'top 85%', end: 'top 5%', scrub: 0.5 },
   });
-  approach
-    .to([...lines(base), ...outs.flatMap((g) => Array.from(g.querySelectorAll('[pathLength]')))], { strokeDashoffset: 0, duration: 1, stagger: { amount: 0.6 } }, 0)
-    .to(marks(base), { opacity: 1, duration: 0.3 }, 0.8)
-    .to(parts[0] ? lines(parts[0]) : [], { strokeDashoffset: 0, duration: 0.8, stagger: { amount: 0.4 } }, 0.7)
-    .to(parts[0] ? marks(parts[0]) : [], { opacity: 1, duration: 0.3 }, 1.3);
+  // Only animate what a drawing actually has, so GSAP never warns about missing targets.
+  const baseLines = [...lines(base), ...outs.flatMap((g) => Array.from(g.querySelectorAll('[pathLength]')))];
+  const baseMarks = marks(base);
+  if (baseLines.length) approach.to(baseLines, { strokeDashoffset: 0, duration: 1, stagger: { amount: 0.6 } }, 0);
+  if (baseMarks.length) approach.to(baseMarks, { opacity: 1, duration: 0.3 }, 0.8);
+  const firstLines = parts[0] ? lines(parts[0]) : [];
+  const firstMarks = parts[0] ? marks(parts[0]) : [];
+  if (firstLines.length) approach.to(firstLines, { strokeDashoffset: 0, duration: 0.8, stagger: { amount: 0.4 } }, 0.7);
+  if (firstMarks.length) approach.to(firstMarks, { opacity: 1, duration: 0.3 }, 1.3);
 
   let current = 0;
   const tl = gsap.timeline({
@@ -112,7 +123,7 @@ export function plan(section: HTMLElement) {
     scrollTrigger: {
       trigger: pin,
       start: 'top top',
-      end: `+=${n * 80}%`,
+      end: `+=${n * 50}%`,
       pin: true,
       scrub: 0.5,
       anticipatePin: 1,
@@ -130,9 +141,12 @@ export function plan(section: HTMLElement) {
   tl.to({}, { duration: n }, 0);
   parts.forEach((part, i) => {
     if (!i) return;
-    tl.to(lines(part), { strokeDashoffset: 0, duration: 0.6, stagger: { amount: 0.25 } }, i - 0.15)
-      .to(marks(part), { opacity: 1, duration: 0.25 }, i + 0.2)
-      .to(part.querySelectorAll('.out'), { opacity: 0, duration: 0.3 }, i);
+    const partLines = lines(part);
+    const partMarks = marks(part);
+    const removed = Array.from(part.querySelectorAll('.out'));
+    if (partLines.length) tl.to(partLines, { strokeDashoffset: 0, duration: 0.6, stagger: { amount: 0.25 } }, i - 0.15);
+    if (partMarks.length) tl.to(partMarks, { opacity: 1, duration: 0.25 }, i + 0.2);
+    if (removed.length) tl.to(removed, { opacity: 0, duration: 0.3 }, i);
   });
 }
 
@@ -189,6 +203,7 @@ export function rail(el: HTMLElement) {
     el.classList.add('is-swipe');
     const hint = el.querySelector('.rail-hint');
     if (hint) hint.textContent = 'Swipe';
+    swipeRegion(track);
     return;
   }
   const distance = () => track.scrollWidth - window.innerWidth;
@@ -206,6 +221,13 @@ export function rail(el: HTMLElement) {
   });
   const bar = el.querySelector('.rail-progress i');
   if (bar) gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${distance()}`, scrub: true } });
+}
+
+/** A sideways swipe gallery that keyboard users can focus and scroll with the arrow keys. */
+export function swipeRegion(track: HTMLElement) {
+  track.tabIndex = 0;
+  track.setAttribute('role', 'region');
+  track.setAttribute('aria-label', 'Project photographs, scroll sideways');
 }
 
 /** Steps: a pinned run of drawing sheets; each drawing draws itself as its sheet arrives. Phones stack them. */
@@ -267,14 +289,11 @@ export function steps(el: HTMLElement) {
 export function span(el: HTMLElement) {
   const line = el.querySelector('.span-line i');
   const label = el.querySelector('.span-line em');
-  const year = el.querySelector<HTMLElement>('[data-span-to]');
-  if (!line || !year) return;
-  const from = Number(year.dataset.spanFrom);
-  const to = Number(year.dataset.spanTo);
-  const state = { y: from };
+  if (!line) return;
+  // The years stay as printed: only the dimension line is drawn, so no visitor ever
+  // catches a year part-way through counting.
   const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' }, scrollTrigger: { trigger: el, start: 'top 72%' } });
   tl.fromTo(line, { scaleX: 0 }, { scaleX: 1, duration: 1.8 }, 0)
-    .to(state, { y: to, duration: 1.8, onUpdate: () => (year.textContent = String(Math.round(state.y))) }, 0)
     .from(label, { opacity: 0, y: 10, duration: 0.5, ease: 'power2.out' }, 1.3);
   rise('.span-facts > div', '.span-facts', 0.1);
 }

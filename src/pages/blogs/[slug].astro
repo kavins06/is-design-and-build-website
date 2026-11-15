@@ -5,6 +5,7 @@ import InteriorLayout from '../../layouts/InteriorLayout.astro';
 import Cta from '../../components/Cta.astro';
 import articles from '../../data/articles.json';
 import { article } from '../../data/schema';
+import { site } from '../../data/site';
 
 export function getStaticPaths() {
   return articles.map((post) => ({ params: { slug: post.slug }, props: { post } }));
@@ -17,11 +18,16 @@ const path = `/blogs/${post.slug}/`;
 const published = new Date(`${post.date}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 const schema = [article({ title: post.title, description: post.description, date: post.date, path, image: shared.src })];
 const others = articles.filter((a) => a.slug !== post.slug);
+// Halfway through a guide, one ask that matches what the reader is planning.
+const ask: Record<string, string> = { kitchen: 'Planning a kitchen? Tell us what you want to change.', bathroom: 'Planning a bathroom? Tell us what you want to change.', 'whole-home': 'Planning a renovation? Tell us what you want to change.' };
 ---
-<InteriorLayout title={`${post.title} | I.S Design + Build`} description={post.description} label={post.kicker} headline={post.title} schema={schema} parent={{ name: 'Guides', path: '/blogs/' }} image={image} imageAlt={post.imageAlt} photo={`photos/${post.image}`} sheet={`G-${String(articles.findIndex((a) => a.slug === post.slug) + 1).padStart(2, '0')}`}>
+<InteriorLayout ogType="article" title={`${post.title} | I.S Design + Build`.length > 60 ? post.title : `${post.title} | I.S Design + Build`} description={post.description} label={post.kicker} headline={post.title} schema={schema} parent={{ name: 'Guides', path: '/blogs/' }} image={image} imageAlt={post.imageAlt} photo={`photos/${post.image}`} sheet={`G-${String(articles.findIndex((a) => a.slug === post.slug) + 1).padStart(2, '0')}`}>
   <Fragment slot="intro"><p>{post.description}</p><p class="guide-byline">I.S Design + Build · <time datetime={post.date}>{published}</time></p></Fragment>
   <div class="read-progress" aria-hidden="true"></div>
-  {post.sections.map((section, i) => <section class="copy-section"><div class="section-index" data-reveal><span class="cg-label">{String(i + 1).padStart(2, '0')} / {post.kicker}</span></div><div class="copy-body"><h2 data-split>{section.title}</h2>{section.blocks.map((block) => <Fragment set:html={block} />)}</div></section>)}
+  {post.sections.map((section, i) => <>
+    <section class="copy-section"><div class="section-index" data-reveal><span class="cg-label">{String(i + 1).padStart(2, '0')} / {post.kicker}</span></div><div class="copy-body"><h2 data-split>{section.title}</h2>{section.blocks.map((block) => <Fragment set:html={block} />)}</div></section>
+    {i === 1 && <aside class="guide-ask" data-reveal><p>{ask[post.service] ?? 'Planning a project?'}</p><a class="btn" href={`/contact-us/?service=${post.service}`}>Tell us about it</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></aside>}
+  </>)}
   <section class="related-services"><p class="cg-label">More guides</p>{others.map((a, i) => <a href={`/blogs/${a.slug}/`}><span>{String(i + 1).padStart(2, '0')}</span><h2>{a.title}</h2><span aria-hidden="true"></span></a>)}</section>
   <Cta service={post.service} />
 </InteriorLayout>

@@ -1,12 +1,24 @@
 ---
 import { site, capabilities } from '../data/site';
-interface Props { lines?: [string, string]; service?: string; }
-const { lines = ['What would you', 'like to change?'], service } = Astro.props;
+interface Props {
+  /** The closing question, as two lines. The second line is set in orange. */
+  lines?: [string, string];
+  service?: string;
+  /** Lead with the phone number, for work that cannot wait (roofing). */
+  phone?: boolean;
+}
+const { lines = ['What would you', 'like to change?'], service, phone = false } = Astro.props;
 const types = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Something else', service: 'other' }];
+const start = `/contact-us/${service ? `?service=${service}` : ''}`;
 ---
 <section class="ct" id="contact" data-dark>
   <p class="cg-label">Start a project</p>
   <h2 class="ct-title"><span>{lines[0]}</span><span>{lines[1]}</span></h2>
-  <div class="ct-pills">{types.map((q) => <a class:list={{ 'is-current': q.service === service && service !== 'other' }} href={`/contact-us/?service=${q.service}`}>{q.name}</a>)}</div>
-  <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Where we work</span><a href="/service-areas/">DC · Northern Virginia · Montgomery County</a></div><div><span>Next step</span><a href={`/contact-us/${service ? `?service=${service}` : ''}`}>Tell us what you have in mind</a></div></div>
+  <div class="ct-actions">
+    {phone
+      ? <><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={start}>Send details and photos</a></>
+      : <><a class="btn" href={start}>Start a project</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></>}
+  </div>
+  <div class="ct-pills" role="group" aria-label="Or choose the kind of project">{types.map((q) => <a class:list={{ 'is-current': q.service === service && service !== 'other' }} href={`/contact-us/?service=${q.service}`}>{q.name}</a>)}</div>
+  <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Where we work</span><a href="/service-areas/">DC · Northern Virginia · Montgomery County</a></div><div><span>Next step</span><a href={start}>A short call to talk it through</a></div></div>
 </section>

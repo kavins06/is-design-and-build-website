@@ -1,13 +1,12 @@
 import { gsap, ScrollTrigger, startMotion, headerTone } from './motion';
-import { closingScenes } from './scenes';
+import { closingScenes, swipeRegion } from './scenes';
 
 // All scroll-driven motion for the home page. Without JavaScript, or with
 // reduced motion requested, every section renders in its finished state.
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (!reduce) {
-  startMotion();
-
+const lenis = reduce ? null : startMotion();
+if (lenis) {
   statement();
   processStory();
   expertise();
@@ -20,17 +19,13 @@ if (!reduce) {
   headerTone('.cg-hero');
 }
 
-/** Statement: words ink in one by one as the section crosses the viewport. */
+/** Statement: the words ink in once, one after another, when the statement arrives, so a
+ * visitor who stops scrolling is never left reading faint words. */
 function statement() {
   gsap.fromTo(
     '.st-text span',
-    { opacity: 0.12 },
-    {
-      opacity: 1,
-      stagger: 0.12,
-      ease: 'none',
-      scrollTrigger: { trigger: '.st-text', start: 'top 82%', end: 'bottom 45%', scrub: 0.4 },
-    },
+    { opacity: 0.15 },
+    { opacity: 1, duration: 0.5, stagger: 0.09, ease: 'power1.out', scrollTrigger: { trigger: '.st-text', start: 'top 80%' } },
   );
 }
 
@@ -40,6 +35,9 @@ function processStory() {
   if (!section) return;
   const steps = gsap.utils.toArray<HTMLElement>('.pr-steps li');
   const stage = section.querySelector<HTMLElement>('.pr-stage');
+  // Phones show the active step's description in one fixed-height line under the list,
+  // so the list never changes height while it is pinned.
+  const detail = section.querySelector<HTMLElement>('.pr-detail');
   const names = ['Sketch', 'Design', 'Scope + planning', 'Construction', 'Walkthrough'];
   let current = 0;
 
@@ -56,7 +54,7 @@ function processStory() {
     scrollTrigger: {
       trigger: '.pr-pin',
       start: 'top top',
-      end: '+=420%',
+      end: window.matchMedia('(min-width: 901px)').matches ? '+=240%' : '+=180%',
       pin: true,
       scrub: 0.5,
       onUpdate: (self) => {
@@ -66,6 +64,7 @@ function processStory() {
         current = index;
         steps.forEach((li, i) => li.classList.toggle('is-on', i === index));
         if (stage) stage.textContent = names[index];
+        if (detail) detail.textContent = steps[index]?.querySelector('p')?.textContent ?? '';
       },
     },
   });
@@ -142,6 +141,7 @@ function expertise() {
 
 /** Rooms: vertical scroll drives a horizontal gallery with inner parallax. */
 function rooms() {
+  if (!lenis) return;
   const track = document.querySelector<HTMLElement>('.rm-track');
   if (!track) return;
   // Phones get a native swipe gallery: a pinned sideways scroll fights the thumb.
@@ -149,6 +149,7 @@ function rooms() {
     document.documentElement.classList.add('rm-swipe');
     const hint = document.querySelector('.rm-hint');
     if (hint) hint.textContent = 'Swipe';
+    swipeRegion(track);
     return;
   }
   const distance = () => track.scrollWidth - window.innerWidth;
@@ -163,6 +164,14 @@ function rooms() {
       scrub: 0.5,
       invalidateOnRefresh: true,
     },
+  });
+  track.addEventListener('focusin', (event) => {
+    const figure = event.target instanceof Element ? event.target.closest('figure') : null;
+    const st = slide.scrollTrigger;
+    if (!figure || !st) return;
+    const left = figure.getBoundingClientRect().left - track.getBoundingClientRect().left - window.innerWidth * 0.15;
+    const progress = Math.min(1, Math.max(0, left / distance()));
+    lenis.scrollTo(st.start + progress * (st.end - st.start), { immediate: true });
   });
   gsap.utils.toArray<HTMLElement>('.rm-track figure img').forEach((img) => {
     gsap.fromTo(

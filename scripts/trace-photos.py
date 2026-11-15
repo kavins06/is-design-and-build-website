@@ -25,19 +25,21 @@ OUT = ROOT / 'src' / 'data' / 'traces.json'
 #   circles: round shapes to add, as (centre x, centre y, radius x, radius y) in photo pixels.
 #   Candidates can be listed with cv2.HoughCircles; straight edges are found automatically.
 PHOTOS = {
-    'photos/kitchen-a': {},
     'photos/kitchen-b': {'keep': 70, 'min': 0.06},
     'photos/kitchen-c': {},
+    'photos/kitchen-d': {'keep': 70},
+    'photos/kitchen-e': {'keep': 70},
+    'photos/kitchen-f': {'keep': 70},
     'photos/bath-a': {'circles': [(758, 553, 317, 297), (1300, 605, 203, 238)]},
+    'photos/bath-c': {'keep': 60},
+    'photos/bath-d': {'keep': 60},
     'photos/living-a': {},
     'photos/bed-a': {},
     'photos/exterior-a': {'keep': 80},
     'photos/roof-a': {'keep': 55, 'min': 0.07},
-    'stock/town-12': {'keep': 80},
-    'stock/town-13': {'keep': 80},
+    'photos/roof-b': {'keep': 60, 'min': 0.07},
+    'photos/roof-c': {'keep': 70, 'min': 0.06},
     'stock/town-05': {'keep': 60},
-    'stock/draw-02': {'keep': 32, 'min': 0.08},
-    'stock/draw-08': {'keep': 60},
 }
 
 WORK_W = 1600  # detection width in pixels

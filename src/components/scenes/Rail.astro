@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { photos, galleries } from '../../data/photos';
 // Completed work as a sideways gallery driven by vertical scroll. Phones swipe it.
 interface Props { label?: string; title?: string; gallery: string }
-const { label = 'From our completed work', title = 'See the details come together.', gallery } = Astro.props;
+const { label = 'From our completed work', title = 'From our completed projects.', gallery } = Astro.props;
 const shots = (galleries[gallery] ?? galleries.all).map((key) => photos[key]);
 ---
 <section class="rail" data-scene="rail">
@@ -21,6 +21,6 @@ const shots = (galleries[gallery] ?? galleries.all).map((key) => photos[key]);
         </figure>
       ))}
     </div>
-    <div class="rail-foot" aria-hidden="true"><span class="rail-hint">Keep scrolling</span><div class="rail-progress"><i></i></div><span>{String(shots.length).padStart(2, '0')} photos</span></div>
+    <div class="rail-foot" aria-hidden="true"><span class="rail-hint">Keep scrolling</span><div class="rail-progress"><i></i></div></div>
   </div>
 </section>

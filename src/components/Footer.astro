@@ -1,15 +1,24 @@
 ---
-import { site } from '../data/site';
-const links = [['Remodeling', '/home-remodeling/'], ['Roofing', '/roofing/'], ['Our Work', '/portfolio/'], ['Our Story', '/about-us/'], ['Our Process', '/our-process/'], ['Service Areas', '/service-areas/'], ['Guides', '/blogs/'], ['Financing', '/financing/'], ['Lead Paint', '/lead-paint-abatement/'], ['FAQs', '/faqs/']];
-const bar = !Astro.url.pathname.startsWith('/contact-us');
+import { site, credentials } from '../data/site';
+const links = [['Remodeling', '/home-remodeling/'], ['Roofing', '/roofing/'], ['Our work', '/portfolio/'], ['Reviews', '/reviews/'], ['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/'], ['Financing', '/financing/'], ['Lead paint', '/lead-paint-abatement/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/']];
+const path = Astro.url.pathname;
+const bar = !path.startsWith('/contact-us');
+// The phone bar starts the enquiry for the service the visitor is reading about. On the
+// roofing page a leak cannot wait for a form, so calling is the primary action.
+const services: Record<string, string> = { '/kitchen-remodeling/': 'kitchen', '/bathroom-remodeling/': 'bathroom', '/whole-home-remodeling/': 'whole-home', '/home-additions/': 'addition', '/roofing/': 'roofing', '/home-remodeling/': 'remodeling' };
+const start = services[path] ? `/contact-us/?service=${services[path]}` : '/contact-us/';
+const urgent = path === '/roofing/';
 ---
 <footer class="site-footer" data-dark>
-  <div class="footer-top"><a class="footer-brand" href="/" aria-label="I.S Design + Build, home">I.S Design <span>+</span> Build</a><p>Home remodeling and roofing.<br />Construction experience since 1989.</p></div>
+  <div class="footer-top"><a class="footer-brand" href="/" aria-label="I.S Design + Build, home">I.S Design <span>+</span> Build</a><p>Kitchens, bathrooms, whole homes, additions and roofs.<br />In business in the DC area since 1989. Formerly I.S. Enterprises.</p></div>
   <div class="footer-columns"><nav aria-label="Explore">{links.map(([label,href]) => <a href={href}>{label}</a>)}</nav><div><a href={site.phoneHref}>{site.phone}</a><a href={`mailto:${site.email}`}>{site.email}</a><a class="text-link" href="/contact-us/">Start a project</a></div><address>{site.address[0]}<br />{site.address[1]}<br />{site.hours}</address></div>
+  {credentials && <p class="footer-legal">{credentials}</p>}
   <div class="footer-bottom"><p>© {new Date().getFullYear()} {site.name}.</p><nav aria-label="Legal"><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></nav></div>
   <p class="footer-mark" aria-hidden="true">I.S Design <span>+</span> Build</p>
 </footer>
-{bar && <div class="m-bar" data-m-bar><a href={site.phoneHref}>Call</a><a class="is-primary" href="/contact-us/">Start a project</a></div>}
+{bar && (urgent
+  ? <nav class="m-bar" data-m-bar aria-label="Quick contact"><a href={start}>Send details</a><a class="is-primary" href={site.phoneHref}>Call {site.phone}</a></nav>
+  : <nav class="m-bar" data-m-bar aria-label="Quick contact"><a href={site.phoneHref}>Call</a><a class="is-primary" href={start}>Start a project</a></nav>)}
 <script>
   const bar = document.querySelector<HTMLElement>('[data-m-bar]');
   if (bar) {

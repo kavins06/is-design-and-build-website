@@ -24,23 +24,25 @@ interface Props {
   imageAlt?: string;
   /** The page-top photograph's name, such as "photos/kitchen-a". Selects its line drawing. */
   photo?: string;
-  /** Drawing-sheet number shown in the title block. */
+  /** No longer shown; kept so older pages still type-check. */
   sheet?: string;
   compact?: boolean;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
 }
-const { title, description, label, headline, schema = [], parent, image, imageAlt = '', photo, sheet, compact = false } = Astro.props;
+const { title, description, label, headline, schema = [], parent, image, imageAlt = '', photo, compact = false, ogType, noindex } = Astro.props;
 const crumbs = breadcrumbs([{ name: 'Home', path: '/' }, ...(parent ? [parent] : []), { name: label, path: Astro.url.pathname }]);
 // The page-top photograph is drafted as a line drawing first, then built under it.
 const trace = image && photo ? (traces as Record<string, { w: number; h: number; d: string[] }>)[photo] : undefined;
 const stock = photo?.startsWith('stock/');
 const words = headline.split(' ');
 ---
-<BaseLayout preloadFonts title={title} description={description} schema={[crumbs, ...schema]}>
+<BaseLayout preloadFonts title={title} description={description} schema={[crumbs, ...schema]} ogType={ogType} noindex={noindex}>
   <div class="cg interior"><Header overlay /><main id="main">
     <section class:list={['page-hero', { 'has-photo': image, 'is-compact': compact || !image, 'has-trace': trace }]} data-dark>
       {image && (
         <div class="ph-stage">
-          <Image src={image} alt={imageAlt} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" class="page-hero-photo" />
+          <Image src={image} alt={imageAlt} widths={[640, 1080, 1600, 2400]} sizes="100vw" quality={62} loading="eager" fetchpriority="high" class="page-hero-photo" />
           <div class="ph-shade"></div>
           {trace && (
             <svg class="ph-trace" viewBox={`0 0 ${trace.w} ${trace.h}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" style={`--n:${trace.d.length}`}>
@@ -57,9 +59,8 @@ const words = headline.split(' ');
       </div>
       {image && (
         <dl class="ph-block">
-          <div><dt>Drawing</dt><dd>{label}</dd></div>
-          {sheet && <div><dt>Sheet</dt><dd>{sheet}</dd></div>}
-          <div><dt>Image</dt><dd class="ph-status">{stock ? 'Design reference' : 'Our project'}</dd></div>
+          <div><dt>Page</dt><dd>{label}</dd></div>
+          <div><dt>Photo</dt><dd class="ph-status">{stock ? 'Stock image' : 'Our project'}</dd></div>
         </dl>
       )}
     </section>

@@ -3,7 +3,6 @@ import { Image, getImage } from 'astro:assets';
 import { photos, galleries } from '../../data/photos';
 // Every company photograph, in three columns that move at different speeds.
 // Each opens full screen; without JavaScript the link opens the large image itself.
-const pad = (n: number) => String(n).padStart(2, '0');
 const shots = await Promise.all(
   galleries.all.map(async (key, i) => {
     const p = photos[key];
@@ -15,14 +14,14 @@ const columns = [0, 1, 2].map((c) => shots.filter((_, i) => i % 3 === c));
 const viewer = shots.map((s) => ({ src: s.large, alt: s.alt, room: s.room }));
 ---
 <section class="pf" data-scene="portfolio">
-  <div class="pf-head"><p class="cg-label">Completed work</p><p class="pf-count">{pad(shots.length)} photographs</p></div>
+  <div class="pf-head"><p class="cg-label">Completed work</p></div>
   <div class="pf-cols">
     {columns.map((col, c) => (
       <div class="pf-col" data-depth={c === 1 ? '1' : '0'}>
         {col.map((p) => (
           <figure class:list={{ 'is-tall': p.tall }}>
             <a href={p.large} data-view={p.n - 1}><Image src={p.src} alt={p.alt} widths={[500, 900, 1300]} sizes="(min-width: 900px) 31vw, 46vw" loading={p.n <= 3 ? 'eager' : 'lazy'} /></a>
-            <figcaption><span>{pad(p.n)}</span>{p.room}</figcaption>
+            <figcaption>{p.room}</figcaption>
           </figure>
         ))}
       </div>
@@ -74,10 +73,15 @@ const viewer = shots.map((s) => ({ src: s.large, alt: s.alt, room: s.room }));
     });
     // A click on the dark surround closes the viewer.
     dialog.addEventListener('click', (event) => { if (event.target === dialog || (event.target as Element).classList.contains('lb-stage')) dialog.close(); });
-    let startX = 0;
+    // Sideways swipes move through the photographs; the dialog leaves vertical panning and
+    // pinch-zoom to the browser (touch-action in scenes.css), so horizontal moves arrive here.
+    let startX: number | null = null;
     dialog.addEventListener('pointerdown', (event) => { startX = event.clientX; });
+    dialog.addEventListener('pointercancel', () => { startX = null; });
     dialog.addEventListener('pointerup', (event) => {
+      if (startX === null) return;
       const dx = event.clientX - startX;
+      startX = null;
       if (Math.abs(dx) > 50 && event.pointerType !== 'mouse') show(index + (dx < 0 ? 1 : -1));
     });
   }

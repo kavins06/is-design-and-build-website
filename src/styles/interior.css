@@ -208,3 +208,163 @@
 .enquiry button:hover { color: #0c0c0c; }
 @media (max-width: 900px) { .cg .ex-list li a > span { color: #fff; } }
 @media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #76766f; } }
+
+/* Closing section: one filled primary action, the phone beside it, project types as shortcuts. */
+.ct-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; margin-top: clamp(32px, 4vw, 56px); }
+.ct-actions .btn { padding: 18px 32px; font-size: 17px; }
+.ct-actions .text-link { color: #fff; font-size: 16px; }
+.cg .ct-pills { margin-top: 28px; }
+.cg .ct-pills a { padding: 12px 20px; font-size: clamp(15px, 1.2vw, 18px); border-color: #ffffff4d; }
+.ct-grid p { color: #fff; }
+@media (max-width: 540px) { .ct-actions .btn { width: 100%; text-align: center; } }
+
+/* Header: the one primary action always looks like one. */
+.cg .hd-cta { background: var(--signal); border-color: var(--signal); color: #0c0c0c; }
+.cg .hd-cta:hover { background: #fff; border-color: #fff; color: #0c0c0c; }
+
+/* Phone menu: the Call / Start a project bar stays at the bottom while the menu is open. */
+@media (max-width: 700px) {
+  html.menu-locked .m-bar { transform: none; z-index: 60; }
+  .cg .hd.menu-open nav { padding-bottom: 110px; }
+}
+
+/* Reviews: the client's words beside the ask. */
+.rq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: clamp(32px, 6vw, 110px); padding: clamp(80px, 10vw, 160px) var(--pad); border-top: 1px solid var(--line); }
+.rq-dark { background: #0c0c0c; color: #fff; border-top: 0; }
+.rq-dark .cg-label { color: #ffffff99; }
+.rq-head h2 { max-width: 12ch; margin-top: 18px; font-size: clamp(30px, 3.6vw, 56px); line-height: 1.04; letter-spacing: -.04em; }
+.rq-rating { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-top: 26px; font-size: 17px; }
+.rq-stars { color: var(--signal); font-size: 15px; letter-spacing: .12em; }
+.rq-rating b { font-size: 30px; font-weight: 500; letter-spacing: -.03em; }
+.rq-head .text-link { margin-top: 6px; font-size: 15px; }
+.cg .rq figure { margin: 0; }
+.cg .rq blockquote { margin: 0; padding: 0; border: 0; }
+.rq-lead blockquote p { font-size: clamp(24px, 2.7vw, 42px); font-weight: 500; line-height: 1.22; letter-spacing: -.025em; }
+.rq figcaption { display: grid; gap: 2px; margin-top: 18px; font-size: 15px; }
+.rq figcaption span { color: var(--mute); font-size: 14px; }
+.rq-dark figcaption span { color: #ffffffa6; }
+.rq-more { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px 44px; margin-top: clamp(40px, 5vw, 72px); padding-top: 28px; border-top: 1px solid var(--line); }
+.rq-dark .rq-more { border-color: #ffffff2e; }
+.rq-more blockquote p { color: #3c3c38; font-size: 18px; line-height: 1.5; }
+.rq-dark .rq-more blockquote p { color: #ffffffd9; }
+@media (max-width: 900px) { .rq { grid-template-columns: 1fr; gap: 28px; } .rq-lead blockquote p { font-size: 24px; } }
+
+/* One large statement, for sections with no photograph to show. */
+.stmt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px; padding: clamp(90px, 12vw, 190px) var(--pad); border-top: 1px solid var(--line); }
+.stmt-body h2 { max-width: 16ch; font-size: clamp(34px, 5.4vw, 88px); line-height: 1; letter-spacing: -.045em; }
+.stmt-body p { max-width: 46ch; margin-top: 26px; color: #55554f; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.45; }
+.stmt-body .text-link { margin-top: 18px; }
+@media (max-width: 900px) { .stmt { grid-template-columns: 1fr; } }
+.fq-list details p a { text-underline-offset: 4px; }
+
+/* Home: the rating leads the proof strip; three facts; the leak line under the hero actions. */
+.proof-stars { margin-right: 8px; color: var(--signal); }
+.cg .fc { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 540px) { .cg .fc { grid-template-columns: 1fr; row-gap: 28px; } }
+.cg-hero-copy .hero-urgent { margin-top: 18px; font-size: 15px; opacity: 1; }
+.hero-urgent a { color: #fff; text-underline-offset: 5px; }
+@media (max-width: 540px) { .cg-hero-copy .hero-urgent { margin-top: 12px; font-size: 14px; } }
+
+/* Reviews page */
+.rvw { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px clamp(32px, 6vw, 110px); padding: clamp(64px, 8vw, 120px) var(--pad); border-top: 1px solid var(--line); }
+.rvw-title { max-width: 12ch; font-size: clamp(26px, 2.6vw, 40px); line-height: 1.06; letter-spacing: -.035em; }
+.rvw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 48px; }
+.cg .rvw figure, .cg .rvw blockquote { margin: 0; padding: 0; }
+.rvw blockquote p { font-size: 19px; line-height: 1.5; color: #2f2f2c; }
+.rvw figcaption { display: grid; gap: 2px; margin-top: 16px; font-size: 15px; }
+.rvw figcaption span { color: var(--mute); font-size: 14px; }
+.cg .rvw-note { padding: 0 var(--pad) clamp(64px, 8vw, 110px); color: var(--mute); font-size: 14px; }
+.rvw-note a { text-underline-offset: 4px; }
+@media (max-width: 900px) { .rvw { grid-template-columns: 1fr; } }
+
+/* Contact: what happens next sits above the form; the rating leads the proof beside it. */
+.cg .next-steps { display: grid; margin: 0 0 40px; padding: 0; list-style: none; border-top: 1px solid var(--line); max-width: 800px; }
+.next-steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 17px; line-height: 1.4; }
+.next-steps b { padding-top: 4px; font: 500 12px 'Geist Mono Variable', monospace; color: var(--signal-text); }
+.enquiry-rating { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; font-size: 16px; }
+.enquiry-rating span { color: var(--signal); letter-spacing: .12em; }
+.enquiry-rating b { font-size: 30px; font-weight: 500; letter-spacing: -.03em; }
+#roofing-field small a { color: inherit; text-underline-offset: 3px; }
+
+/* Guides: one ask halfway through. */
+.guide-ask { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin: 0 var(--pad); padding: clamp(32px, 4vw, 52px); background: #0c0c0c; color: #fff; }
+.guide-ask p { flex: 1 1 320px; font-size: clamp(22px, 2.2vw, 32px); font-weight: 500; line-height: 1.15; letter-spacing: -.03em; }
+.guide-ask .text-link { color: #fff; }
+
+/* The transparent header gains a dark backing as soon as the page scrolls. */
+.cg .hd.is-veiled:not(.is-solid) { background: #0c0c0cc7; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 1px 0 #ffffff1f; }
+.cg .st { padding-block: clamp(90px, 11vw, 180px); }
+.cg .footer-legal { margin-top: 48px; max-width: 80ch; color: #aaa; font-size: 13px; line-height: 1.6; }
+.enquiry-credentials { color: var(--mute); font-size: 14px; line-height: 1.6; }
+
+/* Phone menu: the whole sheet scrolls, not a box inside it. */
+@media (max-width: 900px) {
+  .cg .hd.menu-open { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .cg .hd.menu-open nav { max-height: none; overflow: visible; }
+}
+
+/* Home process. Without motion every step shows its description. On phones with motion,
+   the descriptions stay readable to screen readers but are shown one at a time in a
+   fixed-height line, so the pinned list never changes height (no layout shift). */
+.pr-detail { display: none; }
+html:not(.has-motion) .pr-steps li { opacity: 1; }
+html:not(.has-motion) .pr-steps li p { display: block; max-height: none; margin-top: 6px; }
+@media (max-width: 900px) {
+  .has-motion .pr-steps li p, .has-motion .pr-steps li:not(.is-on) p { display: block; position: absolute; width: 1px; height: 1px; max-height: none; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .has-motion .pr-detail { display: block; min-height: 4.35em; margin: 10px 0 2px 44px; color: #ffffffcc; font-size: 15px; line-height: 1.45; }
+}
+
+/* Drawings on phones are shown smaller, so their lines are drawn heavier in drawing units. */
+@media (max-width: 900px) {
+  .pr-sheet svg path, .pr-sheet svg rect { stroke-width: 2.8; }
+  .cg .pl-dims path { stroke-width: 2 !important; }
+  .dw-sheet path, .dw-sheet rect { stroke-width: 2.8; }
+  .dw-sheet .t, .dw-sheet .d { stroke-width: 2; }
+  .dw-sheet .f2 { stroke-width: 3.6; }
+}
+@media (max-width: 900px) { .sheet svg path { stroke-width: 1.8; } }
+
+/* Photo viewer: horizontal swipes reach the viewer's own handler. */
+.lb, .lb-stage { touch-action: pan-y pinch-zoom; }
+/* Home gallery: each photo link is a real box, so its focus ring shows, and the pinned
+   track cannot be scrolled sideways by focus. */
+.rm-track figure a { display: block; }
+.cg .rm { overflow: clip; }
+
+/* Home video band: pause control. */
+.bd-frame { position: relative; }
+.bd-pause { position: absolute; right: var(--pad); bottom: clamp(24px, 3vw, 44px); z-index: 2; min-height: 44px; padding: 10px 16px; border: 1px solid #ffffff66; background: #0c0c0cb3; color: #fff; font: 500 13px 'Geist Mono Variable', monospace; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.bd-pause:hover { border-color: #fff; }
+
+/* "What we build": the section label is always visible, and without motion every
+   service shows its description. */
+.cg .ex-list > .cg-label { opacity: 1; transform: none; }
+html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
+
+/* Readable small labels. */
+.cg .cg-label { font-size: 12px; }
+
+/* Touch tablets: header targets at least 44px tall. */
+@media (max-width: 1100px) {
+  .cg .hd-cta { display: inline-flex; align-items: center; min-height: 44px; }
+  .cg .hd nav > a, .cg .nav-group > summary { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* Landscape phones: the headline and main action fit on the first screen. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .cg .cg-hero { height: auto; min-height: 100svh; padding-top: 88px; }
+  .cg .cg-hero-copy h1 { font-size: clamp(36px, 13vh, 56px); margin-bottom: 12px; }
+  .cg .cg-hero-copy .hero-eyebrow { margin-bottom: 12px; }
+  .cg .cg-hero-copy > p { margin-top: 8px; font-size: 15px; }
+  .cg .page-hero { min-height: 100svh; padding-top: 96px; }
+  .cg .page-hero h1 { font-size: clamp(34px, 12vh, 54px); }
+  .cg .page-intro { margin-top: 14px; padding-top: 14px; }
+}
+
+/* Text over photographs and drawings keeps its contrast. */
+.cg-hero-copy .hero-eyebrow, .cg-hero-copy > p { text-shadow: 0 1px 14px #0c0c0ccc; }
+@media (max-width: 900px) {
+  .cg .ex-list li a::after { background: linear-gradient(180deg, #0c0c0c1f 18%, #0c0c0cf2 100%); }
+  .cg .ex-list p { color: #fff; }
+  .cg .dw-sheet figcaption { font-size: 12px; }
+}

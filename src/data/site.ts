@@ -13,18 +13,23 @@ export const site = {
   area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
 };
 
+// Licences, insurance and accreditation, exactly as the owner confirms them, for the footer
+// and the contact page. Leave null until confirmed: nothing is shown while it is null.
+// Maryland requires the MHIC number on contractor websites once it is confirmed.
+export const credentials: string | null = null;
+
 export const capabilities = [
   { n: '01', name: 'Kitchens', service: 'kitchen', href: '/kitchen-remodeling/', text: 'Layout, storage and finishes that work together.' },
   { n: '02', name: 'Bathrooms', service: 'bathroom', href: '/bathroom-remodeling/', text: 'From a powder room to a primary suite.' },
   { n: '03', name: 'Whole-home renovations', service: 'whole-home', href: '/whole-home-remodeling/', text: 'Every room in one coordinated plan.' },
   { n: '04', name: 'Home additions', service: 'addition', href: '/home-additions/', text: 'More room that feels like it was always there.' },
-  { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and full replacements.' },
+  { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and replacements, plus the leak damage inside.' },
 ];
 
 export const process = [
   { n: '01', name: 'Tell us about your home', text: 'What you want to change, and what matters most.' },
-  { n: '02', name: 'Explore the possibilities', text: 'Layout, materials and the details that shape the work.' },
-  { n: '03', name: 'Define the project', text: 'Scope, estimate and any permits, agreed up front.' },
-  { n: '04', name: 'Bring it to life', text: 'We build. You always know where things stand.' },
-  { n: '05', name: 'Review the details', text: 'We walk the finished work with you.' },
+  { n: '02', name: 'We visit and talk it through', text: 'We look at the house with you and lay out the options.' },
+  { n: '03', name: 'Scope and estimate', text: 'What’s included, your selections and any permits, agreed up front.' },
+  { n: '04', name: 'Agree, then build', text: 'Cost and arrangements are settled before work starts. You always know where things stand.' },
+  { n: '05', name: 'Walk through the finished work', text: 'We go room by room with you and close out the last items.' },
 ];

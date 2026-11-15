@@ -1,5 +1,7 @@
 # Approved content preview
 
+> Parts of this page predate the [15 November 2026 review](review-2026-11-15.md), which replaced the stock images with company photographs, added Google reviews and changed the form's wording. Where they differ, the review note is current.
+
 Implemented from the [website copy and implementation report](https://app.openseo.so/p/0f4022c5-06d4-4b29-9d1c-133e543d0d2b/reports/e6978f4f-380a-4570-a357-e9a39d13f25c), with the latest owner decisions overriding older business-context notes.
 
 ## Public content and design

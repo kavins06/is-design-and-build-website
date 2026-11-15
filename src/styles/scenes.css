@@ -14,14 +14,22 @@ html { background: #0c0c0c; }
 /* ---------- Page top: drafted first, then built ---------- */
 .ph-stage { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .ph-stage .page-hero-photo { z-index: 0; }
-.ph-shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, #0c0c0c99 0%, #0c0c0c40 20%, #0c0c0cb8 44%, #0c0c0cd9 75%, #0c0c0cf2 100%); }
+/* A scrim where the words sit, so the room above them stays bright. */
+.ph-shade { position: absolute; inset: 0; z-index: 1; background:
+  linear-gradient(180deg, #0c0c0c8c 0%, #0c0c0c00 22%),
+  linear-gradient(0deg, #0c0c0ceb 0%, #0c0c0cb3 40%, #0c0c0c33 75%, #0c0c0c00 100%),
+  linear-gradient(75deg, #0c0c0cbf 0%, #0c0c0c73 45%, #0c0c0c00 80%); }
+.page-hero.has-photo h1, .page-hero.has-photo .page-intro > p { text-shadow: 0 2px 28px #0c0c0c59; }
+@media (max-width: 900px) {
+  .ph-shade { background: linear-gradient(180deg, #0c0c0c99 0%, #0c0c0c33 25%), linear-gradient(0deg, #0c0c0cf2 0%, #0c0c0cc7 45%, #0c0c0c73 80%, #0c0c0c4d 100%); }
+}
 .page-hero.is-compact .ph-shade { background: linear-gradient(180deg, #0c0c0cc7 0%, #0c0c0ca6 45%, #0c0c0ce0 100%); }
 .ph-trace { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; animation: ph-dim 1.4s 1.9s forwards; }
-.ph-trace path { fill: none; stroke: #fff; stroke-width: 1.15; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: cg-draw .8s cubic-bezier(.4, 0, .2, 1) forwards; animation-delay: calc(.05s + var(--i) * (1.05s / var(--n))); }
+.ph-trace path { fill: none; stroke: #fff; stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; animation: cg-draw .8s cubic-bezier(.4, 0, .2, 1) forwards; animation-delay: calc(.05s + var(--i) * (1.05s / var(--n))); }
 .has-trace .page-hero-photo { clip-path: inset(100% 0 0 0); animation: ph-build 1.5s cubic-bezier(.7, 0, .2, 1) 1.05s forwards, ph-zoom 18s ease-out 1.05s both; }
 .has-trace .ph-shade { opacity: 0; animation: cg-fade 1.5s 1.05s forwards; }
 @keyframes ph-build { to { clip-path: inset(0); } }
-@keyframes ph-dim { to { opacity: .3; } }
+@keyframes ph-dim { to { opacity: 0; } }
 
 /* Headline words rise from behind their own line. */
 .page-hero h1.ph-title { animation: none; }
@@ -32,9 +40,9 @@ html { background: #0c0c0c; }
 .page-hero .page-intro { animation-delay: .45s; }
 
 /* Title block, as on a drawing sheet. */
-.ph-block { position: absolute; top: clamp(104px, 9vw, 128px); right: var(--pad); display: grid; gap: 7px; margin: 0; font: 500 11px/1.2 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; opacity: 0; animation: cg-fade .6s 1.5s forwards; }
+.ph-block { position: absolute; top: clamp(104px, 9vw, 128px); right: var(--pad); display: grid; gap: 7px; margin: 0; padding: 10px 14px; background: #0c0c0cb3; font: 500 11px/1.2 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; opacity: 0; animation: cg-fade .6s 1.5s forwards; }
 .ph-block div { display: grid; grid-template-columns: 76px auto; }
-.ph-block dt { opacity: .55; }
+.ph-block dt { opacity: .7; }
 .ph-block dd { margin: 0; }
 .ph-status { color: var(--signal); }
 @media (max-width: 1050px) { .ph-block { display: none; } }
@@ -43,11 +51,17 @@ html { background: #0c0c0c; }
 .cg .footer-mark { margin: clamp(56px, 8vw, 120px) 0 -.06em; font-size: 13.1vw; font-weight: 500; line-height: .86; letter-spacing: -.06em; white-space: nowrap; color: #fff; user-select: none; }
 .footer-mark span { color: var(--signal); }
 
+/* Later pages in the same visit open straight onto the photograph. */
+.opened .ph-trace { display: none; }
+.opened .has-trace .page-hero-photo { clip-path: none; animation: ph-zoom 18s ease-out both; }
+.opened .has-trace .ph-shade { opacity: 1; animation: none; }
+.opened .ph-block { animation-delay: .3s; }
+
 /* ---------- Reduced motion: everything in its finished state ---------- */
 @media (prefers-reduced-motion: reduce) {
   .has-trace .page-hero-photo { clip-path: none; }
   .has-trace .ph-shade, .ph-block { opacity: 1; }
-  .ph-trace { opacity: .3; }
+  .ph-trace { display: none; }
   .ph-trace path { stroke-dashoffset: 0; }
 }
 
@@ -66,12 +80,12 @@ html { background: #0c0c0c; }
 .dw-progress i { display: block; height: 100%; background: var(--signal); transform-origin: left; }
 .dw-sheet { position: relative; margin: 0; border: 1px solid #ffffff80; background: #0c0c0cb3; }
 .dw-sheet svg { display: block; width: 100%; max-height: calc(100svh - 200px); padding: clamp(10px, 1.6vw, 26px); }
-.dw-sheet path, .dw-sheet rect { fill: none; stroke: #fff; stroke-width: 1.4; vector-effect: non-scaling-stroke; transition: stroke .5s; }
-.dw-sheet .w { stroke-width: 4; vector-effect: none; stroke-linecap: square; }
+.dw-sheet path, .dw-sheet rect { fill: none; stroke: #fff; stroke-width: 1.6; transition: stroke .5s; }
+.dw-sheet .w { stroke-width: 4; stroke-linecap: square; }
 .dw-sheet .f { stroke: #ffffffc7; }
-.dw-sheet .f2 { stroke-width: 2.2; }
-.dw-sheet .t { stroke: #ffffff4d; stroke-width: 1; }
-.dw-sheet .d { stroke: var(--signal); stroke-width: 1; }
+.dw-sheet .f2 { stroke-width: 2.4; }
+.dw-sheet .t { stroke: #ffffff4d; stroke-width: 1.2; }
+.dw-sheet .d { stroke: var(--signal); stroke-width: 1.2; }
 .dw-sheet .x { stroke: #ffffff8c; stroke-dasharray: 6 5; }
 .dw-sheet .xo { stroke: var(--signal); stroke-dasharray: 6 5; }
 .dw-sheet text { font: 500 12px 'Geist Mono Variable', monospace; letter-spacing: .1em; text-transform: uppercase; fill: #ffffffb3; stroke: none; }
@@ -94,8 +108,15 @@ html { background: #0c0c0c; }
 .has-motion .dw-text { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s cubic-bezier(.2, .7, .2, 1); }
 .has-motion .dw-text > div { min-height: 0; overflow: hidden; }
 .has-motion .dw-steps li.is-on .dw-text { grid-template-rows: 1fr; }
+/* Phones: the finished drawing, with every point open. */
+.has-motion .dw-static .dw-steps li { opacity: 1; }
+.has-motion .dw-static .dw-text { grid-template-rows: 1fr; }
+.dw-static .dw-progress { display: none; }
 @media (max-width: 900px) {
   .dw-pin { grid-template-columns: 1fr; align-content: center; gap: 14px; padding-top: 80px; padding-bottom: 28px; }
+  .dw-static .dw-pin { min-height: 0; padding-block: 72px 40px; gap: 22px; }
+  .dw-static .dw-sheet svg { max-height: none; }
+  .dw-static .dw-steps li { padding: 14px 0; }
   .dw-side { display: contents; }
   .dw-head { order: 0; }
   .dw-head h2 { margin-top: 10px; font-size: clamp(26px, 7vw, 34px); }
@@ -184,7 +205,7 @@ html:not(.has-motion) .rail-foot { display: none; }
 .cg .sheet-top { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #ffffff26; font: 500 11px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: #ffffff8c; }
 .sheet-top span:first-child { color: var(--signal); }
 .sheet svg { width: 100%; max-height: 26svh; margin: auto 0; padding: 22px 0; overflow: visible; }
-.sheet svg path { fill: none; stroke: #fff; stroke-width: 1.6; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.sheet svg path { fill: none; stroke: #fff; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
 .sheet svg .is-key { stroke: var(--signal); }
 .sheet h2 { font-size: clamp(24px, 2.2vw, 36px); line-height: 1.05; letter-spacing: -.04em; font-weight: 500; }
 .sheet > p:last-child { max-width: 34ch; margin-top: 10px; font-size: 16px; line-height: 1.45; color: #ffffffb8; }

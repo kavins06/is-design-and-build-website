@@ -8,7 +8,7 @@ import articles from '../../data/articles.json';
 const photos = import.meta.glob<{ default: ImageMetadata }>('../../assets/photos/*.jpg', { eager: true });
 const photo = (name: string) => photos[`../../assets/photos/${name}.jpg`].default;
 ---
-<InteriorLayout title="Remodeling Guides for DC Homes | I.S Design + Build" description="Practical guides to planning a kitchen, bathroom or whole-home renovation in Georgetown and the wider Washington, DC area." label="Guides" headline="Ideas worth having before you start." image={photo('living-a')} photo="photos/living-a" sheet="G-00">
+<InteriorLayout title="Remodeling Guides for DC Homes | I.S Design + Build" description="Practical guides to planning a kitchen, bathroom or whole-home renovation in Georgetown and the wider Washington, DC area." label="Guides" headline="Ideas worth having before you start." image={photo('kitchen-c')} photo="photos/kitchen-c" sheet="G-00">
   <Fragment slot="intro"><p>Short guides to planning a renovation in Georgetown and the wider Washington, DC area.</p></Fragment>
   <section class="gl" data-scene="guides">
     <ol class="gl-list">

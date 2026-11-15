@@ -1,5 +1,6 @@
 ---
 import { site } from '../../data/site';
+import { googleReviews } from '../../data/reviews';
 // Years in business drawn as a dimension line, from the founding year to today.
 const now = new Date().getFullYear();
 const years = now - site.since;
@@ -7,12 +8,12 @@ const years = now - site.since;
 <section class="span" data-scene="span">
   <p class="cg-label">Since {site.since}</p>
   <div class="span-dim">
-    <div class="span-end"><b>{site.since}</b><span>Founded, as I.S. Enterprises</span></div>
-    <div class="span-line"><i aria-hidden="true"></i><em>{years} years of experience</em></div>
-    <div class="span-end"><b data-span-to={now} data-span-from={site.since}>{now}</b><span>Today</span></div>
+    <div class="span-end"><b>{site.since}</b><span>Founded by Italo Rodriguez and Eddie Migues</span></div>
+    <div class="span-line"><i aria-hidden="true"></i><em>{years} years in business</em></div>
+    <div class="span-end"><b>{now}</b><span>Today, as I.S Design + Build</span></div>
   </div>
   <div class="span-facts">
     <div><b>In-house</b><span>One team, start to finish</span></div>
-    <div><b>3 areas</b><span>DC, Northern Virginia, Montgomery County</span></div>
+    <div><b>{googleReviews.rating}</b><span>On Google, from {googleReviews.count} reviews</span></div>
   </div>
 </section>

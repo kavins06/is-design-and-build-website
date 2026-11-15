@@ -1,0 +1,32 @@
+---
+import { reviews, googleReviews, type ReviewKey } from '../data/reviews';
+// Client reviews beside the ask: one large, the rest smaller, and the Google rating under them.
+interface Props { keys: ReviewKey[]; label?: string; title?: string; dark?: boolean }
+const { keys, label = 'From our Google reviews', title, dark = false } = Astro.props;
+const [lead, ...rest] = keys.map((k) => reviews[k]);
+const by = (r: { name: string; job?: string; date: string }) => [r.job, `Google review, ${r.date}`].filter(Boolean).join(' · ');
+---
+<section class:list={['rq', { 'rq-dark': dark }]} data-dark={dark ? '' : undefined}>
+  <div class="rq-head">
+    <p class="cg-label">{label}</p>
+    {title && <h2 data-split>{title}</h2>}
+    <p class="rq-rating"><span class="rq-stars" aria-hidden="true">★★★★★</span><span><b>{googleReviews.rating}</b> on Google from {googleReviews.count} reviews</span></p>
+    <a class="text-link" href={googleReviews.url} rel="noopener">Read them on Google</a>
+  </div>
+  <div class="rq-body">
+    <figure class="rq-lead" data-reveal>
+      <blockquote><p>“{lead.text}”</p></blockquote>
+      <figcaption><b>{lead.name}</b><span>{by(lead)}</span></figcaption>
+    </figure>
+    {rest.length > 0 && (
+      <div class="rq-more">
+        {rest.map((r, i) => (
+          <figure data-reveal style={`--d:${(i + 1) * 90}ms`}>
+            <blockquote><p>“{r.text}”</p></blockquote>
+            <figcaption><b>{r.name}</b><span>{by(r)}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

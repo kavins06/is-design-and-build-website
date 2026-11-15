@@ -11,7 +11,8 @@ export { gsap, ScrollTrigger };
 export function startMotion() {
   gsap.registerPlugin(ScrollTrigger);
   document.documentElement.classList.add('has-motion');
-  const lenis = new Lenis({ lerp: 0.12 });
+  // The open phone menu and the photo viewer scroll and swipe natively.
+  const lenis = new Lenis({ lerp: 0.12, prevent: (node: HTMLElement) => node.matches('.hd.menu-open, .lb') });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);

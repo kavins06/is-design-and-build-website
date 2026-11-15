@@ -2,6 +2,17 @@
 
 Written 2026-11-12. This is where the work stands after a design review of the built site against [the site standard](site-standard.md). Read the standard first. Every change is judged against it.
 
+## Update, 2026-11-15 (evening): three-reviewer audit and fixes
+
+An in-depth adversarial review by three reviewers, run one after another with separate lenses (desire and clarity, evidence and positioning, execution and reach), found the site impressive at first glance but not convincing enough to hire from. See [the review note](review-2026-11-15.md) for what worked, what didn't, everything changed in this release and the owner's to-do list. The full reports are in [docs/reviews/2026-11-15/](reviews/2026-11-15/).
+
+Points for whoever works on the site next:
+- **Photos.** `src/assets/photos/` now holds 24 company photographs, 12 of them added from the old isenterprises.net archive (the `kavins06/isdesignandbuild` repo). Only `stock/town-05` remains, labelled "Stock image" on the lead-paint page.
+- **Line drawings.** The home hero's drawing of `kitchen-a` is hand-traced in `src/components/Hero.astro`. Run `scripts/trace-photos.py` after changing any other page-top photo.
+- **Reviews.** Excerpts live in `src/data/reviews.ts`, verbatim from the Google Business Profile, checked on 2026-11-15. Keep the rating and count in step with the profile.
+- **Credentials.** `credentials` in `src/data/site.ts` stays `null` until the owner confirms licences and insurance; nothing shows while it is null.
+- **Analytics.** The site pushes `click_to_call`, `email_click`, `start_project_click`, `generate_lead` and `inquiry_fallback_shown`. GA4 event tags for them still need adding in Tag Manager.
+
 ## Update, 2026-11-15: open to search engines
 
 `launched` in `src/data/site.ts` is now `true` at the owner's request. Production pages no longer carry `noindex`, and production `robots.txt` allows crawling and lists the sitemap. Preview deployments stay `noindex` with `Disallow: /`.

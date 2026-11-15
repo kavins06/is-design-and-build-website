@@ -7,8 +7,20 @@ document.querySelectorAll<HTMLVideoElement>('[data-deferred-video]').forEach((vi
   let nearViewport = false;
   let visible = false;
   let loaded = false;
+  // A visible pause button (WCAG 2.2.2): once a visitor pauses, the video stays paused.
+  let userPaused = false;
+  const toggle = video.parentElement?.querySelector<HTMLButtonElement>('[data-video-toggle]');
+  if (toggle && !motionPreference.matches && !connection?.saveData) {
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      userPaused = !userPaused;
+      toggle.setAttribute('aria-pressed', String(userPaused));
+      toggle.textContent = userPaused ? 'Play video' : 'Pause video';
+      update();
+    });
+  }
   const update = () => {
-    if (motionPreference.matches || connection?.saveData || document.hidden) {
+    if (userPaused || motionPreference.matches || connection?.saveData || document.hidden) {
       video.pause();
       return;
     }

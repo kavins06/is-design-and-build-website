@@ -6,8 +6,8 @@
   "label": "Remodeling",
   "service": "remodeling",
   "image": "photos/kitchen-c",
-  "headline": "Remodeling, built around you.",
-  "lede": "One room or the whole house. Designed and built by one in-house team across Washington, DC, Northern Virginia and Montgomery County.",
+  "headline": "Remodel one room or the whole house.",
+  "lede": "Kitchens, bathrooms, whole-home renovations and additions in Washington, DC, Northern Virginia and Montgomery County, designed and built by one in-house team.",
   "cta": "Discuss your renovation",
   "sections": [
    {
@@ -18,8 +18,8 @@
    {
     "kind": "split",
     "label": "No plans needed",
-    "image": "photos/living-a",
-    "alt": "Bright living room from a completed renovation",
+    "image": "photos/bed-a",
+    "alt": "Bedroom with black-framed balcony doors, from one of our projects",
     "title": "Start with what isn’t working.",
     "text": [
      "Tell us what you want to change and what you want to keep. Drawings and inspiration help, but you don’t need them to begin."
@@ -30,9 +30,20 @@
     }
    },
    {
+    "kind": "reviews",
+    "keys": [
+     "peytonResult"
+    ]
+   },
+   {
     "kind": "gallery",
-    "category": "whole-home"
+    "category": "whole-home",
+    "title": "From our completed projects."
    }
+  ],
+  "closing": [
+   "Which room is",
+   "first on the list?"
   ]
  },
  {
@@ -41,16 +52,16 @@
   "description": "Plan a kitchen around how you cook and live. Explore layouts, storage and finishes with our in-house team in DC, Northern Virginia and Montgomery County.",
   "label": "Kitchens",
   "service": "kitchen",
-  "image": "photos/kitchen-a",
-  "headline": "A kitchen that works for you.",
-  "lede": "Kitchen remodeling in Washington, DC, Northern Virginia and Montgomery County, planned around the way you cook, gather and live.",
+  "image": "photos/kitchen-d",
+  "headline": "Keep the layout, or change the whole kitchen.",
+  "lede": "Kitchen remodeling in Washington, DC, Northern Virginia and Montgomery County. We design it with you, agree the scope and estimate before we start, and build it with our own team.",
   "cta": "Tell us about your kitchen",
   "sections": [
    {
     "kind": "points",
     "drawing": "kitchen",
     "label": "What we plan with you",
-    "title": "The details that make the difference.",
+    "title": "Four decisions that make a kitchen work.",
     "items": [
      {
       "name": "Layout",
@@ -58,9 +69,7 @@
      },
      {
       "name": "Cabinetry and storage",
-      "text": "A place for everything you use, sized to the room.",
-      "href": "/wp-content/uploads/2025/04/Assembled-Catalog-IS-Enterprises.pdf",
-      "cta": "Cabinet catalogue (PDF, 13 MB)"
+      "text": "A place for everything you use, sized to the room."
      },
      {
       "name": "Surfaces",
@@ -75,16 +84,23 @@
    {
     "kind": "split",
     "label": "Scope first",
-    "image": "photos/kitchen-c",
-    "alt": "Completed kitchen with a waterfall island and range hood",
-    "title": "Keep the layout, or change everything.",
+    "image": "photos/kitchen-f",
+    "alt": "Galley kitchen with gloss white upper cabinets and charcoal base cabinets, from one of our projects",
+    "title": "Scope first, so the estimate matches the work.",
     "text": [
-     "We agree the scope with you before anything is built, so the estimate matches the work."
+     "Your selections and any permits, agreed before anything is built."
+    ]
+   },
+   {
+    "kind": "reviews",
+    "keys": [
+     "little"
     ]
    },
    {
     "kind": "gallery",
-    "category": "kitchen"
+    "category": "kitchen",
+    "title": "Kitchens we’ve built."
    },
    {
     "kind": "faq",
@@ -100,25 +116,41 @@
      },
      {
       "q": "What affects the cost?",
-      "a": "The size and condition of the room, layout changes, cabinetry, appliances and finishes. We prepare an estimate once the scope is defined."
+      "a": "The size and condition of the room, layout changes, cabinetry, appliances and finishes. We prepare an estimate once the scope is defined.",
+      "link": {
+       "href": "/financing/",
+       "text": "Prefer to spread the cost? See financing options."
+      }
      },
      {
       "q": "How long will the renovation take?",
-      "a": "It depends on the scope, permits where needed, your selections and material lead times. Tell us about any important dates at the start."
+      "a": "It depends on the scope, permits, your selections and how long materials take to arrive. If you have a date to work to, like a holiday or a move, tell us at the start."
+     },
+     {
+      "q": "My house is older. Does lead paint matter?",
+      "a": "If it was built before 1978, it may have lead paint. We plan containment, dust control and clean-up into the scope from the first visit.",
+      "link": {
+       "href": "/lead-paint-abatement/",
+       "text": "Read about lead paint."
+      }
      }
     ]
    }
+  ],
+  "closing": [
+   "Let’s talk about",
+   "your kitchen."
   ]
  },
  {
   "slug": "bathroom-remodeling",
-  "title": "Bathroom Remodeling | I.S Design + Build",
+  "title": "Bathroom Remodeling in DC & Nearby | I.S Design + Build",
   "description": "Explore bathroom layouts, showers, storage and finishes with our in-house team. Serving DC, Northern Virginia and Montgomery County, Maryland.",
   "label": "Bathrooms",
   "service": "bathroom",
   "image": "photos/bath-a",
-  "headline": "A bathroom that makes every day easier.",
-  "lede": "Bathroom remodeling in Washington, DC, Northern Virginia and Montgomery County. Better storage, a better shower, a layout that uses every inch.",
+  "headline": "Bathrooms that use every inch.",
+  "lede": "Bathroom remodeling in Washington, DC, Northern Virginia and Montgomery County, from a powder room to a primary suite. We plan the plumbing, ventilation and waterproofing along with the tile you’ll see.",
   "cta": "Tell us about your bathroom",
   "sections": [
    {
@@ -149,15 +181,22 @@
     "kind": "split",
     "label": "Any size",
     "image": "photos/bath-b",
-    "alt": "Completed bathroom with marble tile and a double vanity",
+    "alt": "Marble bathroom with a double vanity, brass mirrors and a glass shower, from one of our projects",
     "title": "A powder room or a primary suite.",
     "text": [
      "One bathroom on its own, or several within a larger renovation."
     ]
    },
    {
+    "kind": "reviews",
+    "keys": [
+     "laurion"
+    ]
+   },
+   {
     "kind": "gallery",
-    "category": "bathroom"
+    "category": "bathroom",
+    "title": "Bathrooms we’ve built."
    },
    {
     "kind": "faq",
@@ -172,25 +211,37 @@
       "a": "Often. It depends on the building, the plumbing and the space available. Share your goals and we will review the options."
      },
      {
-      "q": "Can you make a bathroom easier to access?",
-      "a": "Tell us about the access and comfort needs you want the project to address, and we will assess what suits your home."
+      "q": "Can you make a bathroom easier to use as we get older?",
+      "a": "Yes. Tell us who uses the room and what’s hard today, like the step into the shower, the door, or somewhere to hold on, and we’ll plan the room around it."
      },
      {
       "q": "Can a bathroom be part of a whole-home renovation?",
       "a": "Yes. Planning it with the other rooms keeps the work and the decisions coordinated."
+     },
+     {
+      "q": "My house is older. Does lead paint matter?",
+      "a": "If it was built before 1978, it may have lead paint. We plan containment, dust control and clean-up into the scope from the first visit.",
+      "link": {
+       "href": "/lead-paint-abatement/",
+       "text": "Read about lead paint."
+      }
      }
     ]
    }
+  ],
+  "closing": [
+   "Let’s talk about",
+   "your bathroom."
   ]
  },
  {
   "slug": "whole-home-remodeling",
-  "title": "Whole-Home Renovations | I.S Design + Build",
+  "title": "Whole-Home Renovations in DC | I.S Design + Build",
   "description": "Coordinate layouts, systems and finishes across your home. Discuss a whole-home renovation in DC, Northern Virginia or Montgomery County.",
   "label": "Whole-home renovations",
   "service": "whole-home",
   "image": "photos/living-a",
-  "headline": "Bring your home together.",
+  "headline": "The whole house, planned as one.",
   "lede": "Whole-home renovations in Washington, DC, Northern Virginia and Montgomery County. Layout, systems and finishes in one coordinated plan.",
   "cta": "Discuss your home renovation",
   "sections": [
@@ -206,7 +257,7 @@
      },
      {
       "name": "Structure and systems",
-      "text": "What sits beneath the finishes is assessed before finishes are chosen."
+      "text": "We check structure, wiring and plumbing before you choose a single finish."
      },
      {
       "name": "Materials",
@@ -222,15 +273,23 @@
     "kind": "split",
     "label": "Your priorities",
     "image": "photos/bed-a",
-    "alt": "Bedroom with balcony doors from a completed renovation",
+    "alt": "Bedroom with balcony doors, from one of our projects",
     "title": "Start with how you want to live.",
     "text": [
      "Tell us how you use the home and what falls short. Clear priorities keep a large project on course."
     ]
    },
    {
+    "kind": "reviews",
+    "keys": [
+     "peytonResult",
+     "hoftijzer"
+    ]
+   },
+   {
     "kind": "gallery",
-    "category": "whole-home"
+    "category": "whole-home",
+    "title": "From our completed projects."
    },
    {
     "kind": "faq",
@@ -238,18 +297,30 @@
     "items": [
      {
       "q": "Does the entire house have to be renovated at once?",
-      "a": "No. The work can sometimes be phased, depending on the scope and how the parts of the project connect."
+      "a": "No. We’ll tell you which parts make sense to do together and which can wait."
      },
      {
       "q": "Can I live at home during the work?",
-      "a": "It depends on the areas affected, essential services and safety. We discuss it with you early."
+      "a": "It depends on which rooms are affected and whether you’ll be without a kitchen, a bathroom, water or power for a time. We plan the order of work with you, so you know before we start."
      },
      {
-      "q": "What should I bring to the first enquiry?",
+      "q": "What should I bring to the first conversation?",
       "a": "Your priorities, the property location, any drawings or photographs, and your preferred timing."
+     },
+     {
+      "q": "Our house is older. What about lead paint?",
+      "a": "If it was built before 1978, it may have lead paint. We plan containment, dust control and clean-up into the scope and the order of work from the first visit.",
+      "link": {
+       "href": "/lead-paint-abatement/",
+       "text": "Read about lead paint."
+      }
      }
     ]
    }
+  ],
+  "closing": [
+   "Ready to plan",
+   "the whole house?"
   ]
  },
  {
@@ -286,11 +357,18 @@
    {
     "kind": "split",
     "label": "Old and new",
-    "image": "photos/deck-a",
-    "alt": "Rear deck with outdoor seating and a spiral stair",
+    "image": "photos/living-a",
+    "alt": "Bedroom with sliding doors to a balcony, from one of our projects",
     "title": "Built to belong.",
     "text": [
      "An addition changes the rooms beside it, so we plan both together."
+    ]
+   },
+   {
+    "kind": "reviews",
+    "keys": [
+     "jackson",
+     "designer"
     ]
    },
    {
@@ -299,11 +377,11 @@
     "items": [
      {
       "q": "Can you tell me whether an addition is possible from a message?",
-      "a": "We can take the first details and tell you what needs review. Feasibility is confirmed with property and planning information."
+      "a": "Not for certain. Tell us the town, the kind of space you want and roughly where it would go, and we’ll tell you what has to be checked, such as zoning, structure and access, before anyone can say yes."
      },
      {
       "q": "Do additions require permits?",
-      "a": "Permit and planning requirements depend on the location and scope. We check them for your project before work proceeds."
+      "a": "Almost always. We find out which approvals your project needs and handle the applications before work starts."
      },
      {
       "q": "Can an addition include remodeling existing rooms?",
@@ -311,18 +389,22 @@
      }
     ]
    }
+  ],
+  "closing": [
+   "Need more room?",
+   "Let’s look at it."
   ]
  },
  {
   "slug": "roofing",
-  "title": "Roof Repair & Replacement | I.S Design + Build",
+  "title": "Roof Repair & Replacement in DC | I.S Design + Build",
   "description": "Discuss roof repairs, replacement and associated concerns with I.S Design + Build. Serving Washington, DC, Northern Virginia and Montgomery County.",
   "label": "Roofing",
   "service": "roofing",
-  "image": "stock/town-12",
-  "headline": "Take care of the roof over your home.",
-  "lede": "Roof repair and replacement in Washington, DC, Northern Virginia and Montgomery County, Maryland.",
-  "cta": "Tell us about your roof",
+  "image": "photos/roof-b",
+  "headline": "Roof repair and replacement.",
+  "lede": "Roof leaks, storm damage or a worn-out roof in DC, Northern Virginia and Montgomery County. Call or send photos, and we’ll tell you whether to repair or replace.",
+  "cta": "Send photos of your roof",
   "phone": true,
   "sections": [
    {
@@ -341,15 +423,22 @@
      },
      {
       "name": "Water damage",
-      "text": "Ceilings and walls affected by a leak, scoped with the roof."
+      "text": "We repair the stained ceiling and walls along with the roof, so you deal with one company."
      }
     ]
    },
    {
+    "kind": "reviews",
+    "keys": [
+     "brown",
+     "green"
+    ]
+   },
+   {
     "kind": "split",
-    "label": "Before you call",
-    "image": "stock/town-05",
-    "alt": "Brick rowhouses on a tree-lined street",
+    "label": "When you get in touch",
+    "image": "photos/roof-a",
+    "alt": "Rooftop deck with sectional seating and views across the city, from one of our projects",
     "title": "Tell us what you’re seeing.",
     "text": [
      "Where the property is and whether water is coming in. Photos from the ground help. Please don’t climb onto the roof."
@@ -368,25 +457,25 @@
       "a": "Yes. Email them to info@isdesignandbuild.com. Use photographs you can take safely from the ground."
      },
      {
-      "q": "Do you offer emergency service?",
-      "a": "Call (202) 519-1831 about anything urgent and we will confirm availability."
-     },
-     {
-      "q": "What roof materials do you work with?",
-      "a": "Tell us what you know about your existing roof, or choose “Not sure” in the enquiry. We confirm the right system for your home."
+      "q": "What if water is coming in now?",
+      "a": "Call (202) 519-1831 and say water is coming in. We’ll tell you on the call how soon we can get there. Outside office hours, leave a message with your address and phone number."
      }
     ]
    }
+  ],
+  "closing": [
+   "Roof trouble?",
+   "Call us today."
   ]
  },
  {
   "slug": "about-us",
   "title": "Our Story | I.S Design + Build",
-  "description": "Get to know I.S Design + Build, formerly I.S. Enterprises. An in-house team with construction experience since 1989.",
+  "description": "Get to know I.S Design + Build, formerly I.S. Enterprises: founded in 1989 by Italo Rodriguez and Eddie Migues, with one in-house team from first visit to final walkthrough.",
   "label": "Our story",
-  "image": "stock/draw-02",
-  "headline": "Experience you can build on.",
-  "lede": "Building and remodeling homes across Washington, DC, Northern Virginia and Montgomery County since 1989. Formerly I.S. Enterprises.",
+  "image": "photos/roof-c",
+  "headline": "Building in the DC area since 1989.",
+  "lede": "Founded in 1989 by Italo Rodriguez and Eddie Migues. Formerly I.S. Enterprises, now I.S Design + Build, working across Washington, DC, Northern Virginia and Montgomery County.",
   "cta": "Start a project",
   "sections": [
    {
@@ -395,38 +484,48 @@
    {
     "kind": "split",
     "label": "In-house",
-    "image": "stock/craft-01",
-    "alt": "Carpenter marking a length of timber",
+    "image": "photos/powder-c",
+    "alt": "Powder room with a stone vessel sink, a brass wall faucet and black penny tile, from one of our projects",
     "title": "One team, from first sketch to final walkthrough.",
     "text": [
      "The team you meet at the start is the team that finishes the job."
     ]
    },
    {
-    "kind": "quote",
-    "text": "Eddie also made some great suggestions to improve the remodel and set realistic expectations when some supplies were delayed by vendors.",
-    "by": "Eun Mi Yu, Google review excerpt"
+    "kind": "reviews",
+    "label": "In our clients’ words",
+    "keys": [
+     "yu",
+     "jackson",
+     "designer"
+    ]
    },
    {
-    "kind": "split",
+    "kind": "statement",
     "label": "The people",
-    "image": "photos/kitchen-a",
-    "alt": "Completed kitchen with island seating",
     "title": "Italo Rodriguez and Eddie Migues.",
     "text": [
-     "The names clients mention again and again in their reviews."
-    ]
+     "They founded the company in 1989. Eddie’s is the name you’ll see again and again in our Google reviews."
+    ],
+    "link": {
+     "href": "/reviews/",
+     "text": "Read what clients say"
+    }
    }
+  ],
+  "closing": [
+   "Let’s talk about",
+   "your home."
   ]
  },
  {
   "slug": "our-process",
   "title": "Our Remodeling Process | I.S Design + Build",
-  "description": "Understand the steps from project enquiry and planning to scope, construction and a final walkthrough with I.S Design + Build.",
+  "description": "Understand the steps from project inquiry and planning to scope, construction and a final walkthrough with I.S Design + Build.",
   "label": "Our process",
-  "image": "stock/draw-08",
+  "image": "photos/kitchen-e",
   "headline": "Know what comes next.",
-  "lede": "Six steps, from first conversation to final walkthrough.",
+  "lede": "From first conversation to final walkthrough.",
   "cta": "Tell us about your project",
   "sections": [
    {
@@ -434,11 +533,11 @@
     "items": [
      {
       "name": "Tell us about the project",
-      "text": "Call, email or send an enquiry. Share the location and what you want to change."
+      "text": "Call, email or send an inquiry. Share the location and what you want to change."
      },
      {
-      "name": "Review the home",
-      "text": "We talk it through, visit where needed and look at the options."
+      "name": "Visit the house",
+      "text": "We visit, look at the house with you and talk through the options."
      },
      {
       "name": "Define scope and estimate",
@@ -449,8 +548,8 @@
       "text": "Scope, cost and arrangements are settled before construction starts."
      },
      {
-      "name": "Build and communicate",
-      "text": "You know how progress and any changes will be discussed."
+      "name": "Build, and keep you informed",
+      "text": "You always know where things stand. Any change is discussed and agreed with you first."
      },
      {
       "name": "Walk through the result",
@@ -459,23 +558,34 @@
     ]
    },
    {
+    "kind": "reviews",
+    "keys": [
+     "hoftijzer",
+     "gerami"
+    ]
+   },
+   {
     "kind": "split",
     "label": "Getting started",
-    "image": "photos/kitchen-b",
-    "alt": "Completed kitchen with island seating and pendant lights",
+    "image": "photos/bath-e",
+    "alt": "Bathroom under a sloped ceiling with a round black-framed mirror, from one of our projects",
     "title": "You don’t need every detail decided.",
     "text": [
      "A clear idea of what you want to change is enough to begin."
     ]
    }
+  ],
+  "closing": [
+   "Ready for",
+   "step one?"
   ]
  },
  {
   "slug": "service-areas",
-  "title": "DC, Northern Virginia & Maryland Service Areas",
+  "title": "DC, Virginia & Maryland Service Areas | I.S Design + Build",
   "description": "Explore our coverage in Washington, DC, Northern Virginia and Montgomery County, including Bethesda and Chevy Chase. Confirm your project location.",
   "label": "Service areas",
-  "image": "stock/town-13",
+  "image": "photos/roof-a",
   "headline": "Home projects across the DC area.",
   "lede": "Kitchens, bathrooms, whole-home renovations, additions and roofing, close to home.",
   "cta": "Check coverage for your project",
@@ -501,30 +611,55 @@
     ]
    },
    {
+    "kind": "reviews",
+    "label": "Close to home",
+    "keys": [
+     "jones"
+    ]
+   },
+   {
     "kind": "split",
     "label": "Not sure?",
-    "image": "stock/town-05",
-    "alt": "Brick rowhouses on a tree-lined street",
-    "title": "Send your town or ZIP code.",
+    "image": "photos/deck-a",
+    "alt": "Rear deck with outdoor seating and a spiral stair, from one of our projects",
+    "title": "Send your town.",
     "text": [
      "Add a line about the work. No street address needed to ask."
     ]
    }
+  ],
+  "closing": [
+   "Is your home",
+   "in our area?"
   ]
  },
  {
   "slug": "portfolio",
-  "title": "Our Remodeling Projects | I.S Design + Build",
-  "description": "Explore genuine completed work from I.S Design + Build, including project photography and the details behind each space.",
+  "title": "Our Work: Kitchens, Bathrooms & More | I.S Design + Build",
+  "description": "Photographs of kitchens, bathrooms, decks and rooms from projects completed by I.S Design + Build, with what clients say about working with us.",
   "label": "Our work",
   "image": "photos/kitchen-b",
-  "headline": "See the work, down to the details.",
-  "lede": "Completed projects from I.S Design + Build.",
+  "headline": "Rooms we’ve built.",
+  "lede": "Kitchens, bathrooms, decks and more from our completed projects.",
   "cta": "Discuss your project",
   "sections": [
    {
     "kind": "gallery"
+   },
+   {
+    "kind": "reviews",
+    "label": "Projects in our clients’ words",
+    "keys": [
+     "brown",
+     "jones",
+     "laurion",
+     "peyton"
+    ]
    }
+  ],
+  "closing": [
+   "Want work like this",
+   "in your home?"
   ]
  },
  {
@@ -532,7 +667,7 @@
   "title": "Remodeling & Roofing Questions | I.S Design + Build",
   "description": "Answers about services, project enquiries, service areas and planning a renovation or roofing project with I.S Design + Build.",
   "label": "FAQs",
-  "image": "photos/roof-a",
+  "image": "photos/bath-d",
   "headline": "Useful answers before you start.",
   "lede": "Planning a room, a roof or a larger renovation? Start here.",
   "cta": "Ask us something else",
@@ -544,7 +679,7 @@
     "items": [
      {
       "q": "What services do you offer?",
-      "a": "Kitchen and bathroom remodeling, whole-home renovations, home additions and roofing. If your project includes something else, describe it in your enquiry."
+      "a": "Kitchen and bathroom remodeling, whole-home renovations, home additions and roofing. If your project includes something else, describe it in your inquiry."
      },
      {
       "q": "Do you take smaller projects?",
@@ -552,7 +687,7 @@
      },
      {
       "q": "Where do you work?",
-      "a": "Washington, DC, Northern Virginia and Montgomery County, Maryland, including Bethesda and Chevy Chase. Share your town or ZIP code to confirm coverage."
+      "a": "Washington, DC, Northern Virginia and Montgomery County, Maryland, including Bethesda and Chevy Chase. Share your town to confirm coverage."
      },
      {
       "q": "Do I need drawings before contacting you?",
@@ -560,7 +695,19 @@
      },
      {
       "q": "Can you give me a price online?",
-      "a": "No. An accurate estimate needs an understanding of the property and the scope. Send an enquiry and we will take it from there."
+      "a": "Not an accurate one, because every house is different. Tell us what you want to change and, if you have one, a budget range. We’ll talk it through and prepare an estimate once we’ve seen the house.",
+      "link": {
+       "href": "/financing/",
+       "text": "See financing options."
+      }
+     },
+     {
+      "q": "I live out of town. Can you run my project?",
+      "a": "Yes. Clients living abroad have run their projects with us, with regular updates and every decision agreed with them.",
+      "link": {
+       "href": "/reviews/",
+       "text": "Read their reviews."
+      }
      },
      {
       "q": "How do I speak to someone?",
@@ -568,6 +715,10 @@
      }
     ]
    }
+  ],
+  "closing": [
+   "Still have",
+   "a question?"
   ]
  },
  {
@@ -637,6 +788,10 @@
      }
     ]
    }
+  ],
+  "closing": [
+   "Questions about",
+   "paying for it?"
   ]
  },
  {
@@ -647,14 +802,12 @@
   "service": "other",
   "image": "stock/town-05",
   "headline": "Older home? Plan for lead paint early.",
-  "lede": "Many Washington, DC homes were built before 1978, when lead-based paint was still in use.",
+  "lede": "Many DC homes were built before 1978, when lead-based paint was still in use. If yours is one, we plan containment, dust control and clean-up into the scope from the first visit.",
   "cta": "Tell us about your home",
   "sections": [
    {
-    "kind": "split",
+    "kind": "statement",
     "label": "Why it matters",
-    "image": "stock/site-04",
-    "alt": "Builder cutting timber on site",
     "title": "Old paint becomes dust.",
     "text": [
      "Sanding, cutting and demolition release it. Lead dust is harmful, especially to young children and during pregnancy. The EPA sets rules for renovation work in pre-1978 homes."
@@ -683,7 +836,13 @@
       "text": "Young children or anyone pregnant living in the home."
      }
     ],
-    "note": "Raising it early keeps containment, dust control and clean-up inside the scope and the estimate. Lead inspections and risk assessments are carried out by a licensed inspector or risk assessor."
+    "note": "Lead inspections and risk assessments are carried out by a licensed inspector or risk assessor."
+   },
+   {
+    "kind": "reviews",
+    "keys": [
+     "solerLead"
+    ]
    },
    {
     "kind": "faq",
@@ -699,10 +858,14 @@
      },
      {
       "q": "Is this a separate project?",
-      "a": "It can be part of a renovation or a request on its own. Describe what you need in your enquiry."
+      "a": "It can be part of a renovation or a request on its own. Describe what you need in your inquiry."
      }
     ]
    }
+  ],
+  "closing": [
+   "Older home?",
+   "Let’s plan it safely."
   ]
  }
 ]

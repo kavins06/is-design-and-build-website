@@ -3,7 +3,11 @@
   "framework": "astro",
   "trailingSlash": true,
   "redirects": [
-    { "source": "/concepts/:path(.*)", "destination": "/", "permanent": true },
+    {
+      "source": "/concepts/:path(.*)",
+      "destination": "/",
+      "permanent": true
+    },
     {
       "source": "/:old(kitchen-remodeling-.+-dc|custom-kitchen-designs-.+-dc)",
       "destination": "/kitchen-remodeling/",
@@ -58,6 +62,94 @@
       "source": "/:page(blogs|contact-us|about-us|faqs|financing|portfolio|roofing|our-process|home-remodeling|kitchen-remodeling|bathroom-remodeling|whole-home-remodeling|home-additions|lead-paint-abatement|privacy-policy|terms-of-service).html",
       "destination": "/:page/",
       "permanent": true
+    },
+    {
+      "source": "/is-a-kitchen-remodel-worth-the-investment-costs-vs-value-in-the-dmv-area",
+      "destination": "/blogs/renovations-home-value-comfort-dc/",
+      "permanent": true
+    },
+    {
+      "source": "/is-a-kitchen-remodel-worth-the-investment-costs-vs-value-in-the-dmv-area/",
+      "destination": "/blogs/renovations-home-value-comfort-dc/",
+      "permanent": true
+    },
+    {
+      "source": "/transform-your-spaceremodeling-insights-2",
+      "destination": "/lead-paint-abatement/",
+      "permanent": true
+    },
+    {
+      "source": "/transform-your-spaceremodeling-insights-2/",
+      "destination": "/lead-paint-abatement/",
+      "permanent": true
+    },
+    {
+      "source": "/category/:path*",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*",
+      "destination": "/blogs/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(og.jpg|favicon.svg|favicon.ico|apple-touch-icon.png|icon-192.png|icon-512.png)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/wp-content/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
     }
   ]
 }

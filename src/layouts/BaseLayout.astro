@@ -11,6 +11,10 @@ interface Props {
   preloadFonts?: boolean;
   title: string;
   description?: string;
+  /** Open Graph type: "article" for guides. */
+  ogType?: 'website' | 'article';
+  /** Keep this page out of search results and give it no canonical (the 404 page). */
+  noindex?: boolean;
 }
 
 const {
@@ -18,11 +22,13 @@ const {
   schema = [],
   title,
   description = 'I.S Design + Build — a Georgetown, DC design + build firm.',
+  ogType = 'website',
+  noindex: hidden = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Google tag: loaded on the production site only, so preview visits are not counted.
 const googleTag = process.env.VERCEL_ENV === 'production' ? 'GTM-NSZWBWT2' : '';
-const noindex = !launched || process.env.VERCEL_ENV !== 'production';
+const noindex = hidden || !launched || process.env.VERCEL_ENV !== 'production';
 const jsonLd = graph([business, website, ...schema]);
 const ogImage = abs('/og.jpg');
 
@@ -31,29 +37,40 @@ const ogImage = abs('/og.jpg');
 <!doctype html>
 <html lang="en">
   <head>
-    {googleTag && <><script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${googleTag}`}></script><script is:inline>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date());</script></>}
     <meta charset="utf-8" />
+    <!-- The drawn-then-built opening plays in full once per visit; later pages open straight onto the photograph. -->
+    <script is:inline>try{var k='isdb-opened';if(sessionStorage.getItem(k))document.documentElement.classList.add('opened');else sessionStorage.setItem(k,'1')}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {googleTag && (
+      <script is:inline define:vars={{ id: googleTag }}>
+        // Google Tag Manager's standard start event, with the container itself loaded once the
+        // page has finished loading so it never competes with the first screen.
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var loadTags = function () { var j = document.createElement('script'); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + id; document.head.appendChild(j); };
+        if (document.readyState === 'complete') loadTags(); else window.addEventListener('load', loadTags, { once: true });
+      </script>
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0c0c0c" />
-    <link rel="canonical" href={canonical} />
+    {!hidden && <link rel="canonical" href={canonical} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
     {preloadFonts && <><link rel="preload" href={geist} as="font" type="font/woff2" crossorigin="anonymous" /><link rel="preload" href={geistMono} as="font" type="font/woff2" crossorigin="anonymous" /></>}
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!hidden && <meta property="og:url" content={canonical} />}
     <meta property="og:site_name" content="I.S Design + Build" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="I.S Design + Build. Homes designed and built in the Washington, DC area since 1989." />
+    <meta property="og:image:alt" content="I.S Design + Build: kitchens, bathrooms, whole homes and roofs in the Washington, DC area since 1989." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -62,6 +79,20 @@ const ogImage = abs('/og.jpg');
     <slot name="head" />
   </head>
   <body>
+    {googleTag && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${googleTag}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>}
     <slot />
+    <script is:inline>
+      // Lead signals for analytics: calls, emails and the start of an inquiry, with where on the page they came from.
+      document.addEventListener('click', function (event) {
+        var link = event.target instanceof Element ? event.target.closest('a') : null;
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        var dl = (window.dataLayer = window.dataLayer || []);
+        var where = link.closest('[data-m-bar]') ? 'phone_bar' : link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('#contact') ? 'closing' : 'page';
+        if (href.indexOf('tel:') === 0) dl.push({ event: 'click_to_call', link_location: where });
+        else if (href.indexOf('mailto:') === 0) dl.push({ event: 'email_click', link_location: where });
+        else if (href.indexOf('/contact-us/') === 0) dl.push({ event: 'start_project_click', link_location: where, service: new URL(link.href).searchParams.get('service') || 'none' });
+      }, { capture: true });
+    </script>
   </body>
 </html>

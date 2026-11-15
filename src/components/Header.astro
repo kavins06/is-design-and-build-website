@@ -1,7 +1,8 @@
 ---
 const { home = false, overlay = false } = Astro.props;
 const remodeling = [['Overview', '/home-remodeling/'], ['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/']];
-const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/']];
+const planning = [['Our process', '/our-process/'], ['Financing', '/financing/'], ['Lead paint in older homes', '/lead-paint-abatement/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/']];
+const about = [['Our story', '/about-us/'], ['Reviews', '/reviews/'], ['Service areas', '/service-areas/']];
 ---
 <a class="skip-link" href="#main">Skip to content</a>
 <header class:list={['hd', { 'is-solid': !home && !overlay }]} data-home={home || overlay}>
@@ -10,7 +11,8 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
   <nav id="primary-nav" aria-label="Primary">
     <details class="nav-group"><summary>Remodeling</summary><div class="nav-dropdown">{remodeling.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
     <a href="/roofing/">Roofing</a>
-    <a href="/portfolio/">Our Work</a>
+    <a href="/portfolio/">Our work</a>
+    <details class="nav-group"><summary>Planning</summary><div class="nav-dropdown">{planning.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
     <details class="nav-group"><summary>About</summary><div class="nav-dropdown">{about.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
     <a class="mobile-phone" href="tel:+12025191831">(202) 519-1831</a>
   </nav>
@@ -20,14 +22,27 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
   const header = document.querySelector<HTMLElement>('.hd');
   const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
   header?.classList.add('nav-ready');
-  const closeMenu = () => { toggle?.setAttribute('aria-expanded', 'false'); header?.classList.remove('menu-open'); document.documentElement.classList.remove('menu-locked'); };
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
-    toggle.setAttribute('aria-expanded', String(open)); header?.classList.toggle('menu-open', open);
+  // While the phone menu is open, the page behind it is inert, so focus cannot wander there.
+  const behind = () => [document.querySelector('main'), document.querySelector('.site-footer')].filter((el): el is HTMLElement => !!el);
+  const setMenu = (open: boolean) => {
+    toggle?.setAttribute('aria-expanded', String(open));
+    header?.classList.toggle('menu-open', open);
     document.documentElement.classList.toggle('menu-locked', open);
-    // The phone menu shows every link at once.
+    behind().forEach((el) => { el.inert = open; });
+    // The phone menu shows every link at once; the desktop dropdowns start closed.
     document.querySelectorAll<HTMLDetailsElement>('.nav-group').forEach(group => { group.open = open; });
-  });
+  };
+  const closeMenu = () => { if (header?.classList.contains('menu-open')) setMenu(false); };
+  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  // Following a link, coming back to the page, or widening the window past the phone layout closes it.
+  header?.querySelector('nav')?.addEventListener('click', (event) => { if (event.target instanceof Element && event.target.closest('a')) closeMenu(); });
+  window.addEventListener('pageshow', closeMenu);
+  window.matchMedia('(min-width: 901px)').addEventListener('change', (event) => { if (event.matches) closeMenu(); });
+  // Desktop dropdowns close once keyboard focus moves out of them.
+  document.querySelectorAll<HTMLDetailsElement>('.nav-group').forEach((group) => group.addEventListener('focusout', (event) => {
+    if (header?.classList.contains('menu-open')) return;
+    if (!(event.relatedTarget instanceof Node) || !group.contains(event.relatedTarget)) group.open = false;
+  }));
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     document.querySelectorAll<HTMLDetailsElement>('.nav-group[open]').forEach(group => { group.open = false; group.querySelector('summary')?.focus(); });
@@ -39,6 +54,12 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
     if (!header?.classList.contains('menu-open')) document.querySelectorAll<HTMLDetailsElement>('.nav-group[open]').forEach(group => { if (!group.contains(target)) group.open = false; });
     if (!header?.contains(target)) closeMenu();
   });
+  // Over a page-top photograph the header is transparent; once the page moves, it gets a
+  // dark backing so it never sits on top of the headline or the buttons.
+  if (header) {
+    const veil = () => header.classList.toggle('is-veiled', window.scrollY > 24);
+    veil(); window.addEventListener('scroll', veil, { passive: true });
+  }
   // Also usable without GSAP and when reduced motion is requested.
   if (header?.dataset.home === 'true') {
     const hero = document.querySelector('.cg-hero, .page-hero');
