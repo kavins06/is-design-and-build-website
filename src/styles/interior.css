@@ -344,9 +344,12 @@ html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
 /* Readable small labels. */
 .cg .cg-label { font-size: 12px; }
 
-/* Touch tablets: header targets at least 44px tall. */
-@media (max-width: 1100px) {
+/* Touch tablets: header targets at least 44px tall. (Phones keep the header button hidden:
+   the fixed Call / Start a project bar does that job.) */
+@media (min-width: 541px) and (max-width: 1100px) {
   .cg .hd-cta { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (max-width: 1100px) {
   .cg .hd nav > a, .cg .nav-group > summary { display: inline-flex; align-items: center; min-height: 44px; }
 }
 
@@ -368,3 +371,4 @@ html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
   .cg .ex-list p { color: #fff; }
   .cg .dw-sheet figcaption { font-size: 12px; }
 }
+@media (max-width: 900px) { .bd-pause { top: 76px; bottom: auto; right: 16px; } }
