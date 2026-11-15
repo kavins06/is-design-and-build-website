@@ -5,14 +5,18 @@
 .page-hero { position: relative; display: flex; align-items: flex-end; min-height: min(92svh, 980px); padding: 150px var(--pad) clamp(40px, 5vw, 80px); background: #0c0c0c; color: #fff; overflow: hidden; isolation: isolate; }
 .page-hero.is-compact { min-height: 0; padding-top: clamp(150px, 16vw, 230px); }
 .page-hero-photo { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; animation: ph-zoom 18s ease-out both; }
-.page-hero.has-photo::before { content: ''; position: absolute; inset: 0; z-index: -2; background: linear-gradient(180deg, #0c0c0c99 0%, #0c0c0c33 34%, #0c0c0ccc 78%, #0c0c0cf2 100%); }
+.page-hero.has-photo::before { content: ''; position: absolute; inset: 0; z-index: -2; background: linear-gradient(180deg, #0c0c0c99 0%, #0c0c0c40 20%, #0c0c0cb8 44%, #0c0c0cd9 75%, #0c0c0cf2 100%); }
 .page-hero-grid { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(#ffffff0d 1px, transparent 1px), linear-gradient(90deg, #ffffff0d 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(180deg, transparent 0%, #000 60%); }
 .page-hero.is-compact .page-hero-grid { mask-image: none; }
+/* A short page top has no dark band to sit in, so the whole photo is darkened. */
+.page-hero.is-compact.has-photo::before { background: linear-gradient(180deg, #0c0c0cc7 0%, #0c0c0ca6 45%, #0c0c0ce0 100%); }
 .page-hero-copy { width: 100%; }
-.breadcrumb { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; font: 500 11px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: #ffffffb3; }
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; font: 500 12px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: #ffffffb3; }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { color: #fff; }
 .breadcrumb [aria-current] { color: var(--signal); }
+/* Over a photograph the trail sits on a dark label so it stays readable on bright rooms. */
+.page-hero.has-photo .breadcrumb { width: fit-content; margin-left: -14px; padding: 8px 14px; background: #0c0c0cd9; color: #ffffffd9; }
 .page-hero h1 { max-width: 14ch; font-size: clamp(46px, 8.4vw, 136px); line-height: .94; letter-spacing: -.05em; animation: ph-rise .9s cubic-bezier(.2,.7,.2,1) both; }
 .page-hero.is-compact h1 { max-width: 18ch; font-size: clamp(40px, 6.4vw, 100px); }
 .page-intro { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px 60px; margin-top: clamp(28px, 3.4vw, 52px); padding-top: 26px; border-top: 1px solid #ffffff33; animation: ph-rise .9s .15s cubic-bezier(.2,.7,.2,1) both; }
@@ -66,11 +70,11 @@
 
 /* Process steps */
 .stp ol { display: grid; }
-.stp li { display: grid; grid-template-columns: 1fr 3fr 2fr; align-items: baseline; gap: 24px; padding: clamp(26px, 3.4vw, 52px) 0; border-top: 1px solid #ffffff33; }
+.stp li { display: grid; grid-template-columns: 1fr 5fr; align-items: baseline; gap: 18px 24px; padding: clamp(26px, 3.4vw, 52px) 0; border-top: 1px solid #ffffff33; }
 .stp li:last-child { border-bottom: 1px solid #ffffff33; }
 .stp span { font: 500 12px 'Geist Mono Variable', monospace; color: var(--signal); }
 .stp h2 { font-size: clamp(28px, 4.4vw, 72px); line-height: 1; letter-spacing: -.045em; font-weight: 500; }
-.stp p { max-width: 34ch; color: #ffffffb3; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.5; }
+.stp p { grid-column: 2; max-width: 46ch; color: #ffffffcc; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.5; }
 
 /* Questions: closed by default, in the page for search */
 .fq { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(32px, 6vw, 110px); padding: clamp(80px, 10vw, 170px) var(--pad); border-top: 1px solid var(--line); }
@@ -180,14 +184,48 @@
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .enquiry button[disabled] { opacity: .6; cursor: progress; }
 .enquiry-sent { border-color: var(--signal); }
+
+/* Contact: proof beside the form, optional details, and the orange primary action. */
+.enquiry { align-items: start; }
+.enquiry-proof { display: grid; gap: 40px; align-content: start; }
+.enquiry-since b { display: block; font-size: clamp(64px, 7vw, 112px); font-weight: 400; line-height: 1; letter-spacing: -.055em; }
+.enquiry-since span { display: block; max-width: 22ch; margin-top: 12px; color: var(--mute); font-size: 16px; }
+.cg .enquiry-review { margin: 0; padding-left: 22px; border-left: 2px solid var(--signal); }
+.enquiry-review p { font-size: clamp(20px, 1.7vw, 26px); font-weight: 500; line-height: 1.3; letter-spacing: -.02em; }
+.enquiry-review footer { margin-top: 14px; font-size: 14px; color: var(--mute); }
+.enquiry-review .text-link { margin-top: 10px; font-size: 15px; }
+.enquiry-proof .enquiry-office { margin-top: 0; }
+.more-details { border-block: 1px solid var(--line); }
+.more-details summary { display: flex; align-items: center; gap: 8px; min-height: 60px; font-size: 17px; font-weight: 500; cursor: pointer; list-style: none; }
+.more-details summary::-webkit-details-marker { display: none; }
+.more-details summary span { color: var(--mute); font-weight: 400; }
+.more-details summary::after { content: '+'; margin-left: auto; font: 400 24px 'Geist Mono Variable', monospace; color: var(--signal-text); }
+.more-details[open] summary::after { content: '−'; }
+.more-details > .form-grid { padding: 8px 0 28px; }
+.contact-options { margin-top: 4px; }
+.contact-options label { min-height: 44px; padding-right: 12px; cursor: pointer; }
+.enquiry .submit-row .btn { padding: 18px 36px; border: 0; background: var(--signal); color: #0c0c0c !important; font-size: 17px; }
+.enquiry .submit-row .btn:hover { background: #0c0c0c; color: #fff !important; }
+@media (min-width: 901px) { .enquiry-proof { position: sticky; top: 110px; } }
+@media (max-width: 900px) {
+  .enquiry { padding-block: 48px 64px; }
+  .enquiry-proof { order: 2; gap: 32px; padding-top: 48px; border-top: 1px solid var(--line); }
+  .enquiry .submit-row .btn { width: 100%; }
+}
 .hd-logo span, .footer-brand span { color: var(--signal); }
 /* Comfortable tap targets on touch screens */
 @media (max-width: 900px) {
   .breadcrumb a, .breadcrumb [aria-current] { padding-block: 14px; }
   .breadcrumb { margin-bottom: 12px; align-items: center; }
+  .page-hero.has-photo .breadcrumb { padding-block: 0; }
   .footer-columns a, .footer-bottom a, .ct-grid a, .proof-line a, .rm-head > a, .copy-body p a, .form-note a { display: inline-block; padding-block: 11px; }
   .footer-columns nav { gap: 0 20px; }
   .footer-columns > div { gap: 0; }
+  /* 44px minimum. Negative margins keep the header and footer the same visual size. */
+  .cg .text-link, .footer-columns a, .footer-bottom a, .ct-grid a, .proof-line a, .rm-head > a, .form-note a, .footer-brand { display: inline-flex; align-items: center; min-height: 44px; padding-block: 0; }
+  .breadcrumb a, .breadcrumb [aria-current] { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; padding-block: 0; }
+  .hd-logo { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
+  .menu-toggle { min-height: 44px; margin-block: -4px; padding-inline: 4px !important; }
 }
 /* Contrast (WCAG AA): dark text on orange, a deeper orange and grey for small text on light backgrounds. */
 .cg.cg { --mute: #62625c; --signal-text: #b83403; }
@@ -196,4 +234,4 @@
 .project-grid figcaption span, .rm-track figcaption span, .cg .ex-list span, .related-services > a > span, .guide-card .cg-label, .copy-section .cg-label { color: var(--signal-text); }
 .enquiry button:hover { color: #0c0c0c; }
 @media (max-width: 900px) { .cg .ex-list li a > span { color: #fff; } }
-@media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #8a8a84; } }
+@media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #76766f; } }

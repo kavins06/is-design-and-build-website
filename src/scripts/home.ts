@@ -70,8 +70,10 @@ function processStory() {
   let current = 0;
 
   const draw = (group: string) => `${group} .draw`;
+  // The sheet opens on stage 01 already sketched, so it never shows as an empty box.
   gsap.set('.pr .draw', { strokeDasharray: 1, strokeDashoffset: 1 });
-  gsap.set(['.pl-labels text', '.pl-dims text'], { opacity: 0 });
+  gsap.set(draw('.pl-bubbles'), { strokeDashoffset: 0 });
+  gsap.set('.pl-dims text', { opacity: 0 });
   gsap.set('.pl-stamp', { opacity: 0, scale: 1.7, transformOrigin: '50% 50%' });
   gsap.set('.pr-photo', { clipPath: 'circle(0% at 58% 50%)' });
 
@@ -94,9 +96,8 @@ function processStory() {
     },
   });
 
-  // 01 Conversation: rooms sketched as loose bubbles.
-  tl.to(draw('.pl-bubbles'), { strokeDashoffset: 0, stagger: 0.12, duration: 0.6 }, 0)
-    .to('.pl-labels text', { opacity: 1, stagger: 0.08, duration: 0.3 }, 0.3)
+  // 01 Conversation: rooms sketched as loose bubbles (already drawn; held while step 01 is current).
+  tl.to({}, { duration: 1 }, 0)
     // 02 Design: the sketch hardens into walls, doors and windows.
     .to('.pl-bubbles', { opacity: 0, duration: 0.4 }, 1)
     .to(draw('.pl-walls'), { strokeDashoffset: 0, stagger: 0.1, duration: 0.6 }, 1)

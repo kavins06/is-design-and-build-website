@@ -146,7 +146,7 @@ video {
   grid-template-columns: 44px minmax(0, 1fr);
   padding: clamp(10px, 1.3vw, 18px) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
-  opacity: 0.32;
+  opacity: 0.5;
   transition: opacity 0.4s;
 }
 .pr-steps li.is-on {
@@ -385,7 +385,7 @@ video {
   padding: 0 var(--pad) 22px;
 }
 .rm-hint {
-  font: 500 11px 'Geist Mono Variable', monospace;
+  font: 500 12px 'Geist Mono Variable', monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--mute);
@@ -588,7 +588,7 @@ video {
 .ct-grid span {
   display: block;
   margin-bottom: 8px;
-  font: 500 11px 'Geist Mono Variable', monospace;
+  font: 500 12px 'Geist Mono Variable', monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);

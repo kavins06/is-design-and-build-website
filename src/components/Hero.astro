@@ -26,7 +26,7 @@ const strokes = [
   pendant(1345, 240),
   pendant(1535, 300),
 ];
-const dims = ['M690 792V1340M674 792h32M674 1340h32'];
+const dims = ['M1690 792V1340M1674 792h32M1674 1340h32'];
 ---
 
 <section class="cg-hero">
@@ -37,7 +37,7 @@ const dims = ['M690 792V1340M674 792h32M674 1340h32'];
       <g class="cg-strokes">{strokes.map((d, i) => <path d={d} pathLength="1" style={`--i:${i}`} />)}</g>
       <g class="cg-dims">
         {dims.map((d) => <path d={d} pathLength="1" style={`--i:${strokes.length}`} />)}
-        <text x="664" y="1076" text-anchor="end" style={`--i:${strokes.length + 1}`}>3'-0"</text>
+        <text x="1706" y="1076" text-anchor="start" style={`--i:${strokes.length + 1}`}>3'-0"</text>
       </g>
     </svg>
   </div>

@@ -2,7 +2,25 @@
 
 Written 2026-11-12. This is where the work stands after a design review of the built site against [the site standard](site-standard.md). Read the standard first. Every change is judged against it.
 
-## State of the repo
+## Update, 2026-11-15: review fixes implemented
+
+On branch `claude/magical-shannon-k616b0`. `npm run check` and `npm run build` (23 pages) pass. Re-running the review's checks finds no tap targets under 44px on a phone, no sideways scroll, no console errors, one H1 and alt text on every page.
+
+Decisions the user made: D1 cut the form to five required fields and make timing and budget optional; D2 leave the hero timing as it is; D3 swap in company photos where one fits; D4 commit and push to the working branch, with no PR; D5 reuse an existing review.
+
+Done:
+- **1. Contact page.** It opens on a darkened company photo (compact top). "Send enquiry" is the orange primary button, and Call and email are text links. Beside the form (below it on a phone) sit "1989", Lia Dean's Google review excerpt and the office details. The form asks for project type, town, description, name and email or phone, with timing and budget under "More details (optional)". ZIP is gone from the form, the email-app fallback and `api/enquiry.js`.
+- **2. Proof strip.** Set at 17–22px. On a phone it is a 2 × 2 grid reading "Google reviews", so no item is stranded.
+- **3. Tap targets and small text.** All phone targets are at least 44px. The header logo and menu button use negative margins so the header keeps its size. The hero tagline, breadcrumbs, closing contact labels, stock label and swipe hint are now 12px.
+- **4. Contrast.** Inactive process steps are at 0.5 opacity. Inactive service titles are `#76766f`. Over a photograph the breadcrumb now sits on a dark label: it measured below 1:1 on bright rooms and now measures at least 4.9:1. Page-top photos are also shaded a little more.
+- **5. Polish.** "Start a project" wording; 24px below the hero headline; the hero's `3'-0"` dimension moved to the island's right-hand end, clear of the headline; process step descriptions sit under their headings at 17–22px; the floor plan opens on the drawn sketch.
+- **6. Stock.** Company photos now on the home service images (kitchen, bath, whole-home, additions), the floor-plan photo, the "Everyday details" gallery slot, the whole-home service tile, and the tops of home remodeling, whole-home, additions (deck photo in its split) and FAQs. The "Design reference" label now shows only while the image on screen is stock: the roofing image on the home page (on desktop and on its phone tile) and the hero.
+
+Still stock (no company photo fits): the hero (`kit-08`, which its line drawing traces), roofing, about, process, service areas and lead paint. These are streets, drawings and craft shots rather than finished rooms. They need O2.
+
+New, not fixed: the terms page says "The email-preparation tool does not submit or confirm receipt of an enquiry". That is out of date now that the form sends enquiries. It is legal text, so the owner should approve new wording. O1 to O4 below are unchanged and still need the owner.
+
+## State of the repo (as of 2026-11-12)
 
 - Branch `claude/determined-bohr-w5zhsh`, level with `main` at merge 9f069fd (PR #6) plus this document. No code changes are in progress.
 - `npm ci`, `npm run check` (0 errors, 0 warnings, 1 hint) and `npm run build` (23 pages) all pass on Node 22.

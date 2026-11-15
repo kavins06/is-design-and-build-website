@@ -12,27 +12,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Cta from '../components/Cta.astro';
 import { site, capabilities, process } from '../data/site';
-import imgKitchen from '../assets/stock/kit-08.jpg';
-import imgBath from '../assets/stock/bath-06.jpg';
-import imgLiving from '../assets/stock/home-04.jpg';
 import projectKitchen from '../assets/photos/kitchen-a.jpg';
-import projectBath from '../assets/photos/bath-a.jpg';
-import projectLiving from '../assets/photos/living-a.jpg';
 import projectKitchen2 from '../assets/photos/kitchen-b.jpg';
+import projectKitchen3 from '../assets/photos/kitchen-c.jpg';
+import projectBath from '../assets/photos/bath-a.jpg';
+import projectBathTall from '../assets/photos/bath-tall.jpg';
+import projectShower from '../assets/photos/shower-tall.jpg';
+import projectLiving from '../assets/photos/living-a.jpg';
+import projectBedroom from '../assets/photos/bed-a.jpg';
+import projectExterior from '../assets/photos/exterior-a.jpg';
 import projectDeck from '../assets/photos/deck-a.jpg';
-import imgFraming from '../assets/stock/site-02.jpg';
 import imgRoofs from '../assets/stock/town-12.jpg';
 
 const years = new Date().getFullYear() - site.since;
 const statement = 'Make room for what matters.'.split(' ');
 
-const capImg = [imgKitchen, imgBath, imgLiving, imgFraming, imgRoofs];
+// One image per service, in the order of `capabilities`. Stock images stay labelled
+// as design references until the owner supplies a project photograph.
+const capImg = [
+  { src: projectKitchen2, stock: false },
+  { src: projectBathTall, stock: false },
+  { src: projectBedroom, stock: false },
+  { src: projectExterior, stock: false },
+  { src: imgRoofs, stock: true },
+];
 
 const rooms = [
   { src: projectKitchen, name: 'Kitchens', tall: false },
   { src: projectBath, name: 'Bathrooms', tall: true },
   { src: projectLiving, name: 'Living spaces', tall: false },
-  { src: projectKitchen2, name: 'Everyday details', tall: true },
+  { src: projectShower, name: 'Everyday details', tall: true },
   { src: projectDeck, name: 'Outdoor spaces', tall: false },
 ];
 const facts = [
@@ -89,7 +98,7 @@ const fittings = [
     <Header home />
     <main id="main">
       <Hero />
-      <div class="proof-line"><span>Building since 1989</span><span>One in-house team</span><a href="/about-us/">Our story</a><a href="https://maps.google.com/maps?cid=1968106805018591346">Read our Google reviews</a></div>
+      <div class="proof-line"><span>Building since 1989</span><span>One in-house team</span><a href="/about-us/">Our story</a><a href="https://maps.google.com/maps?cid=1968106805018591346"><span class="proof-read">Read our&nbsp;</span>Google reviews</a></div>
 
       <section class="st" id="firm">
         <p class="cg-label">Built around you</p>
@@ -141,9 +150,9 @@ const fittings = [
               </g>
               <g class="pl-fittings">{fittings.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
             </svg>
-            <Image src={imgLiving} alt="Finished living room with a stone fireplace" widths={[800, 1400]} sizes="(min-width: 900px) 56vw, 92vw" class="pr-photo" />
+            <Image src={projectKitchen3} alt="Finished open-plan kitchen and living space" widths={[800, 1400]} sizes="(min-width: 900px) 56vw, 92vw" class="pr-photo" />
             <figcaption>
-              <span>Illustrative plan · Design reference</span>
+              <span>Illustrative plan</span>
               <span class="pr-stage">Sketch</span>
             </figcaption>
           </figure>
@@ -152,7 +161,7 @@ const fittings = [
 
       <section class="ex" id="expertise">
         <div class="ex-media">
-          {capImg.map((src, i) => <Image src={src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+          {capImg.map((img, i) => <Image src={img.src} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} data-stock={img.stock ? '' : undefined} />)}
           <span class="media-note">Design reference</span><span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
         </div>
         <div class="ex-list">
@@ -162,7 +171,7 @@ const fittings = [
               capabilities.map((c, i) => (
                 <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
                   <a href={c.href}>
-                    <Image src={capImg[i]} alt="" widths={[500, 900]} sizes="92vw" loading="lazy" class="ex-thumb" />
+                    <Image src={capImg[i].src} alt="" widths={[500, 900]} sizes="92vw" loading="lazy" class="ex-thumb" />{capImg[i].stock && <small class="media-note ex-thumb-note">Design reference</small>}
                     <span>{c.n}</span>
                     <div>
                       <h3>{c.name}</h3>
