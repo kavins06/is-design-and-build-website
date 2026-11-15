@@ -84,12 +84,12 @@
       "permanent": true
     },
     {
-      "source": "/category/:path*",
+      "source": "/category/:path(.*)",
       "destination": "/blogs/",
       "permanent": true
     },
     {
-      "source": "/author/:path*",
+      "source": "/author/:path(.*)",
       "destination": "/blogs/",
       "permanent": true
     }
