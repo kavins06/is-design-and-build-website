@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (clean(data.company, 200)) return res.status(200).json({ ok: true });
 
   const f = {
-    service: clean(data.service, 40), serviceLabel: clean(data.serviceLabel, 80), town: clean(data.town, 100), zip: clean(data.zip, 10),
+    service: clean(data.service, 40), serviceLabel: clean(data.serviceLabel, 80), town: clean(data.town, 100),
     brief: clean(data.brief, 1500), timing: clean(data.timing, 60), budget: clean(data.budget, 120), water: clean(data.water, 20),
     name: clean(data.name, 100), preferred: data.preferred === 'phone' ? 'phone' : 'email', reply: clean(data.reply, 160),
   };
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   if (!key) return res.status(503).json({ error: 'not_configured' });
 
   const text = [
-    `Project: ${f.serviceLabel || f.service}`, `Location: ${f.town}${f.zip ? ' · ' + f.zip : ''}`, '', f.brief, '',
+    `Project: ${f.serviceLabel || f.service}`, `Location: ${f.town}`, '', f.brief, '',
     `Timing: ${f.timing || 'Not specified'}`, `Budget: ${f.budget || 'Not specified'}`,
     ...(f.service === 'roofing' ? [`Water currently entering: ${f.water || 'Not sure'}`] : []), '',
     `Name: ${f.name}`, `Preferred contact: ${f.preferred}`, `Contact details: ${f.reply}`,

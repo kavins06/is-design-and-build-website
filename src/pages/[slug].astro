@@ -25,7 +25,7 @@ if (serviceNames[page.slug]) schema.push(service(serviceNames[page.slug], page.d
 // Questions are taken from the visible copy so the markup always matches the page.
 const questions = page.sections.filter((s: any) => s.kind === 'faq').flatMap((s: any) => s.items);
 if (questions.length) schema.push(faqPage(questions));
-const serviceImg: Record<string, string> = { kitchen: 'photos/kitchen-a', bathroom: 'photos/bath-a', 'whole-home': 'stock/home-10', addition: 'photos/exterior-a', roofing: 'stock/town-12' };
+const serviceImg: Record<string, string> = { kitchen: 'photos/kitchen-a', bathroom: 'photos/bath-a', 'whole-home': 'photos/bed-a', addition: 'photos/exterior-a', roofing: 'stock/town-12' };
 const years = new Date().getFullYear() - site.since;
 const external = (href: string) => /^https?:/.test(href);
 ---
