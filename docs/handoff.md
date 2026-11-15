@@ -2,6 +2,10 @@
 
 Written 2026-11-12. This is where the work stands after a design review of the built site against [the site standard](site-standard.md). Read the standard first. Every change is judged against it.
 
+## Update, 2026-11-15: open to search engines
+
+`launched` in `src/data/site.ts` is now `true` at the owner's request. Production pages no longer carry `noindex`, and production `robots.txt` allows crawling and lists the sitemap. Preview deployments stay `noindex` with `Disallow: /`.
+
 ## Update, 2026-11-15 (later): interior pages animated like the home page
 
 On branch `claude/zen-rubin-knws7s`. The owner asked for the home page's "wow" on every page, with fewer words on screen and the SEO kept under the hood.
