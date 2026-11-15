@@ -1,19 +1,12 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
+import { gsap, ScrollTrigger, startMotion, headerTone } from './motion';
+import { closingScenes } from './scenes';
 
 // All scroll-driven motion for the home page. Without JavaScript, or with
 // reduced motion requested, every section renders in its finished state.
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (!reduce) {
-  gsap.registerPlugin(ScrollTrigger);
-  document.documentElement.classList.add('has-motion');
-
-  const lenis = new Lenis({ lerp: 0.12 });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+  startMotion();
 
   statement();
   processStory();
@@ -22,28 +15,9 @@ if (!reduce) {
   band();
   facts();
   reveals();
-  contact();
+  closingScenes();
   // Created last so its trigger positions account for the pinned sections above.
-  header();
-}
-
-/** Header turns solid once the hero has scrolled away. */
-function header() {
-  ScrollTrigger.create({
-    trigger: '.cg-hero',
-    start: 'bottom top+=72',
-    onEnter: () => document.querySelector('.hd')?.classList.add('is-solid'),
-    onLeaveBack: () => document.querySelector('.hd')?.classList.remove('is-solid'),
-  });
-  // Over dark sections the solid header switches to its dark variant.
-  gsap.utils.toArray<HTMLElement>('[data-dark]').forEach((section) => {
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top top+=56',
-      end: 'bottom top+=56',
-      toggleClass: { targets: '.hd', className: 'on-dark' },
-    });
-  });
+  headerTone('.cg-hero');
 }
 
 /** Statement: words ink in one by one as the section crosses the viewport. */
@@ -245,7 +219,7 @@ function facts() {
 
 /** Simple rise-in for the remaining blocks. */
 function reveals() {
-  gsap.utils.toArray<HTMLElement>('.rv blockquote, .ex-list .cg-label, .ct-pills a, .ct-grid > div').forEach((el) => {
+  gsap.utils.toArray<HTMLElement>('.rv blockquote, .ex-list .cg-label').forEach((el) => {
     gsap.from(el, {
       y: 36,
       opacity: 0,
@@ -253,17 +227,5 @@ function reveals() {
       ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 92%' },
     });
-  });
-}
-
-/** Contact: the closing question rises line by line. */
-function contact() {
-  gsap.from('.ct-title span', {
-    yPercent: 60,
-    opacity: 0,
-    duration: 1.1,
-    stagger: 0.12,
-    ease: 'power4.out',
-    scrollTrigger: { trigger: '.ct-title', start: 'top 85%' },
   });
 }

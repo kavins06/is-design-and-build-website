@@ -1,0 +1,84 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { photos, galleries } from '../../data/photos';
+// Every company photograph, in three columns that move at different speeds.
+// Each opens full screen; without JavaScript the link opens the large image itself.
+const pad = (n: number) => String(n).padStart(2, '0');
+const shots = await Promise.all(
+  galleries.all.map(async (key, i) => {
+    const p = photos[key];
+    const large = await getImage({ src: p.src, width: 2000, format: 'webp' });
+    return { ...p, n: i + 1, large: large.src };
+  }),
+);
+const columns = [0, 1, 2].map((c) => shots.filter((_, i) => i % 3 === c));
+const viewer = shots.map((s) => ({ src: s.large, alt: s.alt, room: s.room }));
+---
+<section class="pf" data-scene="portfolio">
+  <div class="pf-head"><p class="cg-label">Completed work</p><p class="pf-count">{pad(shots.length)} photographs</p></div>
+  <div class="pf-cols">
+    {columns.map((col, c) => (
+      <div class="pf-col" data-depth={c === 1 ? '1' : '0'}>
+        {col.map((p) => (
+          <figure class:list={{ 'is-tall': p.tall }}>
+            <a href={p.large} data-view={p.n - 1}><Image src={p.src} alt={p.alt} widths={[500, 900, 1300]} sizes="(min-width: 900px) 31vw, 46vw" loading={p.n <= 3 ? 'eager' : 'lazy'} /></a>
+            <figcaption><span>{pad(p.n)}</span>{p.room}</figcaption>
+          </figure>
+        ))}
+      </div>
+    ))}
+  </div>
+  <dialog class="lb" aria-label="Project photographs">
+    <div class="lb-stage"><img alt="" /></div>
+    <p class="lb-meta"><span class="lb-count"></span><span class="lb-room"></span></p>
+    <button class="lb-close" type="button">Close</button>
+    <button class="lb-prev" type="button" aria-label="Previous photograph"></button>
+    <button class="lb-next" type="button" aria-label="Next photograph"></button>
+  </dialog>
+  <script type="application/json" data-viewer set:html={JSON.stringify(viewer)} />
+</section>
+<script>
+  // Full-screen viewer: arrow keys, buttons and swipes move through the photographs.
+  const dialog = document.querySelector<HTMLDialogElement>('.lb');
+  const data = JSON.parse(document.querySelector('[data-viewer]')?.textContent || '[]') as { src: string; alt: string; room: string }[];
+  if (dialog && data.length && typeof dialog.showModal === 'function') {
+    const img = dialog.querySelector('img')!;
+    const count = dialog.querySelector('.lb-count')!;
+    const room = dialog.querySelector('.lb-room')!;
+    const pad = (n: number) => String(n).padStart(2, '0');
+    let index = 0;
+    const show = (i: number) => {
+      index = (i + data.length) % data.length;
+      img.classList.remove('is-in');
+      img.src = data[index].src;
+      img.alt = data[index].alt;
+      count.textContent = `${pad(index + 1)} / ${pad(data.length)}`;
+      room.textContent = data[index].room;
+      // Warm the neighbours so stepping through feels instant.
+      [index + 1, index - 1].forEach((n) => { new Image().src = data[(n + data.length) % data.length].src; });
+    };
+    img.addEventListener('load', () => img.classList.add('is-in'));
+    document.querySelectorAll<HTMLAnchorElement>('[data-view]').forEach((link) => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      show(Number(link.dataset.view));
+      dialog.showModal();
+      document.documentElement.classList.add('lb-open');
+    }));
+    dialog.addEventListener('close', () => document.documentElement.classList.remove('lb-open'));
+    dialog.querySelector('.lb-close')?.addEventListener('click', () => dialog.close());
+    dialog.querySelector('.lb-prev')?.addEventListener('click', () => show(index - 1));
+    dialog.querySelector('.lb-next')?.addEventListener('click', () => show(index + 1));
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') show(index - 1);
+      if (event.key === 'ArrowRight') show(index + 1);
+    });
+    // A click on the dark surround closes the viewer.
+    dialog.addEventListener('click', (event) => { if (event.target === dialog || (event.target as Element).classList.contains('lb-stage')) dialog.close(); });
+    let startX = 0;
+    dialog.addEventListener('pointerdown', (event) => { startX = event.clientX; });
+    dialog.addEventListener('pointerup', (event) => {
+      const dx = event.clientX - startX;
+      if (Math.abs(dx) > 50 && event.pointerType !== 'mouse') show(index + (dx < 0 ? 1 : -1));
+    });
+  }
+</script>

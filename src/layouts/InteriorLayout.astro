@@ -5,35 +5,76 @@ import '../styles/hero.css';
 import '../styles/home.css';
 import '../styles/content.css';
 import '../styles/interior.css';
+import '../styles/scenes.css';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { breadcrumbs } from '../data/schema';
-interface Props { title: string; description: string; label: string; headline: string; schema?: object[]; parent?: { name: string; path: string }; image?: ImageMetadata; imageAlt?: string; compact?: boolean; }
-const { title, description, label, headline, schema = [], parent, image, imageAlt = '', compact = false } = Astro.props;
+import traces from '../data/traces.json';
+interface Props {
+  title: string;
+  description: string;
+  label: string;
+  headline: string;
+  schema?: object[];
+  parent?: { name: string; path: string };
+  image?: ImageMetadata;
+  imageAlt?: string;
+  /** The page-top photograph's name, such as "photos/kitchen-a". Selects its line drawing. */
+  photo?: string;
+  /** Drawing-sheet number shown in the title block. */
+  sheet?: string;
+  compact?: boolean;
+}
+const { title, description, label, headline, schema = [], parent, image, imageAlt = '', photo, sheet, compact = false } = Astro.props;
 const crumbs = breadcrumbs([{ name: 'Home', path: '/' }, ...(parent ? [parent] : []), { name: label, path: Astro.url.pathname }]);
+// The page-top photograph is drafted as a line drawing first, then built under it.
+const trace = image && photo ? (traces as Record<string, { w: number; h: number; d: string[] }>)[photo] : undefined;
+const stock = photo?.startsWith('stock/');
+const words = headline.split(' ');
 ---
 <BaseLayout preloadFonts title={title} description={description} schema={[crumbs, ...schema]}>
   <div class="cg interior"><Header overlay /><main id="main">
-    <section class:list={['page-hero', { 'has-photo': image, 'is-compact': compact || !image }]} data-dark>
-      {image && <Image src={image} alt={imageAlt} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" class="page-hero-photo" />}
+    <section class:list={['page-hero', { 'has-photo': image, 'is-compact': compact || !image, 'has-trace': trace }]} data-dark>
+      {image && (
+        <div class="ph-stage">
+          <Image src={image} alt={imageAlt} widths={[900, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" class="page-hero-photo" />
+          <div class="ph-shade"></div>
+          {trace && (
+            <svg class="ph-trace" viewBox={`0 0 ${trace.w} ${trace.h}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" style={`--n:${trace.d.length}`}>
+              {trace.d.map((d, i) => <path d={d} pathLength="1" style={`--i:${i}`} />)}
+            </svg>
+          )}
+        </div>
+      )}
       <div class="page-hero-grid" aria-hidden="true"></div>
       <div class="page-hero-copy">
         <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{parent && <><a href={parent.path}>{parent.name}</a><span aria-hidden="true">/</span></>}<span aria-current="page">{label}</span></nav>
-        <h1>{headline}</h1>
+        <h1 class="ph-title">{words.map((w, i) => <><span class="wm"><span style={`--w:${i}`}>{w}</span></span>{i < words.length - 1 && ' '}</>)}</h1>
         <div class="page-intro"><slot name="intro" /></div>
       </div>
+      {image && (
+        <dl class="ph-block">
+          <div><dt>Drawing</dt><dd>{label}</dd></div>
+          {sheet && <div><dt>Sheet</dt><dd>{sheet}</dd></div>}
+          <div><dt>Image</dt><dd class="ph-status">{stock ? 'Design reference' : 'Our project'}</dd></div>
+        </dl>
+      )}
     </section>
     <slot />
   </main><Footer /></div>
 </BaseLayout>
 <script>
-  // Reveal sections as they enter the viewport. Content is visible without script.
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-    document.documentElement.classList.add('reveal-ready');
-    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
-    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+  // Without motion, sections are shown finished. With it, scroll scenes take over,
+  // and simple blocks rise in as they arrive.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if ('IntersectionObserver' in window) {
+      document.documentElement.classList.add('reveal-ready');
+      const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+    }
+    import('../scripts/site.ts');
   }
 </script>
