@@ -260,7 +260,10 @@ export function steps(el: HTMLElement) {
   }
 }
 
-/** Span: the dimension line draws from the founding year to today while the year counts up. */
+/**
+ * Span: the dimension line draws from the founding year to today while the year counts up.
+ * It plays through once rather than following the scroll, so it always ends on the real year.
+ */
 export function span(el: HTMLElement) {
   const line = el.querySelector('.span-line i');
   const label = el.querySelector('.span-line em');
@@ -269,10 +272,10 @@ export function span(el: HTMLElement) {
   const from = Number(year.dataset.spanFrom);
   const to = Number(year.dataset.spanTo);
   const state = { y: from };
-  const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: el, start: 'top 70%', end: 'center 45%', scrub: 0.6 } });
-  tl.fromTo(line, { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0)
-    .to(state, { y: to, duration: 1, onUpdate: () => (year.textContent = String(Math.round(state.y))) }, 0)
-    .from(label, { opacity: 0, y: 10, duration: 0.25 }, 0.75);
+  const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' }, scrollTrigger: { trigger: el, start: 'top 72%' } });
+  tl.fromTo(line, { scaleX: 0 }, { scaleX: 1, duration: 1.8 }, 0)
+    .to(state, { y: to, duration: 1.8, onUpdate: () => (year.textContent = String(Math.round(state.y))) }, 0)
+    .from(label, { opacity: 0, y: 10, duration: 0.5, ease: 'power2.out' }, 1.3);
   rise('.span-facts > div', '.span-facts', 0.1);
 }
 
