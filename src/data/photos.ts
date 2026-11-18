@@ -55,20 +55,19 @@ export const photos: Record<string, Photo> = {
   'roof-c': { src: roofC, alt: 'Deck with outdoor seating overlooking a row of DC rowhouses', room: 'Deck' },
 };
 
-/** Photographs shown for each kind of project, in display order. */
+/** Photographs shown for each kind of project, in display order: the strongest first. */
 export const galleries: Record<string, string[]> = {
   kitchen: ['kitchen-a', 'kitchen-e', 'kitchen-b', 'kitchen-c'],
-  bathroom: ['bath-d', 'bath-c', 'shower-tall', 'bath-e', 'powder-b', 'powder-c', 'bath-tall'],
-  'whole-home': ['kitchen-a', 'roof-c', 'bath-b', 'kitchen-f', 'closet-a', 'deck-a', 'roof-a'],
-  // Read across three columns: tall photographs sit in the outer columns.
+  bathroom: ['bath-b', 'powder-c', 'bath-d', 'powder-b', 'bath-c'],
+  'whole-home': ['kitchen-a', 'roof-c', 'bath-b', 'kitchen-f', 'deck-a', 'roof-a'],
+  // The strongest 18, best first, read across three columns. Tall photographs, the empty closet
+  // and the second view of the rear deck are left out: they repeat rooms shown better elsewhere.
   all: [
-    'kitchen-a', 'bath-a', 'shower-tall',
-    'bath-tall', 'kitchen-d', 'roof-c',
-    'living-a', 'powder-c', 'kitchen-f',
-    'bath-d', 'kitchen-c', 'powder-a',
-    'closet-a', 'roof-b', 'bath-b',
-    'kitchen-b', 'bed-a', 'bath-c',
-    'deck-a', 'kitchen-e', 'powder-b',
-    'roof-a', 'bath-e', 'exterior-a',
+    'kitchen-a', 'bath-b', 'kitchen-c',
+    'powder-c', 'roof-c', 'bath-a',
+    'kitchen-f', 'powder-b', 'deck-a',
+    'bath-d', 'kitchen-b', 'roof-b',
+    'bath-c', 'kitchen-e', 'bed-a',
+    'kitchen-d', 'bath-e', 'roof-a',
   ],
 };

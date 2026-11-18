@@ -123,7 +123,8 @@ export function plan(section: HTMLElement) {
     scrollTrigger: {
       trigger: pin,
       start: 'top top',
-      end: `+=${n * 50}%`,
+      // About a quarter screen per stage: long enough to read each drawing, short enough not to stall.
+      end: `+=${n * 25}%`,
       pin: true,
       scrub: 0.5,
       anticipatePin: 1,
@@ -201,16 +202,21 @@ export function rail(el: HTMLElement) {
   warm(el);
   if (!desktop()) {
     el.classList.add('is-swipe');
+    // The gallery opens on a photograph: its title moves out of the swipe strip, above it.
+    const title = track.querySelector('.rail-title');
+    if (title) track.before(title);
     const hint = el.querySelector('.rail-hint');
     if (hint) hint.textContent = 'Swipe';
     swipeRegion(track);
     return;
   }
   const distance = () => track.scrollWidth - window.innerWidth;
+  // The gallery slides its full width in at most two screens of scrolling.
+  const hold = () => Math.min(distance(), window.innerHeight * 2);
   const slide = gsap.to(track, {
     x: () => -distance(),
     ease: 'none',
-    scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${distance()}`, pin: true, scrub: 0.5, anticipatePin: 1, invalidateOnRefresh: true },
+    scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${hold()}`, pin: true, scrub: 0.5, anticipatePin: 1, invalidateOnRefresh: true },
   });
   track.querySelectorAll('figure img').forEach((img) => {
     gsap.fromTo(
@@ -220,7 +226,7 @@ export function rail(el: HTMLElement) {
     );
   });
   const bar = el.querySelector('.rail-progress i');
-  if (bar) gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${distance()}`, scrub: true } });
+  if (bar) gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${hold()}`, scrub: true } });
 }
 
 /** A sideways swipe gallery that keyboard users can focus and scroll with the arrow keys. */

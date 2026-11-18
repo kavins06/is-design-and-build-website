@@ -147,19 +147,24 @@ function rooms() {
   // Phones get a native swipe gallery: a pinned sideways scroll fights the thumb.
   if (window.matchMedia('(max-width: 900px)').matches) {
     document.documentElement.classList.add('rm-swipe');
+    // The gallery opens on a photograph: its title moves out of the swipe strip, above it.
+    const title = track.querySelector('.rm-title');
+    if (title) track.before(title);
     const hint = document.querySelector('.rm-hint');
     if (hint) hint.textContent = 'Swipe';
     swipeRegion(track);
     return;
   }
   const distance = () => track.scrollWidth - window.innerWidth;
+  // The gallery slides its full width in at most two screens of scrolling.
+  const hold = () => Math.min(distance(), window.innerHeight * 2);
   const slide = gsap.to(track, {
     x: () => -distance(),
     ease: 'none',
     scrollTrigger: {
       trigger: '.rm-pin',
       start: 'top top',
-      end: () => `+=${distance()}`,
+      end: () => `+=${hold()}`,
       pin: true,
       scrub: 0.5,
       invalidateOnRefresh: true,

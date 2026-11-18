@@ -15,14 +15,10 @@ import Cta from '../components/Cta.astro';
 import { site, capabilities, process } from '../data/site';
 import projectKitchen2 from '../assets/photos/kitchen-b.jpg';
 import projectKitchen3 from '../assets/photos/kitchen-c.jpg';
-import projectKitchenD from '../assets/photos/kitchen-d.jpg';
 import projectBath from '../assets/photos/bath-a.jpg';
-import projectBathD from '../assets/photos/bath-d.jpg';
-import projectShower from '../assets/photos/shower-tall.jpg';
-import projectPowder from '../assets/photos/powder-a.jpg';
 import projectBedroom from '../assets/photos/bed-a.jpg';
 import projectExterior from '../assets/photos/exterior-a.jpg';
-import projectRoofDeck from '../assets/photos/roof-c.jpg';
+import { photos } from '../data/photos';
 import projectRoof from '../assets/photos/roof-b.jpg';
 import Reviews from '../components/Reviews.astro';
 import { googleReviews } from '../data/reviews';
@@ -32,13 +28,11 @@ const statement = 'One team designs it, prices it and builds it.'.split(' ');
 // One company photograph per service, in the order of `capabilities`.
 const capImg = [projectKitchen2, projectBath, projectBedroom, projectExterior, projectRoof];
 
-const rooms = [
-  { src: projectKitchenD, name: 'Kitchen', alt: 'White kitchen with a mosaic tile backsplash and a waterfall island with stools', tall: false },
-  { src: projectShower, name: 'Shower', alt: 'Walk-in shower with large-format tile, a niche and a glass panel', tall: true },
-  { src: projectRoofDeck, name: 'Deck', alt: 'Deck with outdoor seating overlooking a row of DC rowhouses', tall: false },
-  { src: projectPowder, name: 'Powder room', alt: 'Powder room with a glass vessel sink on a light wood vanity', tall: true },
-  { src: projectBathD, name: 'Bathroom', alt: 'Bathroom with a frameless glass shower and a long white double vanity under lit mirrors', tall: false },
-];
+// The strongest photographs, none of them already shown higher on this page.
+const rooms = ['bath-b', 'powder-c', 'roof-c', 'kitchen-f', 'powder-b'].map((key) => {
+  const p = photos[key];
+  return { src: p.src, name: p.room, alt: p.alt, tall: !!p.tall };
+});
 const facts = [
   { n: googleReviews.rating, label: `On Google, from ${googleReviews.count} reviews` },
   { n: site.since, label: 'In business since' },

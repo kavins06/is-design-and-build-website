@@ -14,7 +14,7 @@
 .breadcrumb [aria-current] { color: var(--signal); }
 /* Over a photograph the trail sits on a dark label so it stays readable on bright rooms. */
 .page-hero.has-photo .breadcrumb { width: fit-content; margin-left: -14px; padding: 8px 14px; background: #0c0c0cd9; color: #ffffffd9; }
-.page-hero h1 { max-width: 14ch; font-size: clamp(46px, 8.4vw, 136px); line-height: .94; letter-spacing: -.05em; animation: ph-rise .9s cubic-bezier(.2,.7,.2,1) both; }
+.page-hero h1 { max-width: 14ch; font-size: clamp(46px, 6.4vw, 104px); line-height: .94; letter-spacing: -.05em; animation: ph-rise .9s cubic-bezier(.2,.7,.2,1) both; }
 .page-hero.is-compact h1 { max-width: 18ch; font-size: clamp(40px, 6.4vw, 100px); }
 .page-intro { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px 60px; margin-top: clamp(28px, 3.4vw, 52px); padding-top: 26px; border-top: 1px solid #ffffff33; animation: ph-rise .9s .15s cubic-bezier(.2,.7,.2,1) both; }
 .page-intro > p { max-width: 44ch; font-size: clamp(18px, 1.7vw, 25px); line-height: 1.4; color: #ffffffd9; }
@@ -115,9 +115,9 @@
   .rm-swipe .rm-pin { min-height: 0; padding: 70px 0 56px; }
   .rm-swipe .rm-track { width: auto; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none; }
   .rm-swipe .rm-track::-webkit-scrollbar { display: none; }
-  .rm-swipe .rm-title { flex: none; align-self: flex-start; width: 78vw; margin-right: 0 !important; font-size: 44px; white-space: normal; scroll-snap-align: start; }
-  .rm-swipe .rm-track figure, .rm-swipe .rm-track figure.is-tall { width: 80vw; scroll-snap-align: start; }
-  .rm-swipe .rm-track figure div, .rm-swipe .rm-track figure.is-tall div { height: 46svh; }
+  .rm-swipe .cg .rm-title { align-self: flex-start; margin: 0 0 28px !important; padding: 0 var(--pad); font-size: 44px; white-space: normal; }
+  .rm-swipe .rm-track figure, .rm-swipe .rm-track figure.is-tall { width: 84vw; scroll-snap-align: start; }
+  .rm-swipe .rm-track figure div, .rm-swipe .rm-track figure.is-tall div { height: 54svh; }
   .rm-swipe .rm-track img { width: 100%; margin-left: 0; }
 }
 @media (max-width: 700px) {

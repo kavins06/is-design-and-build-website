@@ -142,7 +142,8 @@
   .cg-hero-copy {
     position: relative;
   }
-  .cg-hero-copy h1 {
+  /* Scoped under .cg so these beat the margin reset in home.css. */
+  .cg .cg-hero-copy h1 {
     margin-bottom: 24px;
   }
   .cg h1 {
@@ -170,7 +171,7 @@
       transform: translateY(0.25em);
     }
   }
-  .cg-hero-copy p {
+  .cg .cg-hero-copy p {
     margin-top: clamp(16px, 1.8vw, 28px);
     font-size: clamp(16px, 1.35vw, 20px);
     opacity: 0.9;
@@ -212,3 +213,8 @@
 /* Phones: the headline covers most of the photo, so the drawing steps right back once the room is built. */
 @keyframes cg-dim-phone { to { opacity: .14; } }
 @media (max-width: 540px) { .cg-elev { animation-name: cg-dim-phone; } }
+/* Phones: the words fill the lower three-quarters of the screen, so shade sits behind them
+   and the room stays clear above the headline. */
+@media (max-width: 900px) {
+  .cg-hero-shade { background: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, 0) 14%), linear-gradient(0deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, .74) 45%, rgba(0, 0, 0, .55) 70%, rgba(0, 0, 0, 0) 84%); }
+}
