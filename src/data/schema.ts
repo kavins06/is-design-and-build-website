@@ -20,7 +20,7 @@ export const business = {
   foundingDate: String(site.since),
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '1010 Wisconsin Ave NW, Suite 300',
+    streetAddress: '1010 Wisconsin Ave NW, Suite 300 #12',
     addressLocality: 'Washington',
     addressRegion: 'DC',
     postalCode: '20007',
