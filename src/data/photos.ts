@@ -58,16 +58,20 @@ export const photos: Record<string, Photo> = {
 /** Photographs shown for each kind of project, in display order: the strongest first. */
 export const galleries: Record<string, string[]> = {
   kitchen: ['kitchen-a', 'kitchen-e', 'kitchen-b', 'kitchen-c'],
-  bathroom: ['bath-b', 'powder-c', 'bath-d', 'powder-b', 'bath-c'],
+  // bath-b opens the bathroom page, so its gallery starts with the next strongest.
+  bathroom: ['powder-c', 'bath-d', 'powder-b', 'bath-c', 'bath-e'],
   'whole-home': ['kitchen-a', 'roof-c', 'bath-b', 'kitchen-f', 'deck-a', 'roof-a'],
-  // The strongest 18, best first, read across three columns. Tall photographs, the empty closet
-  // and the second view of the rear deck are left out: they repeat rooms shown better elsewhere.
-  all: [
-    'kitchen-a', 'bath-b', 'kitchen-c',
-    'powder-c', 'roof-c', 'bath-a',
-    'kitchen-f', 'powder-b', 'deck-a',
-    'bath-d', 'kitchen-b', 'roof-b',
-    'bath-c', 'kitchen-e', 'bed-a',
-    'kitchen-d', 'bath-e', 'roof-a',
+  // Built outdoor and rooftop space, for the additions page (deck-a opens that page).
+  outdoor: ['exterior-a', 'roof-c', 'roof-b', 'roof-a'],
+};
+
+/** The portfolio: the strongest photograph full width, then every room type in its own group. */
+export const portfolio = {
+  lead: 'kitchen-a',
+  groups: [
+    { title: 'Kitchens', keys: ['kitchen-b', 'kitchen-c', 'kitchen-d', 'kitchen-f', 'kitchen-e'] },
+    { title: 'Bathrooms and powder rooms', keys: ['bath-b', 'bath-a', 'powder-c', 'bath-d', 'powder-b', 'bath-c', 'bath-e'] },
+    { title: 'Decks, terraces and rooftops', keys: ['deck-a', 'roof-c', 'exterior-a', 'roof-a', 'roof-b'] },
+    { title: 'Bedrooms', keys: ['bed-a', 'living-a'] },
   ],
 };

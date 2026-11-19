@@ -1,7 +1,7 @@
 // Receives the website enquiry form and emails it to the company.
 // Needs RESEND_API_KEY in the Vercel project. Without it the endpoint answers 503
 // and the page falls back to preparing an email in the visitor's own email app.
-const SERVICES = ['kitchen', 'bathroom', 'whole-home', 'addition', 'roofing', 'remodeling', 'other', 'unsure'];
+const SERVICES = ['kitchen', 'bathroom', 'whole-home', 'addition', 'roofing', 'lead', 'remodeling', 'other', 'unsure'];
 const clean = (value, max) => String(value ?? '').replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim().slice(0, max);
 
 export default async function handler(req, res) {

@@ -14,17 +14,38 @@ html { background: #0c0c0c; }
 /* ---------- Page top: drafted first, then built ---------- */
 .ph-stage { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .ph-stage .page-hero-photo { z-index: 0; }
-/* Shade only where the words sit: the room stays bright across the top and right of the frame. */
+/* Shade only where the words sit (the headline at the lower left, the lede and actions along
+   the bottom) and a little under the header: the room stays at full brightness above and right. */
 .ph-shade { position: absolute; inset: 0; z-index: 1; background:
-  linear-gradient(180deg, #0c0c0c66 0%, #0c0c0c00 16%),
-  linear-gradient(0deg, #0c0c0cd9 0%, #0c0c0c99 26%, #0c0c0c00 55%),
-  linear-gradient(90deg, #0c0c0c99 0%, #0c0c0c8c 50%, #0c0c0c00 72%); }
-.page-hero.has-photo h1, .page-hero.has-photo .page-intro > p { text-shadow: 0 2px 28px #0c0c0c80; }
+  linear-gradient(180deg, #0c0c0c61 0%, #0c0c0c00 13%),
+  linear-gradient(0deg, #0c0c0c8c 0%, #0c0c0c00 34%),
+  linear-gradient(90deg, #0c0c0cc7 0%, #0c0c0cad 32%, #0c0c0c6b 50%, #0c0c0c00 66%); }
+/* Wide screens: every word sits in the left column, so the right of the room stays clear. */
+@media (min-width: 901px) {
+  .page-hero.has-photo:not(.is-compact) h1 { font-size: clamp(46px, 5.6vw, 96px); }
+  .page-hero.has-photo:not(.is-compact) .page-intro { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 22px; max-width: 760px; }
+}
+.page-hero.has-photo h1, .page-hero.has-photo .page-intro > p { text-shadow: 0 2px 28px #0c0c0c99; }
 /* No drawing-paper grid over a photograph: it only greys the room. */
 .page-hero.has-photo .page-hero-grid { display: none; }
 @media (max-width: 900px) {
-  /* Phones: the words fill the lower part of the screen, so the photo stays clear above them. */
+  /* Landscape phones keep the words over the photograph, so it is shaded behind them. */
   .ph-shade { background: linear-gradient(180deg, #0c0c0c73 0%, #0c0c0c00 15%), linear-gradient(0deg, #0c0c0cf0 0%, #0c0c0cc7 40%, #0c0c0c8c 74%, #0c0c0c00 90%); }
+}
+/* Phones and tablets held upright: the room takes the top of the screen at full brightness and
+   the words sit below it on black. The traced drawing is sliced like the photograph, so it still lands on the room. */
+@media (max-width: 900px) and (orientation: portrait) {
+  .page-hero.has-photo:not(.is-compact) { --ph-photo: 40svh; display: block; min-height: 0; padding: calc(var(--ph-photo) + 22px) var(--pad) 36px; }
+  .page-hero.has-photo:not(.is-compact) .ph-stage { inset: 0 0 auto 0; height: var(--ph-photo); }
+  .page-hero.has-photo:not(.is-compact) .ph-shade { background: linear-gradient(180deg, #0c0c0c80 0%, #0c0c0c00 30%), linear-gradient(0deg, #0c0c0c99 0%, #0c0c0c00 18%); }
+  .page-hero.has-photo:not(.is-compact) .breadcrumb { display: none; }
+  .page-hero.has-photo:not(.is-compact) h1 { font-size: clamp(36px, 10.6vw, 56px); }
+  .page-hero.has-photo:not(.is-compact) .page-intro { margin-top: 18px; padding-top: 18px; }
+  .page-hero.has-photo:not(.is-compact) .page-intro > p { font-size: 17px; }
+  .page-hero.has-photo:not(.is-compact) h1, .page-hero.has-photo:not(.is-compact) .page-intro > p { text-shadow: none; }
+}
+@media (max-width: 900px) and (orientation: portrait) and (min-width: 541px) {
+  .page-hero.has-photo:not(.is-compact) { --ph-photo: 46svh; }
 }
 .page-hero.is-compact .ph-shade { background: linear-gradient(180deg, #0c0c0cc7 0%, #0c0c0ca6 45%, #0c0c0ce0 100%); }
 .ph-trace { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; animation: ph-dim 1.4s 1.9s forwards; }
@@ -283,25 +304,25 @@ html:not(.has-motion) .steps-ruler { display: none; }
   .pn-text { font-size: 15px; }
 }
 
-/* ---------- Portfolio: three columns at different speeds ---------- */
-.pf { padding: clamp(72px, 9vw, 150px) var(--pad) clamp(90px, 11vw, 180px); background: var(--tint); }
-.pf-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: clamp(32px, 4vw, 60px); }
-.pf-count { font: 500 12px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
-.pf-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 32px); align-items: start; }
-.pf-col { display: grid; gap: clamp(28px, 3.4vw, 56px); }
-.pf-col[data-depth='1'] { padding-top: clamp(60px, 9vw, 160px); }
+/* ---------- Portfolio: one photograph full width, then rooms in two large columns ---------- */
+.pf { padding: clamp(28px, 3vw, 48px) var(--pad) clamp(90px, 11vw, 180px); background: var(--tint); }
+.pf figure { margin: 0; }
 .pf figure a { display: block; overflow: hidden; background: #e2e2dd; cursor: zoom-in; }
-.pf figure img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
-.pf figure.is-tall img { aspect-ratio: 2 / 3; }
-.pf figure a:hover img { transform: scale(1.04); }
-.pf figcaption { display: flex; gap: 14px; margin-top: 12px; font-size: 15px; font-weight: 500; letter-spacing: -.02em; }
-.pf figcaption span { font: 500 11px 'Geist Mono Variable', monospace; letter-spacing: 0; padding-top: 3px; color: var(--signal-text, var(--signal)); }
-@media (max-width: 900px) {
-  .pf-cols { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pf-col { display: contents; }
-  .pf-col[data-depth='1'] { padding-top: 0; }
-  .pf figure img, .pf figure.is-tall img { aspect-ratio: 4 / 5; }
-  .pf figcaption { margin-top: 8px; font-size: 14px; }
+.pf figure img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
+.pf figure a:hover img { transform: scale(1.03); }
+.pf-lead img { aspect-ratio: 16 / 9; }
+.pf-lead figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; margin-top: 14px; font-size: 17px; font-weight: 500; letter-spacing: -.02em; }
+.pf-lead figcaption span { font: 500 12px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+.pf-group { margin-top: clamp(64px, 8vw, 130px); }
+.pf-group h2 { margin-bottom: clamp(20px, 2.4vw, 36px); font-size: clamp(30px, 3.6vw, 58px); line-height: 1.02; letter-spacing: -.045em; }
+.pf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 32px); }
+/* A group with an odd number of photographs opens on its first one full width, so no row is left half empty. */
+.pf-grid figure:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
+.pf-grid figure:first-child:nth-last-child(odd) img { aspect-ratio: 16 / 9; }
+@media (max-width: 700px) {
+  .pf-lead img { aspect-ratio: 4 / 3; }
+  .pf-grid { grid-template-columns: 1fr; gap: 12px; }
+  .pf-grid figure:first-child:nth-last-child(odd) img { aspect-ratio: 3 / 2; }
 }
 
 /* Full-screen viewer */
@@ -376,3 +397,27 @@ html.lb-open { overflow: hidden; }
 .pts-grid li { position: relative; }
 .pts-grid li::before { content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 2px; background: var(--signal); transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
 .pts-grid li:hover::before, .pts-grid li:focus-within::before { transform: scaleX(1); }
+
+/* ---------- Phones: whole rooms, not fragments ---------- */
+@media (max-width: 900px) {
+  /* A band is the photograph, whole, with its words on black below it. */
+  .bnd-frame { display: block; min-height: 0; padding: 0; }
+  .bnd-frame > img { position: static; display: block; height: auto; aspect-ratio: 3 / 2; }
+  .bnd-frame::after { display: none; }
+  .bnd-copy { padding: 28px var(--pad) 56px; }
+  .bnd-copy h2 { margin-top: 14px; font-size: clamp(36px, 10vw, 56px); }
+  .bnd-note { top: 12px; }
+  /* Swipe galleries show each room at its own proportions. */
+  .rail.is-swipe .rail-track figure > div, .rail.is-swipe .rail-track figure.is-tall > div { height: auto; aspect-ratio: 4 / 3; }
+  .rm-swipe .rm-track figure div, .rm-swipe .rm-track figure.is-tall div { height: auto !important; aspect-ratio: 4 / 3; }
+}
+
+/* The photograph's label: one small line, not a title block over the room. */
+.cg .ph-block { display: block; padding: 6px 10px; font-size: 11px; background: #0c0c0c8c; }
+@media (min-width: 1051px) { .cg .cg-titleblock { display: block; align-self: flex-end; margin-bottom: 4px; padding: 6px 10px; font-size: 11px; background: #0c0c0c8c; } }
+@media (max-width: 900px) and (orientation: portrait) {
+  /* On phones the label sits on the photograph's lower right corner. */
+  .cg .page-hero.has-photo:not(.is-compact) .ph-block { display: block; top: calc(var(--ph-photo) - 36px); right: 12px; animation-delay: .3s; }
+}
+/* A compact page top is a darkened backdrop, not a showcase: no label over it. */
+.cg .page-hero.is-compact .ph-block { display: none; }

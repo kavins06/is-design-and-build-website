@@ -129,9 +129,8 @@
   .site-footer { padding-bottom: 96px; }
 }
 @media (max-width: 540px) {
-  .cg .cg-hero { height: 100svh; min-height: 560px; }
   .cg .cg-hero-copy .hero-area { display: none; }
-  .cg .cg-hero-copy h1 { font-size: clamp(52px, 15vw, 72px); }
+  .cg .cg-hero-copy h1 { font-size: clamp(46px, 13.4vw, 64px); }
   .cg-hero .hero-actions { flex-direction: column; align-items: stretch; gap: 6px; }
   .cg-hero .hero-actions .btn { text-align: center; }
   .page-hero h1 { font-size: clamp(42px, 12.5vw, 60px); }
@@ -372,3 +371,30 @@ html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
   .cg .dw-sheet figcaption { font-size: 12px; }
 }
 @media (max-width: 900px) { .bd-pause { top: 76px; bottom: auto; right: 16px; } }
+
+/* Home process on phones: the finished plan with every step and its description, nothing pinned. */
+.cg .pr-static .pr-pin { min-height: 0; padding-block: 72px 56px; }
+.cg .pr-static :is(.pl-bubbles, .pl-stamp, .pr-photo, .pr-progress, .pr-detail) { display: none !important; }
+html .cg .pr-static .pr-steps li { opacity: 1; }
+html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: static; width: auto; height: auto; max-height: none; margin-top: 6px; overflow: visible; clip-path: none; white-space: normal; }
+
+/* Phones: the closing ask and the footer in well under two screens. The footer already lists
+   the phone and email, so the closing section does not repeat them, and the wordmark is left out. */
+@media (max-width: 700px) {
+  .cg .ct { padding-top: 72px; }
+  .cg .ct-grid, .cg .footer-mark { display: none; }
+  .cg .site-footer { padding-top: 48px; }
+  .cg .footer-top { padding-bottom: 28px; }
+  .cg .footer-columns { gap: 22px; }
+  .cg .footer-bottom { margin-top: 28px; }
+}
+
+/* Header: the phone number beside the main action on wide screens (the phone menu and bar carry it on phones). */
+.hd-phone { display: none; font-size: 15px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+.hd-phone:hover { color: var(--signal); }
+@media (min-width: 1180px) { .cg .hd-phone { display: inline-flex; align-items: center; min-height: 44px; } }
+
+/* Contact form: optional marks and the note about the email address. */
+.field label .optional { color: var(--mute); font-weight: 400; }
+.enquiry-email-note { max-width: 34ch; color: var(--mute); font-size: 14px; line-height: 1.5; }
+.enquiry-email-note a { color: inherit; text-underline-offset: 3px; }

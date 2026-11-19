@@ -58,10 +58,7 @@ const words = headline.split(' ');
         <div class="page-intro"><slot name="intro" /></div>
       </div>
       {image && (
-        <dl class="ph-block">
-          <div><dt>Page</dt><dd>{label}</dd></div>
-          <div><dt>Photo</dt><dd class="ph-status">{stock ? 'Stock image' : 'Our project'}</dd></div>
-        </dl>
+        <p class="ph-block"><span class="ph-status">{stock ? 'Stock image' : 'Our project'}</span></p>
       )}
     </section>
     <slot />

@@ -13,30 +13,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Cta from '../components/Cta.astro';
 import { site, capabilities, process } from '../data/site';
-import projectKitchen2 from '../assets/photos/kitchen-b.jpg';
-import projectKitchen3 from '../assets/photos/kitchen-c.jpg';
-import projectBath from '../assets/photos/bath-a.jpg';
-import projectBedroom from '../assets/photos/bed-a.jpg';
-import projectExterior from '../assets/photos/exterior-a.jpg';
 import { photos } from '../data/photos';
-import projectRoof from '../assets/photos/roof-b.jpg';
 import Reviews from '../components/Reviews.astro';
 import { googleReviews } from '../data/reviews';
 
 const statement = 'One team designs it, prices it and builds it.'.split(' ');
 
-// One company photograph per service, in the order of `capabilities`.
-const capImg = [projectKitchen2, projectBath, projectBedroom, projectExterior, projectRoof];
+// One company photograph per service, in the order of `capabilities`: the photograph that
+// service's own page opens on, so the visitor lands where the picture promised.
+const capImg = ['kitchen-d', 'bath-b', 'kitchen-c', 'deck-a', 'roof-b'].map((key) => photos[key].src);
+// The finished room the process plan opens onto, and the photograph under the closing band.
+const processPhoto = photos['kitchen-b'];
+const bandPhoto = photos['roof-a'];
 
-// The strongest photographs, none of them already shown higher on this page.
-const rooms = ['bath-b', 'powder-c', 'roof-c', 'kitchen-f', 'powder-b'].map((key) => {
+// More finished rooms, none of them shown elsewhere on this page.
+const rooms = ['bath-a', 'kitchen-f', 'powder-c', 'roof-c', 'bed-a', 'powder-b'].map((key) => {
   const p = photos[key];
   return { src: p.src, name: p.room, alt: p.alt, tall: !!p.tall };
 });
 const facts = [
   { n: googleReviews.rating, label: `On Google, from ${googleReviews.count} reviews` },
   { n: site.since, label: 'In business since' },
-  { n: 'In-house', label: 'One team, first visit to final walkthrough', word: true },
+  { n: 'Eddie', label: 'Our co-founder, named again and again in our Google reviews', word: true },
 ];
 
 // Floor plan drawn in the process section. Each group belongs to one stage.
@@ -86,7 +84,53 @@ const fittings = [
     <Header home />
     <main id="main">
       <Hero />
-      <div class="proof-line"><a href={googleReviews.url} rel="noopener"><span class="proof-stars" aria-hidden="true">★</span>{googleReviews.rating} on Google<span class="proof-read">&nbsp;· {googleReviews.count} reviews</span></a><span>In business since {site.since}</span><span>One in-house team</span><a href="/reviews/">Read the reviews</a></div>
+      <div class="proof-line"><a href={googleReviews.url} rel="noopener"><span class="proof-stars" aria-hidden="true">★</span>{googleReviews.rating} on Google<span class="proof-read">&nbsp;· {googleReviews.count} reviews</span></a><span>In business since {site.since}</span><span>Founded by Italo Rodriguez and Eddie Migues</span><a href="/reviews/">Read the reviews</a></div>
+
+      <section class="ex" id="expertise">
+        <div class="ex-media">
+          {capImg.map((img, i) => <Image src={img} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+          <span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
+        </div>
+        <div class="ex-list">
+          <p class="cg-label">Home remodeling & roofing</p><h2>What we build.</h2>
+          <ol>
+            {
+              capabilities.map((c, i) => (
+                <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
+                  <a href={c.href}>
+                    <Image src={capImg[i]} alt="" widths={[500, 900]} sizes="92vw" loading="lazy" class="ex-thumb" />
+                    <span>{c.n}</span>
+                    <div>
+                      <h3>{c.name}</h3>
+                      <p>{c.text}</p>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="rm" id="rooms">
+        <div class="rm-pin">
+          <div class="rm-head">
+            <p class="cg-label">From our completed work</p><a href="/portfolio/">View our projects</a>
+            <p class="rm-hint">Keep scrolling</p>
+          </div>
+          <div class="rm-track">
+            <h2 class="rm-title">Rooms<br />we’ve built.</h2>
+            {
+              rooms.map((r, i) => (
+                <figure class={r.tall ? 'is-tall' : ''}>
+                  <a href="/portfolio/"><div><Image src={r.src} alt={r.alt} widths={[700, 1200, 1600]} sizes="(min-width: 900px) 50vw, 80vw" /></div>
+                  <figcaption><span>0{i + 1}</span>{r.name}</figcaption></a>
+                </figure>
+              ))
+            }
+          </div>
+        </div>
+      </section>
 
       <section class="st" id="firm">
         <p class="cg-label">How we work</p>
@@ -139,7 +183,7 @@ const fittings = [
               </g>
               <g class="pl-fittings">{fittings.map((d) => <path d={d} pathLength="1" class="draw" />)}</g>
             </svg>
-            <Image src={projectKitchen3} alt="Finished open-plan kitchen and living space" widths={[800, 1400]} sizes="(min-width: 900px) 56vw, 92vw" class="pr-photo" />
+            <Image src={processPhoto.src} alt={processPhoto.alt} widths={[800, 1400]} sizes="(min-width: 900px) 56vw, 92vw" class="pr-photo" />
             <figcaption>
               <span>Illustrative plan</span>
               <span class="pr-stage">Sketch</span>
@@ -148,59 +192,11 @@ const fittings = [
         </div>
       </section>
 
-      <section class="ex" id="expertise">
-        <div class="ex-media">
-          {capImg.map((img, i) => <Image src={img} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
-          <span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
-        </div>
-        <div class="ex-list">
-          <p class="cg-label">Home remodeling & roofing</p><h2>What we build.</h2>
-          <ol>
-            {
-              capabilities.map((c, i) => (
-                <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
-                  <a href={c.href}>
-                    <Image src={capImg[i]} alt="" widths={[500, 900]} sizes="92vw" loading="lazy" class="ex-thumb" />
-                    <span>{c.n}</span>
-                    <div>
-                      <h3>{c.name}</h3>
-                      <p>{c.text}</p>
-                    </div>
-                  </a>
-                </li>
-              ))
-            }
-          </ol>
-        </div>
-      </section>
-
-      <section class="rm" id="rooms">
-        <div class="rm-pin">
-          <div class="rm-head">
-            <p class="cg-label">From our completed work</p><a href="/portfolio/">View our projects</a>
-            <p class="rm-hint">Keep scrolling</p>
-          </div>
-          <div class="rm-track">
-            <h2 class="rm-title">Rooms<br />we’ve built.</h2>
-            {
-              rooms.map((r, i) => (
-                <figure class={r.tall ? 'is-tall' : ''}>
-                  <a href="/portfolio/"><div><Image src={r.src} alt={r.alt} widths={[700, 1200, 1600]} sizes="(min-width: 900px) 50vw, 80vw" /></div>
-                  <figcaption><span>0{i + 1}</span>{r.name}</figcaption></a>
-                </figure>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
       <section class="bd" data-dark>
         <div class="bd-frame">
-          <video data-deferred-video muted loop playsinline preload="none" poster="/media/plans-poster.jpg">
-            <source data-src="/media/plans.mp4" type="video/mp4" />
-          </video>
+          <Image src={bandPhoto.src} alt={bandPhoto.alt} widths={[800, 1400, 2000, 2560]} sizes="100vw" loading="lazy" class="bd-photo" />
           <h2>From the kitchen<br />to the roof.</h2>
-          <button class="bd-pause" type="button" aria-pressed="false" data-video-toggle hidden>Pause video</button>
+          <span class="media-note bd-note">Our project</span>
         </div>
       </section>
 
@@ -215,7 +211,7 @@ const fittings = [
         }
       </section>
 
-      <Reviews keys={['yu', 'solerPrice']} label="Clients" />
+      <Reviews keys={['jackson', 'solerPrice']} label="Clients" />
 
       <Cta />
     </main>

@@ -5,7 +5,8 @@ import { photos } from '../../data/photos';
 // Remodeling services as tall panels: the one under the pointer or keyboard focus opens wide.
 interface Props { label: string; title: string }
 const { label, title } = Astro.props;
-const pictures: Record<string, string> = { kitchen: 'kitchen-a', bathroom: 'bath-a', 'whole-home': 'bed-a', addition: 'exterior-a' };
+// Each panel shows the photograph its page opens on.
+const pictures: Record<string, string> = { kitchen: 'kitchen-d', bathroom: 'bath-b', 'whole-home': 'kitchen-c', addition: 'deck-a' };
 const items = capabilities.filter((c) => c.service in pictures);
 ---
 <section class="pn">

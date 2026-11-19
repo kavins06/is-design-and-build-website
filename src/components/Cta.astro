@@ -8,7 +8,7 @@ interface Props {
   phone?: boolean;
 }
 const { lines = ['What would you', 'like to change?'], service, phone = false } = Astro.props;
-const types = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Something else', service: 'other' }];
+const types = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Lead paint', service: 'lead' }, { name: 'Something else', service: 'other' }];
 const start = `/contact-us/${service ? `?service=${service}` : ''}`;
 ---
 <section class="ct" id="contact" data-dark>
@@ -16,7 +16,7 @@ const start = `/contact-us/${service ? `?service=${service}` : ''}`;
   <h2 class="ct-title"><span>{lines[0]}</span><span>{lines[1]}</span></h2>
   <div class="ct-actions">
     {phone
-      ? <><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={start}>Send details and photos</a></>
+      ? <><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={start}>Send details</a></>
       : <><a class="btn" href={start}>Start a project</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></>}
   </div>
   <div class="ct-pills" role="group" aria-label="Or choose the kind of project">{types.map((q) => <a class:list={{ 'is-current': q.service === service && service !== 'other' }} href={`/contact-us/?service=${q.service}`}>{q.name}</a>)}</div>

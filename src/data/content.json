@@ -5,7 +5,7 @@
   "description": "Explore kitchen, bathroom and whole-home remodeling, plus home additions. Serving Washington, DC, Northern Virginia and Montgomery County.",
   "label": "Remodeling",
   "service": "remodeling",
-  "image": "photos/kitchen-c",
+  "image": "photos/kitchen-b",
   "headline": "Remodel one room or the whole house.",
   "lede": "Kitchens, bathrooms, whole-home renovations and additions in Washington, DC, Northern Virginia and Montgomery County, designed and built by one in-house team.",
   "cta": "Discuss your renovation",
@@ -18,8 +18,8 @@
    {
     "kind": "split",
     "label": "No plans needed",
-    "image": "photos/bed-a",
-    "alt": "Bedroom with black-framed balcony doors, from one of our projects",
+    "image": "photos/powder-c",
+    "alt": "Powder room with a stone vessel sink, a brass wall faucet and black penny tile, from one of our projects",
     "title": "Start with what isn’t working.",
     "text": [
      "Tell us what you want to change and what you want to keep. Drawings and inspiration help, but you don’t need them to begin."
@@ -54,9 +54,14 @@
   "service": "kitchen",
   "image": "photos/kitchen-d",
   "headline": "Keep the layout, or change the whole kitchen.",
-  "lede": "Kitchen remodeling in Washington, DC, Northern Virginia and Montgomery County. We design it with you, agree the scope and estimate before we start, and build it with our own team.",
+  "lede": "We design it with you, agree the scope and the estimate before we start, then build it. Kitchens across Washington, DC, Northern Virginia and Montgomery County.",
   "cta": "Tell us about your kitchen",
   "sections": [
+   {
+    "kind": "gallery",
+    "category": "kitchen",
+    "title": "Kitchens we’ve built."
+   },
    {
     "kind": "points",
     "drawing": "kitchen",
@@ -96,11 +101,6 @@
     "keys": [
      "little"
     ]
-   },
-   {
-    "kind": "gallery",
-    "category": "kitchen",
-    "title": "Kitchens we’ve built."
    },
    {
     "kind": "faq",
@@ -148,11 +148,16 @@
   "description": "Explore bathroom layouts, showers, storage and finishes with our in-house team. Serving DC, Northern Virginia and Montgomery County, Maryland.",
   "label": "Bathrooms",
   "service": "bathroom",
-  "image": "photos/bath-a",
+  "image": "photos/bath-b",
   "headline": "Bathrooms that use every inch.",
-  "lede": "Bathroom remodeling in Washington, DC, Northern Virginia and Montgomery County, from a powder room to a primary suite. We plan the plumbing, ventilation and waterproofing along with the tile you’ll see.",
+  "lede": "From a powder room to a primary suite, across Washington, DC, Northern Virginia and Montgomery County. We plan the plumbing, ventilation and waterproofing along with the tile you’ll see.",
   "cta": "Tell us about your bathroom",
   "sections": [
+   {
+    "kind": "gallery",
+    "category": "bathroom",
+    "title": "Bathrooms we’ve built."
+   },
    {
     "kind": "points",
     "drawing": "bathroom",
@@ -180,8 +185,8 @@
    {
     "kind": "split",
     "label": "Any size",
-    "image": "photos/bath-b",
-    "alt": "Marble bathroom with a double vanity, brass mirrors and a glass shower, from one of our projects",
+    "image": "photos/bath-a",
+    "alt": "Floating double vanity with round mirrors and dark marble walls beside a glass shower, from one of our projects",
     "title": "A powder room or a primary suite.",
     "text": [
      "One bathroom on its own, or several within a larger renovation."
@@ -190,13 +195,9 @@
    {
     "kind": "reviews",
     "keys": [
-     "laurion"
+     "laurion",
+     "day"
     ]
-   },
-   {
-    "kind": "gallery",
-    "category": "bathroom",
-    "title": "Bathrooms we’ve built."
    },
    {
     "kind": "faq",
@@ -240,11 +241,16 @@
   "description": "Coordinate layouts, systems and finishes across your home. Discuss a whole-home renovation in DC, Northern Virginia or Montgomery County.",
   "label": "Whole-home renovations",
   "service": "whole-home",
-  "image": "photos/living-a",
+  "image": "photos/kitchen-c",
   "headline": "The whole house, planned as one.",
-  "lede": "Whole-home renovations in Washington, DC, Northern Virginia and Montgomery County. Layout, systems and finishes in one coordinated plan.",
+  "lede": "Layout, structure, systems and finishes in one coordinated plan and one build. Whole homes across Washington, DC, Northern Virginia and Montgomery County.",
   "cta": "Discuss your home renovation",
   "sections": [
+   {
+    "kind": "gallery",
+    "category": "whole-home",
+    "title": "From our completed projects."
+   },
    {
     "kind": "points",
     "drawing": "whole-home",
@@ -283,13 +289,10 @@
     "kind": "reviews",
     "keys": [
      "peytonResult",
+     "solerAway",
+     "dean",
      "hoftijzer"
     ]
-   },
-   {
-    "kind": "gallery",
-    "category": "whole-home",
-    "title": "From our completed projects."
    },
    {
     "kind": "faq",
@@ -329,11 +332,17 @@
   "description": "Explore additional space and how it could connect to your existing home. Discuss a home addition in DC, Northern Virginia or Montgomery County.",
   "label": "Home additions",
   "service": "addition",
-  "image": "photos/exterior-a",
-  "headline": "More room for the life you have.",
-  "lede": "Home additions in Washington, DC, Northern Virginia and Montgomery County, built to feel like they were always part of the house.",
+  "image": "photos/deck-a",
+  "headline": "More room, with the permits handled.",
+  "lede": "We find out what your lot and the zoning allow, handle the permit applications and build an addition that matches the house. Across Washington, DC, Northern Virginia and Montgomery County.",
   "cta": "Discuss an addition",
   "sections": [
+   {
+    "kind": "gallery",
+    "category": "outdoor",
+    "label": "From our completed work",
+    "title": "Decks, terraces and new living space."
+   },
    {
     "kind": "points",
     "drawing": "addition",
@@ -368,6 +377,7 @@
     "kind": "reviews",
     "keys": [
      "jackson",
+     "gerami",
      "designer"
     ]
    },
@@ -403,8 +413,8 @@
   "service": "roofing",
   "image": "photos/roof-b",
   "headline": "Roof repair and replacement.",
-  "lede": "Roof leaks, storm damage or a worn-out roof in DC, Northern Virginia and Montgomery County. Call or send photos, and we’ll tell you whether to repair or replace.",
-  "cta": "Send photos of your roof",
+  "lede": "Leaks, storm damage or a worn-out roof. Call now; out of office hours, leave your address and number and we’ll call you back. We tell you whether to repair or replace, and we fix the damage inside too.",
+  "cta": "Email photos of your roof",
   "phone": true,
   "sections": [
    {
@@ -435,13 +445,12 @@
     ]
    },
    {
-    "kind": "split",
+    "kind": "statement",
     "label": "When you get in touch",
-    "image": "photos/roof-a",
-    "alt": "Rooftop deck with sectional seating and views across the city, from one of our projects",
     "title": "Tell us what you’re seeing.",
     "text": [
-     "Where the property is and whether water is coming in. Photos from the ground help. Please don’t climb onto the roof."
+     "Where the property is and whether water is coming in. Photos from the ground help. Please don’t climb onto the roof.",
+     "Until we get there: move belongings away from the drip and catch it in a bucket, keep clear of a sagging ceiling and of light fittings with water in them, and take photos for your insurer."
     ]
    },
    {
@@ -464,9 +473,10 @@
    }
   ],
   "closing": [
-   "Roof trouble?",
-   "Call us today."
-  ]
+   "Water coming in?",
+   "Call (202) 519-1831."
+  ],
+  "ctaHref": "mailto:info@isenterprises.net?subject=Roof%20photos"
  },
  {
   "slug": "about-us",
@@ -484,8 +494,8 @@
    {
     "kind": "split",
     "label": "In-house",
-    "image": "photos/powder-c",
-    "alt": "Powder room with a stone vessel sink, a brass wall faucet and black penny tile, from one of our projects",
+    "image": "photos/deck-a",
+    "alt": "Rear of a house we built, with a deck, a balcony and a spiral stair, from one of our projects",
     "title": "One team, from first sketch to final walkthrough.",
     "text": [
      "The team you meet at the start is the team that finishes the job."
@@ -586,7 +596,7 @@
   "description": "Explore our coverage in Washington, DC, Northern Virginia and Montgomery County, including Bethesda and Chevy Chase. Confirm your project location.",
   "label": "Service areas",
   "image": "photos/roof-a",
-  "headline": "Home projects across the DC area.",
+  "headline": "DC, Montgomery County and Northern Virginia.",
   "lede": "Kitchens, bathrooms, whole-home renovations, additions and roofing, close to home.",
   "cta": "Check coverage for your project",
   "sections": [
@@ -620,8 +630,8 @@
    {
     "kind": "split",
     "label": "Not sure?",
-    "image": "photos/deck-a",
-    "alt": "Rear deck with outdoor seating and a spiral stair, from one of our projects",
+    "image": "photos/exterior-a",
+    "alt": "Covered rear deck with sliding glass doors and a spiral stair, from one of our projects",
     "title": "Send your town.",
     "text": [
      "Add a line about the work. No street address needed to ask."
@@ -638,7 +648,7 @@
   "title": "Our Work: Kitchens, Bathrooms & More | I.S Design + Build",
   "description": "Photographs of kitchens, bathrooms, decks and rooms from projects completed by I.S Design + Build, with what clients say about working with us.",
   "label": "Our work",
-  "image": "photos/kitchen-b",
+  "image": null,
   "headline": "Rooms we’ve built.",
   "lede": "Kitchens, bathrooms, decks and more from our completed projects.",
   "cta": "Discuss your project",
@@ -668,7 +678,7 @@
   "description": "Answers about services, project enquiries, service areas and planning a renovation or roofing project with I.S Design + Build.",
   "label": "FAQs",
   "image": "photos/bath-d",
-  "headline": "Useful answers before you start.",
+  "headline": "Straight answers before you start.",
   "lede": "Planning a room, a roof or a larger renovation? Start here.",
   "cta": "Ask us something else",
   "sections": [
@@ -679,7 +689,7 @@
     "items": [
      {
       "q": "What services do you offer?",
-      "a": "Kitchen and bathroom remodeling, whole-home renovations, home additions and roofing. If your project includes something else, describe it in your inquiry."
+      "a": "Kitchen and bathroom remodeling, whole-home renovations, home additions, roofing and lead-paint work. If your project includes something else, describe it in your inquiry."
      },
      {
       "q": "Do you take smaller projects?",
@@ -688,6 +698,34 @@
      {
       "q": "Where do you work?",
       "a": "Washington, DC, Northern Virginia and Montgomery County, Maryland, including Bethesda and Chevy Chase. Share your town to confirm coverage."
+     },
+     {
+      "q": "Are you licensed and insured?",
+      "a": "Ask us for our licence numbers and certificate of insurance when we first talk, and check them before you sign with any contractor."
+     },
+     {
+      "q": "Do you handle permits?",
+      "a": "Yes. We find out which approvals your project needs and handle the applications before work starts."
+     },
+     {
+      "q": "Can I live at home during the work?",
+      "a": "It depends on which rooms are affected and whether you’ll be without a kitchen, a bathroom, water or power for a time. We plan the order of work with you, so you know before we start."
+     },
+     {
+      "q": "My house was built before 1978. Does lead paint matter?",
+      "a": "It may have lead paint. We plan containment, dust control and clean-up into the scope from the first visit.",
+      "link": {
+       "href": "/lead-paint-abatement/",
+       "text": "Read about lead paint."
+      }
+     },
+     {
+      "q": "Can you work with my architect or designer?",
+      "a": "Yes. An independent interior designer who worked alongside us on a new four-storey home is among our Google reviewers.",
+      "link": {
+       "href": "/reviews/",
+       "text": "Read the reviews."
+      }
      },
      {
       "q": "Do I need drawings before contacting you?",
@@ -710,9 +748,20 @@
       }
      },
      {
+      "q": "Do you take commercial and government work?",
+      "a": "Yes. Call (202) 519-1831 to talk about the property and the work."
+     },
+     {
       "q": "How do I speak to someone?",
       "a": "Call (202) 519-1831 or email info@isenterprises.net."
      }
+    ]
+   },
+   {
+    "kind": "reviews",
+    "keys": [
+     "laurion",
+     "solerPrice"
     ]
    }
   ],
@@ -727,7 +776,7 @@
   "description": "Ask about paying for a remodeling or roofing project over time. Financing is arranged through independent lenders, subject to their approval and terms.",
   "label": "Financing",
   "service": "other",
-  "image": "photos/bed-a",
+  "image": "photos/powder-b",
   "headline": "Spread the cost of your project.",
   "lede": "Pay for a renovation or a new roof over time, through independent home-improvement lenders.",
   "cta": "Ask about financing",
@@ -755,8 +804,8 @@
    {
     "kind": "split",
     "label": "Scope first",
-    "image": "photos/kitchen-c",
-    "alt": "Completed kitchen with a waterfall island",
+    "image": "photos/bath-d",
+    "alt": "Bathroom with a frameless glass shower and a long white double vanity, from one of our projects",
     "title": "Know the project before the loan.",
     "text": [
      "A loan is easier to judge once the work is defined."
@@ -796,13 +845,13 @@
  },
  {
   "slug": "lead-paint-abatement",
-  "title": "Lead Paint in Older DC Homes | I.S Design + Build",
+  "title": "Lead Paint Abatement in DC | I.S Design + Build",
   "description": "Planning work on a home built before 1978? Tell us what you know about lead paint so it can be considered in the scope from the start.",
   "label": "Lead paint",
-  "service": "other",
+  "service": "lead",
   "image": "stock/town-05",
-  "headline": "Older home? Plan for lead paint early.",
-  "lede": "Many DC homes were built before 1978, when lead-based paint was still in use. If yours is one, we plan containment, dust control and clean-up into the scope from the first visit.",
+  "headline": "Lead-paint abatement and lead-safe renovation.",
+  "lede": "For DC homes and rentals built before 1978. We plan containment, dust control and clean-up into the scope from the first visit, and arrange the clearance testing at the end.",
   "cta": "Tell us about your home",
   "sections": [
    {
@@ -839,9 +888,18 @@
     "note": "Lead inspections and risk assessments are carried out by a licensed inspector or risk assessor."
    },
    {
+    "kind": "statement",
+    "label": "Landlords",
+    "title": "Renting it out?",
+    "text": [
+     "Tell us if you have a DOEE notice or order, a risk-assessment report, or a date the unit must be ready, and we’ll plan the work around it."
+    ]
+   },
+   {
     "kind": "reviews",
     "keys": [
-     "solerLead"
+     "solerLead",
+     "shedd"
     ]
    },
    {

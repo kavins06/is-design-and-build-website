@@ -155,6 +155,8 @@ export function plan(section: HTMLElement) {
 export function band(el: HTMLElement) {
   const frame = el.querySelector('.bnd-frame');
   if (!frame) return;
+  // Phones show the photograph whole, above its words, without scroll effects.
+  if (!desktop()) return;
   const img = frame.querySelector('img');
   gsap.fromTo(
     frame,

@@ -1,32 +1,33 @@
 ---
 import { Image, getImage } from 'astro:assets';
-import { photos, galleries } from '../../data/photos';
-// Every company photograph, in three columns that move at different speeds.
-// Each opens full screen; without JavaScript the link opens the large image itself.
-const shots = await Promise.all(
-  galleries.all.map(async (key, i) => {
-    const p = photos[key];
-    const large = await getImage({ src: p.src, width: 2000, format: 'webp' });
-    return { ...p, n: i + 1, large: large.src };
-  }),
+import { photos, portfolio } from '../../data/photos';
+// Completed work: the strongest photograph full width, then the rest grouped by room in two
+// large columns. Each opens full screen; without JavaScript the link opens the large image itself.
+const keys = [portfolio.lead, ...portfolio.groups.flatMap((g) => g.keys)];
+const large = Object.fromEntries(
+  await Promise.all(keys.map(async (key) => [key, (await getImage({ src: photos[key].src, width: 2000, format: 'webp' })).src])),
 );
-const columns = [0, 1, 2].map((c) => shots.filter((_, i) => i % 3 === c));
-const viewer = shots.map((s) => ({ src: s.large, alt: s.alt, room: s.room }));
+const index = (key: string) => keys.indexOf(key);
+const lead = photos[portfolio.lead];
+const viewer = keys.map((key) => ({ src: large[key], alt: photos[key].alt, room: photos[key].room }));
 ---
 <section class="pf" data-scene="portfolio">
-  <div class="pf-head"><p class="cg-label">Completed work</p></div>
-  <div class="pf-cols">
-    {columns.map((col, c) => (
-      <div class="pf-col" data-depth={c === 1 ? '1' : '0'}>
-        {col.map((p) => (
-          <figure class:list={{ 'is-tall': p.tall }}>
-            <a href={p.large} data-view={p.n - 1}><Image src={p.src} alt={p.alt} widths={[500, 900, 1300]} sizes="(min-width: 900px) 31vw, 46vw" loading={p.n <= 3 ? 'eager' : 'lazy'} /></a>
-            <figcaption>{p.room}</figcaption>
+  <figure class="pf-lead">
+    <a href={large[portfolio.lead]} data-view={index(portfolio.lead)}><Image src={lead.src} alt={lead.alt} widths={[800, 1400, 2000, 2560]} sizes="(min-width: 900px) calc(100vw - 112px), 100vw" loading="eager" fetchpriority="high" /></a>
+    <figcaption>{lead.room}<span>{keys.length} photographs from our completed projects</span></figcaption>
+  </figure>
+  {portfolio.groups.map((group) => (
+    <div class="pf-group">
+      <h2 data-split>{group.title}</h2>
+      <div class="pf-grid">
+        {group.keys.map((key) => (
+          <figure>
+            <a href={large[key]} data-view={index(key)}><Image src={photos[key].src} alt={photos[key].alt} widths={[600, 1000, 1400, 2000]} sizes="(min-width: 701px) 48vw, 100vw" loading="lazy" /></a>
           </figure>
         ))}
       </div>
-    ))}
-  </div>
+    </div>
+  ))}
   <dialog class="lb" aria-label="Project photographs">
     <div class="lb-stage"><img alt="" /></div>
     <p class="lb-meta"><span class="lb-count"></span><span class="lb-room"></span></p>

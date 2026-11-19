@@ -7,10 +7,10 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const lenis = reduce ? null : startMotion();
 if (lenis) {
-  statement();
-  processStory();
   expertise();
   rooms();
+  statement();
+  processStory();
   band();
   facts();
   reveals();
@@ -40,6 +40,12 @@ function processStory() {
   const detail = section.querySelector<HTMLElement>('.pr-detail');
   const names = ['Sketch', 'Design', 'Scope + planning', 'Construction', 'Walkthrough'];
   let current = 0;
+  // Phones get the finished plan with every step open: a pinned sheet fights the thumb.
+  if (!window.matchMedia('(min-width: 901px)').matches) {
+    section.classList.add('pr-static');
+    if (stage) stage.textContent = 'Plan';
+    return;
+  }
 
   const draw = (group: string) => `${group} .draw`;
   // The sheet opens on stage 01 already sketched, so it never shows as an empty box.
@@ -54,7 +60,8 @@ function processStory() {
     scrollTrigger: {
       trigger: '.pr-pin',
       start: 'top top',
-      end: window.matchMedia('(min-width: 901px)').matches ? '+=240%' : '+=180%',
+      // Under a third of a screen per stage: long enough to read, short enough not to stall.
+      end: '+=150%',
       pin: true,
       scrub: 0.5,
       onUpdate: (self) => {

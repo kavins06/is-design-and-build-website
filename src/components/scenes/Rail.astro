@@ -4,7 +4,7 @@ import { photos, galleries } from '../../data/photos';
 // Completed work as a sideways gallery driven by vertical scroll. Phones swipe it.
 interface Props { label?: string; title?: string; gallery: string }
 const { label = 'From our completed work', title = 'From our completed projects.', gallery } = Astro.props;
-const shots = (galleries[gallery] ?? galleries.all).map((key) => photos[key]);
+const shots = (galleries[gallery] ?? galleries.kitchen).map((key) => photos[key]);
 ---
 <section class="rail" data-scene="rail">
   <div class="rail-pin">

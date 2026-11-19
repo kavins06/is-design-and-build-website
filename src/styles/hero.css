@@ -7,7 +7,9 @@
     --line: #dcdcd7;
     --pad: clamp(20px, 3.4vw, 56px);
     --signal: #ff5418;
-    --t-built: 3.4s;
+    /* When the photograph starts to build under the drawing on a first visit. The owner's
+       drawn-then-built opening is kept; it was 3.4s (room complete at 5.2s), now complete by about 2.6s. */
+    --t-built: 1.3s;
     background: var(--paper);
     color: var(--ink);
     font:
@@ -81,27 +83,30 @@
   .cg-photo {
     object-fit: cover;
     clip-path: inset(100% 0 0 0);
-    animation: cg-reveal 1.8s cubic-bezier(0.7, 0, 0.2, 1) var(--t-built) forwards;
+    animation: cg-reveal 1.3s cubic-bezier(0.7, 0, 0.2, 1) var(--t-built) forwards;
   }
   @keyframes cg-reveal {
     to {
       clip-path: inset(0);
     }
   }
+  /* Shade only where the words sit (lower left) and a little under the header; the room
+     to the right stays at full brightness. */
   .cg-hero-shade {
     opacity: 0;
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 22%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 42%),
-      linear-gradient(75deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 34%, rgba(0, 0, 0, 0.12) 68%);
-    animation: cg-fade 1.8s var(--t-built) forwards;
+      linear-gradient(180deg, rgba(12, 12, 12, 0.42) 0%, rgba(12, 12, 12, 0) 13%),
+      linear-gradient(0deg, rgba(12, 12, 12, 0.55) 0%, rgba(12, 12, 12, 0) 32%),
+      linear-gradient(90deg, rgba(12, 12, 12, 0.84) 0%, rgba(12, 12, 12, 0.74) 30%, rgba(12, 12, 12, 0.42) 46%, rgba(12, 12, 12, 0) 62%);
+    animation: cg-fade 1.3s var(--t-built) forwards;
   }
+  /* Once the room is built, the drawing steps away completely, as on every other page. */
   .cg-elev {
-    animation: cg-dim 2s calc(var(--t-built) + 1.2s) forwards;
+    animation: cg-dim 1.2s calc(var(--t-built) + 1.1s) forwards;
   }
   @keyframes cg-dim {
     to {
-      opacity: 0.38;
+      opacity: 0;
     }
   }
   .cg-strokes path,
@@ -111,8 +116,8 @@
     stroke-width: 2.6;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: cg-draw 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    animation-delay: calc(0.2s + var(--i) * 0.16s);
+    animation: cg-draw 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: calc(0.1s + var(--i) * 0.05s);
   }
   /* Widths are in the photo's 2560-unit space: about 1.3 and 1 screen pixels on a laptop. */
   .cg-strokes path {
@@ -127,7 +132,7 @@
     fill: var(--signal);
     opacity: 0;
     animation: cg-fade 0.6s forwards;
-    animation-delay: calc(0.2s + var(--i) * 0.16s);
+    animation-delay: calc(0.1s + var(--i) * 0.05s);
   }
   @keyframes cg-draw {
     to {
@@ -159,7 +164,7 @@
     animation-delay: 0.2s;
   }
   .cg h1 span:nth-child(2) {
-    animation-delay: 1.6s;
+    animation-delay: 0.6s;
   }
   .cg h1 span.is-built {
     color: var(--signal);
@@ -210,11 +215,22 @@
 .opened .cg-dims text { animation-delay: .2s; }
 .opened .cg-photo { animation-duration: 1s; }
 
-/* Phones: the headline covers most of the photo, so the drawing steps right back once the room is built. */
-@keyframes cg-dim-phone { to { opacity: .14; } }
-@media (max-width: 540px) { .cg-elev { animation-name: cg-dim-phone; } }
-/* Phones: the words fill the lower three-quarters of the screen, so shade sits behind them
-   and the room stays clear above the headline. */
-@media (max-width: 900px) {
-  .cg-hero-shade { background: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, 0) 14%), linear-gradient(0deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, .74) 45%, rgba(0, 0, 0, .55) 70%, rgba(0, 0, 0, 0) 84%); }
+/* Phones and tablets held upright: the room takes the top of the screen at full brightness and
+   the words sit below it on black, so neither covers the other. The drawing is sliced exactly
+   like the photograph, so its lines still land on the room. */
+@media (max-width: 900px) and (orientation: portrait) {
+  .cg .cg-hero { display: block; height: auto; min-height: 100svh; padding: calc(var(--hero-photo) + 20px) var(--pad) 28px; --hero-photo: 41svh; }
+  .cg-stage { inset: 0 0 auto 0; height: var(--hero-photo); }
+  .cg-hero-shade { background: linear-gradient(180deg, rgba(12, 12, 12, .5) 0%, rgba(12, 12, 12, 0) 26%), linear-gradient(0deg, rgba(12, 12, 12, .7) 0%, rgba(12, 12, 12, 0) 22%); }
+  /* Headline and actions first; the longer sentence follows them, just below. */
+  .cg-hero-copy { display: flex; flex-direction: column; }
+  .cg .cg-hero-copy .hero-eyebrow { order: 0; margin-bottom: 14px; }
+  .cg-hero-copy h1 { order: 1; }
+  .cg-hero-copy .hero-actions { order: 2; margin-top: 4px; }
+  .cg-hero-copy .hero-urgent { order: 3; }
+  .cg .cg-hero-copy > p:not(.hero-eyebrow):not(.hero-urgent) { order: 4; margin-top: 22px; }
+  .cg .cg-hero-copy h1 { margin-bottom: 18px; }
+}
+@media (max-width: 900px) and (orientation: portrait) and (min-width: 541px) {
+  .cg .cg-hero { --hero-photo: 50svh; }
 }

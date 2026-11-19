@@ -1,21 +1,22 @@
 ---
 const { home = false, overlay = false } = Astro.props;
-const remodeling = [['Overview', '/home-remodeling/'], ['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/']];
-const planning = [['Our process', '/our-process/'], ['Financing', '/financing/'], ['Lead paint in older homes', '/lead-paint-abatement/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/']];
-const about = [['Our story', '/about-us/'], ['Reviews', '/reviews/'], ['Service areas', '/service-areas/']];
+import { site } from '../data/site';
+const services = [['Remodeling overview', '/home-remodeling/'], ['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/'], ['Lead paint', '/lead-paint-abatement/']];
+const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/'], ['Financing', '/financing/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/']];
 ---
 <a class="skip-link" href="#main">Skip to content</a>
 <header class:list={['hd', { 'is-solid': !home && !overlay }]} data-home={home || overlay}>
   <a class="hd-logo" href="/" aria-label="I.S Design + Build, home">I.S Design <span>+</span> Build</a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
   <nav id="primary-nav" aria-label="Primary">
-    <details class="nav-group"><summary>Remodeling</summary><div class="nav-dropdown">{remodeling.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
+    <details class="nav-group"><summary>Services</summary><div class="nav-dropdown">{services.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
     <a href="/roofing/">Roofing</a>
     <a href="/portfolio/">Our work</a>
-    <details class="nav-group"><summary>Planning</summary><div class="nav-dropdown">{planning.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
+    <a href="/reviews/">Reviews</a>
     <details class="nav-group"><summary>About</summary><div class="nav-dropdown">{about.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
-    <a class="mobile-phone" href="tel:+12025191831">(202) 519-1831</a>
+    <a class="mobile-phone" href={site.phoneHref}>{site.phone}</a>
   </nav>
+  <a class="hd-phone" href={site.phoneHref}>{site.phone}</a>
   <a class="hd-cta" href="/contact-us/">Start a project</a>
 </header>
 <script>

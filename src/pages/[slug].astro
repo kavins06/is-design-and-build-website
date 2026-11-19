@@ -37,11 +37,11 @@ const external = (href: string) => /^https?:/.test(href);
 // The first photograph-and-statement section on a page opens full bleed; any later one sits beside its text.
 const firstSplit = page.sections.findIndex((s: any) => s.kind === 'split');
 ---
-<InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline} schema={schema} image={img(page.image)} photo={page.image} sheet={sheet}>
+<InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline} schema={schema} image={page.image ? img(page.image) : undefined} photo={page.image ?? undefined} sheet={sheet}>
   <Fragment slot="intro">
     <p>{page.lede}</p>
     {page.phone
-      ? <div class="hero-actions"><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={`/contact-us/?service=${page.service}`}>{page.cta}</a></div>
+      ? <div class="hero-actions"><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={page.ctaHref ?? `/contact-us/?service=${page.service}`}>{page.cta}</a></div>
       : <div class="hero-actions"><a class="btn" href={`/contact-us/?service=${page.service || 'other'}`}>{page.cta}</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></div>}
   </Fragment>
   {page.sections.map((s: any, index: number) => (
