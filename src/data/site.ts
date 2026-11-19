@@ -28,6 +28,7 @@ export const capabilities = [
   { n: '03', name: 'Whole-home renovations', service: 'whole-home', href: '/whole-home-remodeling/', text: 'Every room in one coordinated plan.' },
   { n: '04', name: 'Home additions', service: 'addition', href: '/home-additions/', text: 'More room that feels like it was always there.' },
   { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and replacements, plus the leak damage inside.' },
+  { n: '06', name: 'Lead paint', service: 'lead', href: '/lead-paint-abatement/', text: 'Lead-safe work in homes and rentals built before 1978.' },
 ];
 
 export const process = [

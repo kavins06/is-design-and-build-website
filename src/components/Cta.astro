@@ -8,7 +8,7 @@ interface Props {
   phone?: boolean;
 }
 const { lines = ['What would you', 'like to change?'], service, phone = false } = Astro.props;
-const types = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Lead paint', service: 'lead' }, { name: 'Something else', service: 'other' }];
+const types = [...capabilities.map(c => ({ name: c.name, service: c.service })), { name: 'Something else', service: 'other' }];
 const start = `/contact-us/${service ? `?service=${service}` : ''}`;
 ---
 <section class="ct" id="contact" data-dark>

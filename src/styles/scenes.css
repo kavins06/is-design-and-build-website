@@ -17,7 +17,7 @@ html { background: #0c0c0c; }
 /* Shade only where the words sit (the headline at the lower left, the lede and actions along
    the bottom) and a little under the header: the room stays at full brightness above and right. */
 .ph-shade { position: absolute; inset: 0; z-index: 1; background:
-  linear-gradient(180deg, #0c0c0c61 0%, #0c0c0c00 13%),
+  linear-gradient(180deg, #0c0c0cb8 0%, #0c0c0c99 8%, #0c0c0c00 20%),
   linear-gradient(0deg, #0c0c0c8c 0%, #0c0c0c00 34%),
   linear-gradient(90deg, #0c0c0cc7 0%, #0c0c0cad 32%, #0c0c0c6b 50%, #0c0c0c00 66%); }
 /* Wide screens: every word sits in the left column, so the right of the room stays clear. */
@@ -37,7 +37,7 @@ html { background: #0c0c0c; }
 @media (max-width: 900px) and (orientation: portrait) {
   .page-hero.has-photo:not(.is-compact) { --ph-photo: 40svh; display: block; min-height: 0; padding: calc(var(--ph-photo) + 22px) var(--pad) 36px; }
   .page-hero.has-photo:not(.is-compact) .ph-stage { inset: 0 0 auto 0; height: var(--ph-photo); }
-  .page-hero.has-photo:not(.is-compact) .ph-shade { background: linear-gradient(180deg, #0c0c0c80 0%, #0c0c0c00 30%), linear-gradient(0deg, #0c0c0c99 0%, #0c0c0c00 18%); }
+  .page-hero.has-photo:not(.is-compact) .ph-shade { background: linear-gradient(180deg, #0c0c0ccc 0%, #0c0c0ca6 20%, #0c0c0c00 44%), linear-gradient(0deg, #0c0c0c99 0%, #0c0c0c00 18%); }
   .page-hero.has-photo:not(.is-compact) .breadcrumb { display: none; }
   .page-hero.has-photo:not(.is-compact) h1 { font-size: clamp(36px, 10.6vw, 56px); }
   .page-hero.has-photo:not(.is-compact) .page-intro { margin-top: 18px; padding-top: 18px; }
@@ -127,13 +127,13 @@ html { background: #0c0c0c; }
 .dw-stage { color: var(--signal); text-align: right; }
 .cg .dw-note { max-width: 78ch; padding: 0 var(--pad) clamp(64px, 7vw, 110px); font-size: 14px; line-height: 1.6; color: #ffffff99; }
 /* With motion, only the active point is lit and open; the others wait their turn. */
-.has-motion .dw-steps li { opacity: .5; }
-.has-motion .dw-steps li.is-on { opacity: 1; }
+.has-motion .dw-steps li > div { opacity: .5; transition: opacity .4s; }
+.has-motion .dw-steps li.is-on > div { opacity: 1; }
 .has-motion .dw-text { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s cubic-bezier(.2, .7, .2, 1); }
 .has-motion .dw-text > div { min-height: 0; overflow: hidden; }
 .has-motion .dw-steps li.is-on .dw-text { grid-template-rows: 1fr; }
 /* Phones: the finished drawing, with every point open. */
-.has-motion .dw-static .dw-steps li { opacity: 1; }
+.has-motion .dw-static .dw-steps li > div { opacity: 1; }
 .has-motion .dw-static .dw-text { grid-template-rows: 1fr; }
 .dw-static .dw-progress { display: none; }
 @media (max-width: 900px) {
@@ -160,7 +160,7 @@ html { background: #0c0c0c; }
 .bnd-frame > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
 .bnd-frame::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, #0c0c0ceb 0%, #0c0c0c8c 42%, #0c0c0c1f 78%); }
 .bnd-copy { max-width: 940px; }
-.bnd .cg-label { color: #ffffffbf; }
+.bnd .cg-label { color: #fff; text-shadow: 0 1px 8px #0c0c0caa; }
 .bnd-copy h2 { max-width: 13ch; margin-top: 18px; font-size: clamp(42px, 6.8vw, 116px); line-height: .95; letter-spacing: -.05em; }
 .bnd-copy p:not(.cg-label) { max-width: 42ch; margin-top: 22px; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.45; color: #ffffffdb; }
 .bnd-copy .text-link { margin-top: 16px; color: #fff; }
@@ -413,11 +413,19 @@ html.lb-open { overflow: hidden; }
 }
 
 /* The photograph's label: one small line, not a title block over the room. */
-.cg .ph-block { display: block; padding: 6px 10px; font-size: 11px; background: #0c0c0c8c; }
-@media (min-width: 1051px) { .cg .cg-titleblock { display: block; align-self: flex-end; margin-bottom: 4px; padding: 6px 10px; font-size: 11px; background: #0c0c0c8c; } }
+.cg .ph-block { display: block; padding: 6px 10px; font-size: 11px; background: #0c0c0ce6; }
+.cg .ph-block .ph-status, .cg .cg-titleblock .cg-status, .cg .media-note { color: #ff8a5c; }
+@media (min-width: 1051px) { .cg .cg-titleblock { display: block; align-self: flex-end; margin-bottom: 4px; padding: 6px 10px; font-size: 11px; background: #0c0c0ce6; } }
 @media (max-width: 900px) and (orientation: portrait) {
   /* On phones the label sits on the photograph's lower right corner. */
   .cg .page-hero.has-photo:not(.is-compact) .ph-block { display: block; top: calc(var(--ph-photo) - 36px); right: 12px; animation-delay: .3s; }
 }
 /* A compact page top is a darkened backdrop, not a showcase: no label over it. */
 .cg .page-hero.is-compact .ph-block { display: none; }
+
+/* The service-and-place line inside each page-top headline. */
+.page-hero .ph-title .ph-kicker { display: block; width: fit-content; max-width: none; margin-bottom: 18px; font: 500 12px/1.4 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: #ffffffd9; opacity: 0; animation: cg-fade .6s .2s forwards; }
+.opened .page-hero .ph-title .ph-kicker { animation-delay: .1s; }
+@media (prefers-reduced-motion: reduce) { .page-hero .ph-title .ph-kicker { opacity: 1; animation: none; } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+#main:focus { outline: none; }

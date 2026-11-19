@@ -2,6 +2,18 @@
 
 Written 2026-11-12. This is where the work stands after a design review of the built site against [the site standard](site-standard.md). Read the standard first. Every change is judged against it.
 
+## Update, 2026-11-19: second three-reviewer audit and fixes
+
+Three sequential reviewers with separate lenses (the eye, the buyer, the inspector) found the site honest and well built, but hiding its own work, answering few of a buyer's objections and letting the chat bubble cover the phone's main buttons. See [the review note](review-2026-11-19.md) for what worked, what didn't, everything changed and the owner's list; the reports are in [docs/reviews/2026-11-19/](reviews/2026-11-19/).
+
+Points for whoever works on the site next:
+- **Page tops.** Words sit in a left column on a scrim (`.ph-shade` in `src/styles/scenes.css`, `.cg-hero-shade` in `src/styles/hero.css`); phones held upright put the photo on top and the words below. After changing a scrim or a page-top photo, re-measure text contrast against the real pixels (every headline, lede, header link and label passed AA on 19 Nov).
+- **Home opening.** `--t-built` in `src/styles/hero.css` sets it (1.3s now; the owner's original was 3.4s).
+- **Photos.** One page-top or band role per photograph on the main pages; galleries and the portfolio may repeat. The portfolio's lead and groups live in `portfolio` in `src/data/photos.ts`. Run `scripts/trace-photos.py` after changing a page-top photograph.
+- **Chat.** Intercom loads only when a visitor taps a `[data-chat]` button (`src/layouts/BaseLayout.astro`, and the icon in the phone bar in `src/components/Footer.astro`); its own launcher is hidden. Keep any new chat entry point clear of the phone bar.
+- **H1s.** Interior pages take an optional `kicker` (service and place) in `src/data/content.json`, shown above the headline inside the H1.
+- **Lead paint.** The page says "lead-safe" until the owner confirms the abatement certification; then the title, H1 and the home card can say "abatement".
+
 ## Update, 2026-11-15 (evening): three-reviewer audit and fixes
 
 An in-depth adversarial review by three reviewers, run one after another with separate lenses (desire and clarity, evidence and positioning, execution and reach), found the site impressive at first glance but not convincing enough to hire from. See [the review note](review-2026-11-15.md) for what worked, what didn't, everything changed in this release and the owner's to-do list. The full reports are in [docs/reviews/2026-11-15/](reviews/2026-11-15/).

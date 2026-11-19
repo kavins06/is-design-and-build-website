@@ -1,5 +1,5 @@
 ---
-import { site, credentials } from '../data/site';
+import { site, credentials, intercomAppId } from '../data/site';
 const links = [['Remodeling', '/home-remodeling/'], ['Roofing', '/roofing/'], ['Our work', '/portfolio/'], ['Reviews', '/reviews/'], ['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/'], ['Financing', '/financing/'], ['Lead paint', '/lead-paint-abatement/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/']];
 const path = Astro.url.pathname;
 const bar = !path.startsWith('/contact-us');
@@ -17,12 +17,12 @@ const urgent = path === '/roofing/';
   <p class="footer-mark" aria-hidden="true">I.S Design <span>+</span> Build</p>
 </footer>
 {bar && (urgent
-  ? <nav class="m-bar" data-m-bar aria-label="Quick contact"><a href={start}>Send details</a><a class="is-primary" href={site.phoneHref}>Call {site.phone}</a></nav>
-  : <nav class="m-bar" data-m-bar aria-label="Quick contact"><a href={site.phoneHref}>Call</a><a class="is-primary" href={start}>Start a project</a></nav>)}
+  ? <nav class:list={['m-bar', { 'has-chat': intercomAppId }]} data-m-bar aria-label="Quick contact"><a href={start}>Send details</a>{intercomAppId && <button type="button" class="m-chat" data-chat aria-label="Chat with us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-6 4z" /></svg></button>}<a class="is-primary" href={site.phoneHref}>Call {site.phone}</a></nav>
+  : <nav class:list={['m-bar', { 'has-chat': intercomAppId }]} data-m-bar aria-label="Quick contact"><a href={site.phoneHref}>Call</a>{intercomAppId && <button type="button" class="m-chat" data-chat aria-label="Chat with us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-6 4z" /></svg></button>}<a class="is-primary" href={start}>Start a project</a></nav>)}
 <script>
   const bar = document.querySelector<HTMLElement>('[data-m-bar]');
   if (bar) {
-    const update = () => bar.classList.toggle('is-on', window.scrollY > 480);
+    const update = () => bar.classList.toggle('is-on', window.scrollY > 160);
     update(); window.addEventListener('scroll', update, { passive: true });
   }
 </script>

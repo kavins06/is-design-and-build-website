@@ -3,6 +3,11 @@ import InteriorLayout from '../layouts/InteriorLayout.astro';
 import Cta from '../components/Cta.astro';
 import photo from '../assets/photos/bath-c.jpg';
 import { reviews, googleReviews, type Review, type ReviewKey } from '../data/reviews';
+import { Image } from 'astro:assets';
+import { photos } from '../data/photos';
+// Rooms from our completed projects between the groups, so the page is not all text. They are
+// not matched to the reviews beside them.
+const strips: Record<number, string[]> = { 0: ['kitchen-a', 'bath-b', 'kitchen-c'], 2: ['deck-a', 'powder-c', 'roof-c'] };
 // Every review excerpt on the site, grouped by the kind of work the client describes.
 const groups: { title: string; keys: ReviewKey[] }[] = [
   { title: 'Remodeling and renovation', keys: ['yu', 'peyton', 'peytonResult', 'little', 'laurion', 'hoftijzer', 'dean', 'solerPrice', 'solerAway'] },
@@ -12,12 +17,12 @@ const groups: { title: string; keys: ReviewKey[] }[] = [
   { title: 'From a designer who worked alongside us', keys: ['designer'] },
 ];
 ---
-<InteriorLayout title="Client Reviews | I.S Design + Build" description={`What clients say about I.S Design + Build, formerly I.S. Enterprises: rated ${googleReviews.rating} on Google from ${googleReviews.count} reviews of remodeling, roofing and repair work in the DC area.`} label="Reviews" headline="In our clients’ words." image={photo} imageAlt="Walk-in glass shower with two rain heads, from one of our projects" photo="photos/bath-c">
+<InteriorLayout title="Reviews from DC Homeowners | I.S Design + Build" description={`What clients say about I.S Design + Build, formerly I.S. Enterprises: rated ${googleReviews.rating} on Google from ${googleReviews.count} reviews of remodeling, roofing and repair work in the DC area.`} label="Reviews" headline="In our clients’ words." image={photo} imageAlt="Walk-in glass shower with two rain heads, from one of our projects" photo="photos/bath-c">
   <Fragment slot="intro">
     <p>Rated {googleReviews.rating} on Google from {googleReviews.count} reviews. Many of them use our former name, I.S. Enterprises.</p>
     <div class="hero-actions"><a class="btn" href="/contact-us/">Start a project</a><a class="text-link" href={googleReviews.url} rel="noopener">Read them all on Google</a></div>
   </Fragment>
-  {groups.map((g) => (
+  {groups.map((g, gi) => (<>
     <section class="rvw">
       <h2 class="rvw-title" data-split>{g.title}</h2>
       <div class="rvw-grid">
@@ -32,7 +37,12 @@ const groups: { title: string; keys: ReviewKey[] }[] = [
         })}
       </div>
     </section>
-  ))}
+    {strips[gi] && (
+      <div class="rvw-strip" aria-label="Rooms from our completed projects" role="group">
+        {strips[gi].map((key) => <figure><Image src={photos[key].src} alt={photos[key].alt} widths={[500, 800, 1100]} sizes="(min-width: 701px) 31vw, 46vw" loading="lazy" /></figure>)}
+      </div>
+    )}
+  </>))}
   <p class="rvw-note">Excerpts are quoted word for word from our Google Business Profile; “…” marks text left out. <a href={googleReviews.url} rel="noopener">See every review on Google</a>.</p>
   <Cta lines={['Want work like this', 'in your home?']} />
 </InteriorLayout>

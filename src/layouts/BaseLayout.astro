@@ -95,21 +95,37 @@ const ogImage = abs('/og.jpg');
       }, { capture: true });
     </script>
     {intercomAppId && (
-      <script is:inline define:vars={{ intercomAppId }}>
-        // Intercom Messenger (Fin AI chatbot) for anonymous visitors, using Intercom's standard
-        // install snippet. The widget script is only fetched after the page has fully loaded and
-        // the browser is idle, so it never competes with the first screen. Every page renders
-        // through this layout as a full page load, so it is present on all routes.
-        window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId };
-        (function () {
-          var w = window; var ic = w.Intercom;
-          if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
-          var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
-          var l = function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId; document.head.appendChild(s); };
-          var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(l, { timeout: 3000 }); else setTimeout(l, 1); };
-          if (document.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
-        })();
-      </script>
+      <>
+        <button type="button" class="chat-launch" data-chat hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-6 4z" /></svg><span>Chat with us</span></button>
+        <script is:inline define:vars={{ intercomAppId }}>
+          // Intercom Messenger (Fin AI chatbot) for anonymous visitors, using Intercom's standard
+          // install snippet. The widget is about 1 MB and ties up a phone for up to a second while it
+          // starts, so it is fetched only when a visitor asks to chat, or, for someone who already has
+          // a conversation open, once the page has loaded and the browser is idle. Intercom's own
+          // launcher is hidden: our "Chat" buttons sit clear of the phone's Call / Start a project bar.
+          window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId, hide_default_launcher: true };
+          (function () {
+            var w = window; var d = document; var ic = w.Intercom;
+            if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
+            var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
+            var loaded = false;
+            var l = function () { if (loaded) return; loaded = true; var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId; d.head.appendChild(s); };
+            // On the contact page the visitor is already filling in the project form, so no chat button covers it.
+            var buttons = location.pathname.indexOf('/contact-us') === 0 ? [] : d.querySelectorAll('[data-chat]');
+            Array.prototype.forEach.call(buttons, function (button) {
+              button.hidden = false;
+              button.addEventListener('click', function () {
+                (w.dataLayer = w.dataLayer || []).push({ event: 'chat_open', link_location: button.closest('[data-m-bar]') ? 'phone_bar' : 'page' });
+                l(); w.Intercom('show');
+              });
+            });
+            if (d.cookie.indexOf('intercom-session-' + intercomAppId + '=') !== -1) {
+              var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(l, { timeout: 3000 }); else setTimeout(l, 1); };
+              if (d.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
+            }
+          })();
+        </script>
+      </>
     )}
   </body>
 </html>

@@ -37,7 +37,7 @@ const external = (href: string) => /^https?:/.test(href);
 // The first photograph-and-statement section on a page opens full bleed; any later one sits beside its text.
 const firstSplit = page.sections.findIndex((s: any) => s.kind === 'split');
 ---
-<InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline} schema={schema} image={page.image ? img(page.image) : undefined} photo={page.image ?? undefined} sheet={sheet}>
+<InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline} kicker={page.kicker} schema={schema} image={page.image ? img(page.image) : undefined} photo={page.image ?? undefined} sheet={sheet}>
   <Fragment slot="intro">
     <p>{page.lede}</p>
     {page.phone

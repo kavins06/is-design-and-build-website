@@ -37,7 +37,8 @@ export const business = {
   areaServed: areas.map((name) => ({ '@type': 'AdministrativeArea', name })),
   hasMap: 'https://maps.google.com/maps?cid=1968106805018591346',
   sameAs: ['https://maps.google.com/maps?cid=1968106805018591346'],
-  knowsAbout: ['Kitchen remodeling', 'Bathroom remodeling', 'Whole-home renovation', 'Home additions', 'Roofing'],
+  knowsAbout: ['Kitchen remodeling', 'Bathroom remodeling', 'Whole-home renovation', 'Home additions', 'Roofing', 'Lead-safe renovation'],
+  logo: abs('/icon-512.png'),
 };
 
 export const website = {

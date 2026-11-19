@@ -44,7 +44,8 @@
   "closing": [
    "Which room is",
    "first on the list?"
-  ]
+  ],
+  "kicker": "Home remodeling in Washington, DC"
  },
  {
   "slug": "kitchen-remodeling",
@@ -140,7 +141,8 @@
   "closing": [
    "Let’s talk about",
    "your kitchen."
-  ]
+  ],
+  "kicker": "Kitchen remodeling in Washington, DC"
  },
  {
   "slug": "bathroom-remodeling",
@@ -233,7 +235,8 @@
   "closing": [
    "Let’s talk about",
    "your bathroom."
-  ]
+  ],
+  "kicker": "Bathroom remodeling in Washington, DC"
  },
  {
   "slug": "whole-home-remodeling",
@@ -324,7 +327,8 @@
   "closing": [
    "Ready to plan",
    "the whole house?"
-  ]
+  ],
+  "kicker": "Whole-home renovation in Washington, DC"
  },
  {
   "slug": "home-additions",
@@ -403,7 +407,8 @@
   "closing": [
    "Need more room?",
    "Let’s look at it."
-  ]
+  ],
+  "kicker": "Home additions in Washington, DC"
  },
  {
   "slug": "roofing",
@@ -476,12 +481,13 @@
    "Water coming in?",
    "Call (202) 519-1831."
   ],
-  "ctaHref": "mailto:info@isenterprises.net?subject=Roof%20photos"
+  "ctaHref": "mailto:info@isenterprises.net?subject=Roof%20photos",
+  "kicker": "Roofing in Washington, DC"
  },
  {
   "slug": "about-us",
-  "title": "Our Story | I.S Design + Build",
-  "description": "Get to know I.S Design + Build, formerly I.S. Enterprises: founded in 1989 by Italo Rodriguez and Eddie Migues, with one in-house team from first visit to final walkthrough.",
+  "title": "Our Story: DC Remodelers Since 1989 | I.S Design + Build",
+  "description": "I.S Design + Build, formerly I.S. Enterprises: a Washington, DC remodeling and roofing firm founded in 1989 by Italo Rodriguez and Eddie Migues.",
   "label": "Our story",
   "image": "photos/roof-c",
   "headline": "Building in the DC area since 1989.",
@@ -530,7 +536,7 @@
  },
  {
   "slug": "our-process",
-  "title": "Our Remodeling Process | I.S Design + Build",
+  "title": "Our Remodeling Process in DC | I.S Design + Build",
   "description": "Understand the steps from project inquiry and planning to scope, construction and a final walkthrough with I.S Design + Build.",
   "label": "Our process",
   "image": "photos/kitchen-e",
@@ -542,15 +548,15 @@
     "kind": "steps",
     "items": [
      {
-      "name": "Tell us about the project",
+      "name": "Tell us about your home",
       "text": "Call, email or send an inquiry. Share the location and what you want to change."
      },
      {
-      "name": "Visit the house",
+      "name": "We visit and talk it through",
       "text": "We visit, look at the house with you and talk through the options."
      },
      {
-      "name": "Define scope and estimate",
+      "name": "Scope and estimate",
       "text": "What is included, your selections and any permits the work needs."
      },
      {
@@ -562,7 +568,7 @@
       "text": "You always know where things stand. Any change is discussed and agreed with you first."
      },
      {
-      "name": "Walk through the result",
+      "name": "Walk through the finished work",
       "text": "We review the finished work with you and close out remaining items."
      }
     ]
@@ -588,7 +594,8 @@
   "closing": [
    "Ready for",
    "step one?"
-  ]
+  ],
+  "kicker": "Our remodeling process"
  },
  {
   "slug": "service-areas",
@@ -645,7 +652,7 @@
  },
  {
   "slug": "portfolio",
-  "title": "Our Work: Kitchens, Bathrooms & More | I.S Design + Build",
+  "title": "Remodeling Projects in DC: Our Work | I.S Design + Build",
   "description": "Photographs of kitchens, bathrooms, decks and rooms from projects completed by I.S Design + Build, with what clients say about working with us.",
   "label": "Our work",
   "image": null,
@@ -670,12 +677,13 @@
   "closing": [
    "Want work like this",
    "in your home?"
-  ]
+  ],
+  "kicker": "Remodeling projects in Washington, DC"
  },
  {
   "slug": "faqs",
-  "title": "Remodeling & Roofing Questions | I.S Design + Build",
-  "description": "Answers about services, project enquiries, service areas and planning a renovation or roofing project with I.S Design + Build.",
+  "title": "DC Remodeling & Roofing Questions | I.S Design + Build",
+  "description": "Straight answers about licences, permits, lead paint, cost, living at home during the work and service areas, from a DC remodeling and roofing firm.",
   "label": "FAQs",
   "image": "photos/bath-d",
   "headline": "Straight answers before you start.",
@@ -768,7 +776,8 @@
   "closing": [
    "Still have",
    "a question?"
-  ]
+  ],
+  "kicker": "Remodeling and roofing questions"
  },
  {
   "slug": "financing",
@@ -841,17 +850,18 @@
   "closing": [
    "Questions about",
    "paying for it?"
-  ]
+  ],
+  "kicker": "Remodeling and roofing financing"
  },
  {
   "slug": "lead-paint-abatement",
-  "title": "Lead Paint Abatement in DC | I.S Design + Build",
-  "description": "Planning work on a home built before 1978? Tell us what you know about lead paint so it can be considered in the scope from the start.",
+  "title": "Lead Paint & Lead-Safe Renovation in DC | I.S Design + Build",
+  "description": "Lead-safe renovation for DC homes and rentals built before 1978: containment, dust control, clean-up and clearance testing planned from the first visit.",
   "label": "Lead paint",
   "service": "lead",
   "image": "stock/town-05",
-  "headline": "Lead-paint abatement and lead-safe renovation.",
-  "lede": "For DC homes and rentals built before 1978. We plan containment, dust control and clean-up into the scope from the first visit, and arrange the clearance testing at the end.",
+  "headline": "Lead-safe work for older DC homes and rentals.",
+  "lede": "For homes and rentals built before 1978. We plan containment, dust control and clean-up into the scope from the first visit, and arrange the clearance testing at the end.",
   "cta": "Tell us about your home",
   "sections": [
    {
@@ -924,6 +934,7 @@
   "closing": [
    "Older home?",
    "Let’s plan it safely."
-  ]
+  ],
+  "kicker": "Lead paint in Washington, DC"
  }
 ]

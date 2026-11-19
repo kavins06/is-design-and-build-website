@@ -14,6 +14,7 @@ import Hero from '../components/Hero.astro';
 import Cta from '../components/Cta.astro';
 import { site, capabilities, process } from '../data/site';
 import { photos } from '../data/photos';
+import stockRowhouses from '../assets/stock/town-05.jpg';
 import Reviews from '../components/Reviews.astro';
 import { googleReviews } from '../data/reviews';
 
@@ -22,6 +23,9 @@ const statement = 'One team designs it, prices it and builds it.'.split(' ');
 // One company photograph per service, in the order of `capabilities`: the photograph that
 // service's own page opens on, so the visitor lands where the picture promised.
 const capImg = ['kitchen-d', 'bath-b', 'kitchen-c', 'deck-a', 'roof-b'].map((key) => photos[key].src);
+// Lead paint has no project photograph yet: a labelled stock street of older rowhouses stands in.
+capImg.push(stockRowhouses);
+const stockCap = capImg.length - 1;
 // The finished room the process plan opens onto, and the photograph under the closing band.
 const processPhoto = photos['kitchen-b'];
 const bandPhoto = photos['roof-a'];
@@ -82,23 +86,25 @@ const fittings = [
 <BaseLayout preloadFonts title="Home Remodeling & Roofing in DC | I.S Design + Build" description="Kitchens, bathrooms, additions, whole-home renovations and roofing from an in-house team serving DC, Northern Virginia and Montgomery County.">
   <div class="cg">
     <Header home />
-    <main id="main">
+    <main id="main" tabindex="-1">
       <Hero />
       <div class="proof-line"><a href={googleReviews.url} rel="noopener"><span class="proof-stars" aria-hidden="true">★</span>{googleReviews.rating} on Google<span class="proof-read">&nbsp;· {googleReviews.count} reviews</span></a><span>In business since {site.since}</span><span>Founded by Italo Rodriguez and Eddie Migues</span><a href="/reviews/">Read the reviews</a></div>
 
       <section class="ex" id="expertise">
         <div class="ex-media">
-          {capImg.map((img, i) => <Image src={img} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} />)}
+          {capImg.map((img, i) => <Image src={img} alt="" widths={[700, 1200]} sizes="(min-width: 900px) 42vw, 92vw" loading="lazy" class={i === 0 ? 'is-on' : ''} data-cap={i} data-stock={i === stockCap ? '' : undefined} />)}
           <span class="ex-count"><b>01</b> / 0{capabilities.length}</span>
+          <span class="media-note">Stock image</span>
         </div>
         <div class="ex-list">
-          <p class="cg-label">Home remodeling & roofing</p><h2>What we build.</h2>
+          <p class="cg-label">Remodeling, roofing & lead paint</p><h2>What we build.</h2>
           <ol>
             {
               capabilities.map((c, i) => (
                 <li class={i === 0 ? 'is-on' : ''} data-cap-item={i}>
                   <a href={c.href}>
                     <Image src={capImg[i]} alt="" widths={[500, 900]} sizes="92vw" loading="lazy" class="ex-thumb" />
+                    {i === stockCap && <span class="media-note ex-thumb-note">Stock image</span>}
                     <span>{c.n}</span>
                     <div>
                       <h3>{c.name}</h3>

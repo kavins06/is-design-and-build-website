@@ -249,7 +249,7 @@
 @media (max-width: 900px) { .rq { grid-template-columns: 1fr; gap: 28px; } .rq-lead blockquote p { font-size: 24px; } }
 
 /* One large statement, for sections with no photograph to show. */
-.stmt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px; padding: clamp(90px, 12vw, 190px) var(--pad); border-top: 1px solid var(--line); }
+.stmt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px; padding: clamp(64px, 8vw, 130px) var(--pad); border-top: 1px solid var(--line); }
 .stmt-body h2 { max-width: 16ch; font-size: clamp(34px, 5.4vw, 88px); line-height: 1; letter-spacing: -.045em; }
 .stmt-body p { max-width: 46ch; margin-top: 26px; color: #55554f; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.45; }
 .stmt-body .text-link { margin-top: 18px; }
@@ -306,7 +306,7 @@
    the descriptions stay readable to screen readers but are shown one at a time in a
    fixed-height line, so the pinned list never changes height (no layout shift). */
 .pr-detail { display: none; }
-html:not(.has-motion) .pr-steps li { opacity: 1; }
+html:not(.has-motion) .pr-steps li > div { opacity: 1; }
 html:not(.has-motion) .pr-steps li p { display: block; max-height: none; margin-top: 6px; }
 @media (max-width: 900px) {
   .has-motion .pr-steps li p, .has-motion .pr-steps li:not(.is-on) p { display: block; position: absolute; width: 1px; height: 1px; max-height: none; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -375,7 +375,7 @@ html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
 /* Home process on phones: the finished plan with every step and its description, nothing pinned. */
 .cg .pr-static .pr-pin { min-height: 0; padding-block: 72px 56px; }
 .cg .pr-static :is(.pl-bubbles, .pl-stamp, .pr-photo, .pr-progress, .pr-detail) { display: none !important; }
-html .cg .pr-static .pr-steps li { opacity: 1; }
+html .cg .pr-static .pr-steps li > div { opacity: 1; }
 html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: static; width: auto; height: auto; max-height: none; margin-top: 6px; overflow: visible; clip-path: none; white-space: normal; }
 
 /* Phones: the closing ask and the footer in well under two screens. The footer already lists
@@ -398,3 +398,29 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
 .field label .optional { color: var(--mute); font-weight: 400; }
 .enquiry-email-note { max-width: 34ch; color: var(--mute); font-size: 14px; line-height: 1.5; }
 .enquiry-email-note a { color: inherit; text-underline-offset: 3px; }
+
+/* Reviews page: rooms from our projects between the groups of reviews. */
+.rvw-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 22px); padding: 0 var(--pad) clamp(48px, 6vw, 96px); }
+.cg .rvw-strip figure { margin: 0; overflow: hidden; background: var(--tint); }
+.rvw-strip img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+@media (max-width: 700px) {
+  .rvw-strip { grid-template-columns: 1fr 1fr; }
+  .rvw-strip figure:nth-child(3) { display: none; }
+}
+
+/* Chat: our own button opens the Intercom Messenger (loaded on demand). Wide screens get a small
+   pill in the corner; phones get a chat icon in the Call / Start a project bar instead, so nothing
+   floats over the main buttons. */
+.chat-launch { position: fixed; right: 20px; bottom: 20px; z-index: 45; display: inline-flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 20px 0 16px; border: 1px solid #ffffff3d; border-radius: 999px; background: #0c0c0c; color: #fff; font: 500 15px/1 'Geist Variable', 'Helvetica Neue', Arial, sans-serif; cursor: pointer; box-shadow: 0 8px 28px #0c0c0c59; transition: transform .25s, background .25s; }
+.chat-launch:hover { background: #262624; transform: translateY(-2px); }
+.chat-launch:focus-visible, .m-chat:focus-visible { outline: 2px solid #ff5418; outline-offset: 3px; }
+.chat-launch svg, .m-chat svg { width: 18px; height: 18px; fill: none; stroke: #ff8a5c; stroke-width: 1.8; stroke-linejoin: round; }
+.chat-launch[hidden], .m-chat[hidden] { display: none !important; }
+html.menu-locked .chat-launch, html.lb-open .chat-launch { display: none; }
+@media (max-width: 700px) {
+  .chat-launch { display: none !important; }
+  .m-bar.has-chat { grid-template-columns: 1fr 56px 1.6fr; }
+  .m-chat { display: grid; place-items: center; min-height: 54px; padding: 0; border: 0; border-left: 1px solid #ffffff33; background: #0c0c0c; color: #fff; cursor: pointer; }
+  .m-chat svg { width: 22px; height: 22px; }
+}
+@media print { .chat-launch { display: none; } }

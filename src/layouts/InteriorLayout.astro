@@ -18,6 +18,8 @@ interface Props {
   description: string;
   label: string;
   headline: string;
+  /** A small service-and-place line shown above the headline, inside the H1. */
+  kicker?: string;
   schema?: object[];
   parent?: { name: string; path: string };
   image?: ImageMetadata;
@@ -30,7 +32,7 @@ interface Props {
   ogType?: 'website' | 'article';
   noindex?: boolean;
 }
-const { title, description, label, headline, schema = [], parent, image, imageAlt = '', photo, compact = false, ogType, noindex } = Astro.props;
+const { title, description, label, headline, kicker, schema = [], parent, image, imageAlt = '', photo, compact = false, ogType, noindex } = Astro.props;
 const crumbs = breadcrumbs([{ name: 'Home', path: '/' }, ...(parent ? [parent] : []), { name: label, path: Astro.url.pathname }]);
 // The page-top photograph is drafted as a line drawing first, then built under it.
 const trace = image && photo ? (traces as Record<string, { w: number; h: number; d: string[] }>)[photo] : undefined;
@@ -38,7 +40,7 @@ const stock = photo?.startsWith('stock/');
 const words = headline.split(' ');
 ---
 <BaseLayout preloadFonts title={title} description={description} schema={[crumbs, ...schema]} ogType={ogType} noindex={noindex}>
-  <div class="cg interior"><Header overlay /><main id="main">
+  <div class="cg interior"><Header overlay /><main id="main" tabindex="-1">
     <section class:list={['page-hero', { 'has-photo': image, 'is-compact': compact || !image, 'has-trace': trace }]} data-dark>
       {image && (
         <div class="ph-stage">
@@ -54,7 +56,7 @@ const words = headline.split(' ');
       <div class="page-hero-grid" aria-hidden="true"></div>
       <div class="page-hero-copy">
         <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{parent && <><a href={parent.path}>{parent.name}</a><span aria-hidden="true">/</span></>}<span aria-current="page">{label}</span></nav>
-        <h1 class="ph-title">{words.map((w, i) => <><span class="wm"><span style={`--w:${i}`}>{w}</span></span>{i < words.length - 1 && ' '}</>)}</h1>
+        <h1 class="ph-title">{kicker && <span class="ph-kicker">{kicker}<span class="sr-only">: </span></span>}{words.map((w, i) => <><span class="wm"><span style={`--w:${i}`}>{w}</span></span>{i < words.length - 1 && ' '}</>)}</h1>
         <div class="page-intro"><slot name="intro" /></div>
       </div>
       {image && (

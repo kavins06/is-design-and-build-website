@@ -95,7 +95,7 @@
   .cg-hero-shade {
     opacity: 0;
     background:
-      linear-gradient(180deg, rgba(12, 12, 12, 0.42) 0%, rgba(12, 12, 12, 0) 13%),
+      linear-gradient(180deg, rgba(12, 12, 12, 0.72) 0%, rgba(12, 12, 12, 0.6) 8%, rgba(12, 12, 12, 0) 20%),
       linear-gradient(0deg, rgba(12, 12, 12, 0.55) 0%, rgba(12, 12, 12, 0) 32%),
       linear-gradient(90deg, rgba(12, 12, 12, 0.84) 0%, rgba(12, 12, 12, 0.74) 30%, rgba(12, 12, 12, 0.42) 46%, rgba(12, 12, 12, 0) 62%);
     animation: cg-fade 1.3s var(--t-built) forwards;
@@ -221,7 +221,7 @@
 @media (max-width: 900px) and (orientation: portrait) {
   .cg .cg-hero { display: block; height: auto; min-height: 100svh; padding: calc(var(--hero-photo) + 20px) var(--pad) 28px; --hero-photo: 41svh; }
   .cg-stage { inset: 0 0 auto 0; height: var(--hero-photo); }
-  .cg-hero-shade { background: linear-gradient(180deg, rgba(12, 12, 12, .5) 0%, rgba(12, 12, 12, 0) 26%), linear-gradient(0deg, rgba(12, 12, 12, .7) 0%, rgba(12, 12, 12, 0) 22%); }
+  .cg-hero-shade { background: linear-gradient(180deg, rgba(12, 12, 12, .75) 0%, rgba(12, 12, 12, .6) 16%, rgba(12, 12, 12, 0) 40%), linear-gradient(0deg, rgba(12, 12, 12, .7) 0%, rgba(12, 12, 12, 0) 22%); }
   /* Headline and actions first; the longer sentence follows them, just below. */
   .cg-hero-copy { display: flex; flex-direction: column; }
   .cg .cg-hero-copy .hero-eyebrow { order: 0; margin-bottom: 14px; }

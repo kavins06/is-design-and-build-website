@@ -6,7 +6,7 @@ import { reviews, googleReviews } from '../data/reviews';
 // A bid handled straight is what a visitor about to ask for one wants to read.
 const quote = reviews.peyton;
 ---
-<InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isenterprises.net." label="Start a project" headline="Tell us about your project." image={photo} photo="photos/kitchen-f" compact>
+<InteriorLayout title="Contact a DC Remodeling Contractor | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isenterprises.net." label="Start a project" headline="Tell us about your project." image={photo} photo="photos/kitchen-f" compact>
   <Fragment slot="intro"><p>Five quick questions, or call if you’d rather talk it through.</p><div class="hero-actions"><a class="text-link" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={`mailto:${site.email}`}>{site.email}</a></div></Fragment>
   <section class="enquiry">
     <aside class="enquiry-proof" aria-label="About I.S Design + Build" data-reveal style="--d:120ms">
@@ -27,7 +27,7 @@ const quote = reviews.peyton;
     <form id="enquiry-form" hidden>
       <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" tabindex="-1" autocomplete="off" /></div>
       <div class="form-grid">
-        <div class="field full"><label for="service">What are you planning?</label><select name="service" id="service" required><option value="">Choose a project type</option>{capabilities.map(c => <option value={c.service}>{c.name}</option>)}<option value="lead">Lead paint</option><option value="remodeling">Remodeling, not sure where to start</option><option value="other">Something else</option><option value="unsure">Not sure yet</option></select></div>
+        <div class="field full"><label for="service">What are you planning?</label><select name="service" id="service" required><option value="">Choose a project type</option>{capabilities.map(c => <option value={c.service}>{c.name}</option>)}<option value="remodeling">Remodeling, not sure where to start</option><option value="other">Something else</option><option value="unsure">Not sure yet</option></select></div>
         <div class="field"><label for="town">Where is the property?</label><input id="town" name="town" autocomplete="address-level2" maxlength="100" required placeholder="Town or city" /></div>
         <div class="field full"><label for="brief">Tell us a little about the work.</label><textarea id="brief" name="brief" required maxlength="1500" aria-describedby="brief-help"></textarea><small id="brief-help">What would you like to change, or what problem needs attention?</small></div>
         <div class="field full" id="roofing-field" hidden><label for="water">Is water currently entering the property?</label><select id="water" name="water"><option>Not sure</option><option>Yes</option><option>No</option></select><small>If water is coming in now, call <a href={site.phoneHref}>{site.phone}</a>. It’s faster than this form, and sending the form doesn’t book a visit.</small></div>
