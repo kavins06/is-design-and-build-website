@@ -7,11 +7,15 @@ export const site = {
   since: 1989,
   phone: '(202) 519-1831',
   phoneHref: 'tel:+12025191831',
-  email: 'info@isdesignandbuild.com',
-  address: ['1010 Wisconsin Ave NW, Suite 300', 'Washington, DC 20007'],
+  email: 'info@isenterprises.net',
+  address: ['1010 Wisconsin Ave NW, Suite 300 #12', 'Washington, DC 20007'],
   hours: 'Monday to Friday, 9:00 AM to 5:00 PM',
   area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
 };
+
+// Intercom Messenger (hosts the Fin AI chatbot). A public workspace ID, not a secret.
+// BaseLayout.astro loads the Messenger for anonymous visitors on every page.
+export const intercomAppId = 'lbyfepf8';
 
 // Licences, insurance and accreditation, exactly as the owner confirms them, for the footer
 // and the contact page. Leave null until confirmed: nothing is shown while it is null.

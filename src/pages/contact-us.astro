@@ -5,7 +5,7 @@ import photo from '../assets/photos/kitchen-f.jpg';
 import { reviews, googleReviews } from '../data/reviews';
 const quote = reviews.yu;
 ---
-<InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isdesignandbuild.com." label="Start a project" headline="Tell us about your project." image={photo} photo="photos/kitchen-f" compact>
+<InteriorLayout title="Start Your Project | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isenterprises.net." label="Start a project" headline="Tell us about your project." image={photo} photo="photos/kitchen-f" compact>
   <Fragment slot="intro"><p>Five quick questions. Then we’ll be in touch to talk it through.</p><div class="hero-actions"><a class="text-link" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={`mailto:${site.email}`}>{site.email}</a></div></Fragment>
   <section class="enquiry">
     <aside class="enquiry-proof" aria-label="About I.S Design + Build" data-reveal style="--d:120ms">
@@ -74,7 +74,7 @@ const quote = reviews.yu;
       const lines = [`Project: ${selected}`, `Location: ${data.get('town')}`, '', String(data.get('brief')), '', `Timing: ${data.get('timing') || 'Not specified'}`, `Budget: ${data.get('budget') || 'Not specified'}`, ...(service.value === 'roofing' ? [`Water currently entering: ${data.get('water')}`] : []), '', `Name: ${data.get('name')}`, `Preferred contact: ${data.get('preferred')}`, `Contact details: ${data.get('reply')}`];
       const body = lines.join('\n');
       const preview = document.querySelector<HTMLTextAreaElement>('#email-preview'); if (preview) preview.value = body;
-      const link = document.querySelector<HTMLAnchorElement>('#email-link'); if (link) link.href = `mailto:info@isdesignandbuild.com?subject=${encodeURIComponent('Project inquiry — ' + selected)}&body=${encodeURIComponent(body)}`;
+      const link = document.querySelector<HTMLAnchorElement>('#email-link'); if (link) link.href = `mailto:info@isenterprises.net?subject=${encodeURIComponent('Project inquiry — ' + selected)}&body=${encodeURIComponent(body)}`;
       // Try to deliver the enquiry. If that is not possible, fall back to the visitor's own email app.
       let delivered = false;
       if (button) { button.disabled = true; button.textContent = 'Sending…'; }

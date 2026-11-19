@@ -2,7 +2,7 @@
 import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import geistMono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
 
-import { launched } from '../data/site';
+import { launched, intercomAppId } from '../data/site';
 import { business, website, graph, abs } from '../data/schema';
 
 interface Props {
@@ -94,5 +94,22 @@ const ogImage = abs('/og.jpg');
         else if (href.indexOf('/contact-us/') === 0) dl.push({ event: 'start_project_click', link_location: where, service: new URL(link.href).searchParams.get('service') || 'none' });
       }, { capture: true });
     </script>
+    {intercomAppId && (
+      <script is:inline define:vars={{ intercomAppId }}>
+        // Intercom Messenger (Fin AI chatbot) for anonymous visitors, using Intercom's standard
+        // install snippet. The widget script is only fetched after the page has fully loaded and
+        // the browser is idle, so it never competes with the first screen. Every page renders
+        // through this layout as a full page load, so it is present on all routes.
+        window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId };
+        (function () {
+          var w = window; var ic = w.Intercom;
+          if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
+          var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
+          var l = function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId; document.head.appendChild(s); };
+          var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(l, { timeout: 3000 }); else setTimeout(l, 1); };
+          if (document.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
+        })();
+      </script>
+    )}
   </body>
 </html>
