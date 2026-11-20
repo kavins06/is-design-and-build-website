@@ -27,7 +27,7 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Google tag: loaded on the production site only, so preview visits are not counted.
-const googleTag = process.env.VERCEL_ENV === 'production' ? 'GTM-NSZWBWT2' : '';
+const googleTag = process.env.VERCEL_ENV === 'production' ? 'GTM-WFP56VXL' : '';
 const noindex = hidden || !launched || process.env.VERCEL_ENV !== 'production';
 const jsonLd = graph([business, website, ...schema]);
 const ogImage = abs('/og.jpg');
