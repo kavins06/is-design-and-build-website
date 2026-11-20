@@ -2,6 +2,7 @@
 // Needs RESEND_API_KEY in the Vercel project. Without it the endpoint answers 503
 // and the page falls back to preparing an email in the visitor's own email app.
 const SERVICES = ['kitchen', 'bathroom', 'whole-home', 'addition', 'roofing', 'lead', 'remodeling', 'other', 'unsure'];
+const PROJECT_TYPE = { kitchen: 'kitchen', bathroom: 'bath', 'whole-home': 'whole_home', addition: 'addition', roofing: 'roofing' };
 const clean = (value, max) => String(value ?? '').replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim().slice(0, max);
 
 export default async function handler(req, res) {
@@ -44,8 +45,36 @@ export default async function handler(req, res) {
       }),
     });
     if (!sent.ok) return res.status(502).json({ error: 'send_failed' });
-    return res.status(200).json({ ok: true });
   } catch {
     return res.status(502).json({ error: 'send_failed' });
   }
+
+  try {
+    const [firstname, ...rest] = f.name.split(/\s+/);
+    const message = [
+      f.brief, `Location: ${f.town}`,
+      `Timing: ${f.timing || 'Not specified'}`, `Budget: ${f.budget || 'Not specified'}`,
+      ...(f.service === 'roofing' ? [`Water currently entering: ${f.water || 'Not sure'}`] : []),
+    ].join('\n');
+    const hs = await fetch('https://api.hsforms.com/submissions/v3/integration/submit/248061946/0c79542b-17d0-49e1-a1b3-a864452a6733', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: AbortSignal.timeout(3000),
+      body: JSON.stringify({
+        fields: [
+          { name: f.preferred === 'phone' ? 'phone' : 'email', value: f.reply },
+          { name: 'firstname', value: firstname },
+          ...(rest.length ? [{ name: 'lastname', value: rest.join(' ') }] : []),
+          { name: 'project_type', value: PROJECT_TYPE[f.service] || 'other' },
+          { name: 'lead_source', value: 'website_form' },
+          { name: 'message', value: message },
+        ],
+        context: { pageUri: String(req.headers.referer || 'https://www.isdesignandbuild.com/contact-us/') },
+      }),
+    });
+    if (!hs.ok) console.error('HubSpot enquiry submit failed', hs.status);
+  } catch (err) {
+    console.error('HubSpot enquiry submit failed', err);
+  }
+  return res.status(200).json({ ok: true });
 }
