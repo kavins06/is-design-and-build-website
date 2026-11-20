@@ -413,8 +413,7 @@
   "service": "roofing",
   "image": "photos/roof-b",
   "headline": "Roof repair and replacement.",
-  "lede": "Leaks, storm damage or a worn-out roof. Call now; out of office hours, leave your address and number and we’ll call you back. We tell you whether to repair or replace, and we fix the damage inside too.",
-  "phone": true,
+  "lede": "Leaks, storm damage or a worn-out roof. We tell you whether to repair or replace, and we fix the damage inside too.",
   "sections": [
    {
     "kind": "points",
@@ -472,8 +471,8 @@
    }
   ],
   "closing": [
-   "Water coming in?",
-   "Call (202) 519-1831."
+   "Repair or replace?",
+   "Let’s find out."
   ],
     "kicker": "Roofing in Washington, DC"
  },

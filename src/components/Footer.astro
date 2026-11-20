@@ -4,11 +4,9 @@ const serviceLinks = [['Remodeling', '/home-remodeling/'], ['Kitchens', '/kitche
 const companyLinks = [['Our work', '/portfolio/'], ['Reviews', '/reviews/'], ['About us', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/'], ['Financing', '/financing/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/'], ['Contact', '/contact-us/']];
 const path = Astro.url.pathname;
 const bar = !path.startsWith('/contact-us');
-// The phone bar opens the chat for the service the visitor is reading about. On the roofing
-// page a leak cannot wait for a chat, so calling is the primary action.
+// The phone bar opens the chat for the service the visitor is reading about.
 const services: Record<string, string> = { '/kitchen-remodeling/': 'kitchen', '/bathroom-remodeling/': 'bathroom', '/whole-home-remodeling/': 'whole-home', '/home-additions/': 'addition', '/roofing/': 'roofing', '/home-remodeling/': 'remodeling', '/lead-paint-abatement/': 'lead' };
 const service = services[path];
-const urgent = path === '/roofing/';
 ---
 <footer class="site-footer" data-dark>
   <div class="footer-top"><a class="footer-brand" href="/" aria-label="I.S Design + Build, home">I.S Design <span>+</span> Build</a><p>Kitchens, bathrooms, whole homes, additions, roofs and lead paint.<br />In business in the DC area since 1989. Formerly I.S. Enterprises.</p></div>
@@ -17,10 +15,8 @@ const urgent = path === '/roofing/';
   <div class="footer-bottom"><p>© {new Date().getFullYear()} {site.name}.</p><nav aria-label="Legal"><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></nav></div>
 </footer>
 {bar && (
-  <nav class:list={['m-bar', 'has-number', { 'is-urgent': urgent }]} data-m-bar aria-label="Quick contact">
-    {urgent
-      ? <><a href={chatHref(service)} data-chat data-service={service}>Chat now</a><a class="is-primary" href={site.phoneHref}>Call {site.phone}</a></>
-      : <><a href={site.phoneHref}>Call {site.phone}</a>{intercomAppId ? <a class="is-primary" href={chatHref(service)} data-chat data-service={service}>Chat now</a> : <a class="is-primary" href={`mailto:${site.email}`}>Email us</a>}</>}
+  <nav class="m-bar has-number" data-m-bar aria-label="Quick contact">
+    <a href={site.phoneHref}>Call {site.phone}</a>{intercomAppId ? <a class="is-primary" href={chatHref(service)} data-chat data-service={service}>Chat now</a> : <a class="is-primary" href={`mailto:${site.email}`}>Email us</a>}
   </nav>
 )}
 <script>

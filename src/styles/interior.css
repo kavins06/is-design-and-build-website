@@ -127,7 +127,6 @@
   .m-bar a.is-primary { background: var(--signal); }
   .m-bar.has-number { grid-template-columns: 1.25fr 1fr; }
   .m-bar.has-number a { padding-inline: 8px; white-space: nowrap; }
-  .m-bar.has-number.is-urgent { grid-template-columns: 1fr 1.25fr; }
   .site-footer { padding-bottom: 96px; }
 }
 @media (max-width: 540px) {
@@ -241,15 +240,12 @@
 .proof-stars { margin-right: 8px; color: var(--signal); }
 .cg .fc { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 540px) { .cg .fc { grid-template-columns: 1fr; row-gap: 28px; } }
-.cg-hero-copy .hero-urgent { margin-top: 18px; font-size: 15px; opacity: 1; }
-.hero-urgent a { color: #fff; text-underline-offset: 5px; }
 /* Home hero: the Google rating, linking to the reviews. */
 .cg-hero-copy .hero-rating a { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-height: 44px; color: #fff; text-decoration: none; }
 .cg-hero-copy .hero-rating a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .hero-stars { color: var(--signal); letter-spacing: .12em; }
 .hero-rating b { font-size: 1.5em; font-weight: 500; letter-spacing: -.03em; }
 @media (max-width: 900px) { .cg .cg-hero-copy > p.hero-rating:not(.hero-eyebrow):not(.hero-urgent) { order: 1; margin: -4px 0 10px; } }
-@media (max-width: 540px) { .cg-hero-copy .hero-urgent { margin-top: 12px; font-size: 14px; } }
 
 /* Reviews page */
 .rvw { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px clamp(32px, 6vw, 110px); padding: clamp(64px, 8vw, 120px) var(--pad); border-top: 1px solid var(--line); }

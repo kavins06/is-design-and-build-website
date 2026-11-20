@@ -227,7 +227,6 @@
   .cg .cg-hero-copy .hero-eyebrow { order: 0; margin-bottom: 14px; }
   .cg-hero-copy h1 { order: 1; }
   .cg-hero-copy .hero-actions { order: 2; margin-top: 4px; }
-  .cg-hero-copy .hero-urgent { order: 3; }
   .cg .cg-hero-copy > p:not(.hero-eyebrow):not(.hero-urgent) { order: 4; margin-top: 22px; }
   .cg .cg-hero-copy h1 { margin-bottom: 18px; }
 }
