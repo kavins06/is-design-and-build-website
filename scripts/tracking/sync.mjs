@@ -150,17 +150,32 @@ async function syncTagManager() {
   for (const t of desired.triggers) trigger = await upsert('trigger', base, triggers, t, (f) => paramsMatch(f.customEventFilter?.[0]?.parameter, t.customEventFilter[0].parameter) && f.customEventFilter?.[0]?.type === 'matchRegex');
   for (const t of desired.tags(trigger.triggerId)) await upsert('tag', base, tags, t, (f) => paramsMatch(f.parameter, t.parameter) && sameSet(f.firingTriggerId, t.firingTriggerId));
 
-  const live = await api('GET', `${GTM}/${container.path}/versions:live`).catch((e) => (e.status === 404 ? null : Promise.reject(e)));
+  const notFound = (e) => (e.status === 404 ? null : Promise.reject(e));
+  const live = await api('GET', `${GTM}/${container.path}/versions:live`).catch(notFound);
+  const latest = await api('GET', `${GTM}/${container.path}/version_headers:latest`).catch(notFound);
   log(`  live version: ${live ? `${live.containerVersionId} "${live.name || ''}"` : 'none published'}`);
+  // A version saved but never made live: an earlier publish failed after create_version, which also emptied the workspace.
+  const stranded = latest?.containerVersionId && latest.containerVersionId !== '0' && latest.containerVersionId !== live?.containerVersionId ? latest.containerVersionId : null;
+  const status = await api('GET', `${base}/status`);
+  const pending = status.workspaceChange?.length || 0;
 
-  if (mode === 'publish') {
-    const status = await api('GET', `${base}/status`);
-    if (!status.workspaceChange?.length) { log('  nothing in the workspace to publish'); return; }
+  if (mode !== 'publish') {
+    if (stranded && !pending) { changes++; log(`  ! version ${stranded} is saved but not live`); }
+    return;
+  }
+  const publish = async (path) => {
+    const pub = await api('POST', `${GTM}/${path}:publish`);
+    if (pub.compilerError || !pub.containerVersion) fail(`Tag Manager could not publish ${path.split('/').pop()}: the version did not compile. Open it in Tag Manager to see why.`);
+    log(`✓ Published version ${pub.containerVersion.containerVersionId}`);
+  };
+  if (pending) {
     const created = await api('POST', `${base}:create_version`, { name: `Synced from scripts/tracking ${new Date().toISOString().slice(0, 10)}`, notes: 'Published by scripts/tracking/sync.mjs' });
     if (created.compilerError || !created.containerVersion) fail(`Tag Manager could not build a version${created.syncStatus?.mergeConflict ? ' (the workspace has merge conflicts)' : ''}.`);
-    const pub = await api('POST', `${GTM}/${created.containerVersion.path}:publish`);
-    log(`✓ Published version ${pub.containerVersion?.containerVersionId}`);
-  }
+    await publish(created.containerVersion.path);
+  } else if (stranded) {
+    log(`  version ${stranded} was saved but never made live; publishing it`);
+    await publish(`${container.path}/versions/${stranded}`);
+  } else log('  live version is up to date');
 }
 
 async function syncAnalytics() {
