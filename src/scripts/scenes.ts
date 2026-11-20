@@ -122,8 +122,8 @@ export function plan(section: HTMLElement) {
     scrollTrigger: {
       trigger: pin,
       start: 'top top',
-      // About a quarter screen per stage: long enough to read each drawing, short enough not to stall.
-      end: `+=${n * 25}%`,
+      // About a sixth of a screen per stage: enough to see each drawing, short enough not to stall.
+      end: `+=${n * 16}%`,
       pin: true,
       scrub: 0.5,
       anticipatePin: 1,

@@ -5,8 +5,8 @@ import { closingScenes, swipeRegion } from './scenes';
 // reduced motion requested, every section renders in its finished state.
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const lenis = reduce ? null : startMotion();
-if (lenis) {
+const motion = reduce ? false : startMotion();
+if (motion) {
   expertise();
   rooms();
   statement();
@@ -60,8 +60,8 @@ function processStory() {
     scrollTrigger: {
       trigger: '.pr-pin',
       start: 'top top',
-      // Under a third of a screen per stage: long enough to read, short enough not to stall.
-      end: '+=150%',
+      // A fifth of a screen per stage: enough to see each step, short enough not to stall.
+      end: '+=100%',
       pin: true,
       scrub: 0.5,
       onUpdate: (self) => {
@@ -148,7 +148,7 @@ function expertise() {
 
 /** Rooms: vertical scroll drives a horizontal gallery with inner parallax. */
 function rooms() {
-  if (!lenis) return;
+  if (!motion) return;
   const track = document.querySelector<HTMLElement>('.rm-track');
   if (!track) return;
   // Phones get a native swipe gallery: a pinned sideways scroll fights the thumb.
@@ -163,8 +163,8 @@ function rooms() {
     return;
   }
   const distance = () => track.scrollWidth - window.innerWidth;
-  // The gallery slides its full width in at most two screens of scrolling.
-  const hold = () => Math.min(distance(), window.innerHeight * 2);
+  // The gallery slides its full width in at most one screen of scrolling.
+  const hold = () => Math.min(distance(), window.innerHeight);
   const slide = gsap.to(track, {
     x: () => -distance(),
     ease: 'none',
@@ -183,7 +183,7 @@ function rooms() {
     if (!figure || !st) return;
     const left = figure.getBoundingClientRect().left - track.getBoundingClientRect().left - window.innerWidth * 0.15;
     const progress = Math.min(1, Math.max(0, left / distance()));
-    lenis.scrollTo(st.start + progress * (st.end - st.start), { immediate: true });
+    window.scrollTo({ top: st.start + progress * (st.end - st.start), behavior: 'instant' });
   });
   gsap.utils.toArray<HTMLElement>('.rm-track figure img').forEach((img) => {
     gsap.fromTo(
