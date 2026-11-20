@@ -32,13 +32,14 @@
 @media (max-width: 900px) { .cg .ex-list .ex-thumb-note { display: block; top: 14px; right: 14px; bottom: auto; } }
 .rm-track figure a { text-decoration: none; }
 .rm-head > a { font-size: 14px; }
-.fc .fact-word { font-size: clamp(29px, 4.6vw, 75px); }
 .site-footer { padding: 70px var(--pad) 28px; background: #0c0c0c; color: #fff; border-top: 1px solid #ffffff30; }
 .footer-top { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-bottom: 56px; }
 .footer-brand { font-size: clamp(25px, 3vw, 48px); letter-spacing: -.04em; text-decoration: none; }
 .footer-top p { color: #aaa; }
 .footer-columns { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
-.footer-columns nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+.footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.footer-columns nav { display: grid; align-content: start; gap: 10px; }
+.footer-head { margin-bottom: 4px; font: 500 11px "Geist Mono Variable", monospace; letter-spacing: .08em; text-transform: uppercase; color: #8c8c86; }
 .footer-columns > div { display: grid; align-content: start; gap: 10px; }
 .footer-columns a { text-decoration: none; }
 .footer-columns a:hover, .footer-bottom a:hover { color: var(--signal); }

@@ -125,6 +125,9 @@
   html.menu-locked .m-bar { transform: translateY(110%); }
   .m-bar a { padding: 17px 12px; color: #fff; font-weight: 500; font-size: 16px; text-align: center; text-decoration: none; }
   .m-bar a.is-primary { background: var(--signal); }
+  .m-bar.has-number { grid-template-columns: 1.25fr 1fr; }
+  .m-bar.has-number a { padding-inline: 8px; white-space: nowrap; }
+  .m-bar.has-number.is-urgent { grid-template-columns: 1fr 1.25fr; }
   .site-footer { padding-bottom: 96px; }
 }
 @media (max-width: 540px) {
@@ -146,7 +149,8 @@
   .cg .ex-list li a, .cg .ex-list li.is-on a { position: relative; display: block; aspect-ratio: 4 / 3; padding: 0; border: 0; overflow: hidden; background: #0c0c0c; color: #fff; }
   .cg .ex-thumb { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .cg .ex-list li a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #0c0c0c26 30%, #0c0c0ce6); }
-  .cg .ex-list li a > span { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
+  .cg .ex-list li a > span:not(.media-note) { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
+  .cg .ex-list li a > .ex-thumb-note { position: absolute; z-index: 1; top: 14px; right: 14px; left: auto; bottom: auto; }
   .cg .ex-list li a > div { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 18px; }
   .cg .ex-list h3 { font-size: 30px; }
   .cg .ex-list p { margin-top: 6px; opacity: 1; transform: none; color: #ffffffcc; font-size: 15px; }
@@ -201,11 +205,8 @@
 .cg .hd-cta { background: var(--signal); border-color: var(--signal); color: #0c0c0c; }
 .cg .hd-cta:hover { background: #fff; border-color: #fff; color: #0c0c0c; }
 
-/* Phone menu: the Call / Chat now bar stays at the bottom while the menu is open. */
-@media (max-width: 700px) {
-  html.menu-locked .m-bar { transform: none; z-index: 60; }
-  .cg .hd.menu-open nav { padding-bottom: 110px; }
-}
+/* Phone menu: the Call / Chat now bar steps away while the menu is open; the menu has its own
+   phone number, and the bar would cover it. */
 
 /* Reviews: the client's words beside the ask. */
 .rq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: clamp(32px, 6vw, 110px); padding: clamp(80px, 10vw, 160px) var(--pad); border-top: 1px solid var(--line); }
@@ -253,9 +254,9 @@
 /* Reviews page */
 .rvw { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px clamp(32px, 6vw, 110px); padding: clamp(64px, 8vw, 120px) var(--pad); border-top: 1px solid var(--line); }
 .rvw-title { max-width: 12ch; font-size: clamp(26px, 2.6vw, 40px); line-height: 1.06; letter-spacing: -.035em; }
-.rvw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 48px; }
+.rvw-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; max-width: 760px; }
 .cg .rvw figure, .cg .rvw blockquote { margin: 0; padding: 0; }
-.rvw blockquote p { font-size: 19px; line-height: 1.5; color: #2f2f2c; }
+.rvw blockquote p { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #2f2f2c; }
 .rvw figcaption { display: grid; gap: 2px; margin-top: 16px; font-size: 15px; }
 .rvw figcaption span { color: var(--mute); font-size: 14px; }
 .cg .rvw-note { padding: 0 var(--pad) clamp(64px, 8vw, 110px); color: var(--mute); font-size: 14px; }
@@ -323,7 +324,7 @@ html:not(.has-motion) .pr-steps li p { display: block; max-height: none; margin-
 
 /* "What we build": the section label is always visible, and without motion every
    service shows its description. */
-.cg .ex-list > .cg-label { opacity: 1; transform: none; }
+.cg .ex-list > .cg-label { opacity: 1; transform: none; color: var(--mute); }
 html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
 
 /* Readable small labels. */
@@ -368,7 +369,7 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
    the phone and email, so the closing section does not repeat them, and the wordmark is left out. */
 @media (max-width: 700px) {
   .cg .ct { padding-top: 72px; }
-  .cg .ct-grid, .cg .footer-mark { display: none; }
+  .cg .ct-grid { display: none; }
   .cg .site-footer { padding-top: 48px; }
   .cg .footer-top { padding-bottom: 28px; }
   .cg .footer-columns { gap: 22px; }

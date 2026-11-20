@@ -146,7 +146,7 @@ function expertise() {
   });
 }
 
-/** Rooms: vertical scroll drives a horizontal gallery with inner parallax. */
+/** Rooms: a swipe gallery on phones; on wider screens a plain grid that needs no script. */
 function rooms() {
   if (!motion) return;
   const track = document.querySelector<HTMLElement>('.rm-track');
@@ -162,40 +162,7 @@ function rooms() {
     swipeRegion(track);
     return;
   }
-  const distance = () => track.scrollWidth - window.innerWidth;
-  // The gallery slides its full width in at most one screen of scrolling.
-  const hold = () => Math.min(distance(), window.innerHeight);
-  const slide = gsap.to(track, {
-    x: () => -distance(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.rm-pin',
-      start: 'top top',
-      end: () => `+=${hold()}`,
-      pin: true,
-      scrub: 0.5,
-      invalidateOnRefresh: true,
-    },
-  });
-  track.addEventListener('focusin', (event) => {
-    const figure = event.target instanceof Element ? event.target.closest('figure') : null;
-    const st = slide.scrollTrigger;
-    if (!figure || !st) return;
-    const left = figure.getBoundingClientRect().left - track.getBoundingClientRect().left - window.innerWidth * 0.15;
-    const progress = Math.min(1, Math.max(0, left / distance()));
-    window.scrollTo({ top: st.start + progress * (st.end - st.start), behavior: 'instant' });
-  });
-  gsap.utils.toArray<HTMLElement>('.rm-track figure img').forEach((img) => {
-    gsap.fromTo(
-      img,
-      { xPercent: -8 },
-      {
-        xPercent: 8,
-        ease: 'none',
-        scrollTrigger: { trigger: img, containerAnimation: slide, start: 'left right', end: 'right left', scrub: true },
-      },
-    );
-  });
+  // Wider screens: a plain grid (home.css), so nothing holds the page while it scrolls.
 }
 
 /** Video band: grows from an inset frame to full bleed. */
