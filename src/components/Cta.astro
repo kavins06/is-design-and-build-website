@@ -18,5 +18,5 @@ const chat = chatHref(service);
       ? <><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={chat} data-chat data-service={service}>Chat now</a></>
       : <><a class="btn" href={chat} data-chat data-service={service}>Chat now</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></>}
   </div>
-  <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Chat</span><a href={chat} data-chat data-service={service}>Any time, day or night</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Where we work</span><a href="/service-areas/">DC · Northern Virginia · Montgomery County</a></div></div>
+  <div class="ct-grid"><div><span>Call</span><a href={site.phoneHref}>{site.phone}</a></div><div><span>Chat</span><a href={chat} data-chat data-service={service}>Any time, day or night</a></div><div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div><div><span>Where we work</span><a href="/service-areas/">DC · Maryland · Northern Virginia</a></div></div>
 </section>
