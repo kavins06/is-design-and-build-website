@@ -1,6 +1,6 @@
 # Tracking: Tag Manager and Google Analytics
 
-The site pushes lead events to the dataLayer. Tag Manager container **GTM-WFP56VXL** (once the site is switched to it; see the last section) forwards them to GA4 stream **G-F2YV2LBD5Q**. The container and the GA4 settings are kept in code, in [`scripts/tracking/config.mjs`](../scripts/tracking/config.mjs), and [`scripts/tracking/sync.mjs`](../scripts/tracking/sync.mjs) makes the live accounts match it. Change tracking in the config and run the sync. Don't edit by hand in Tag Manager: the next sync overwrites the items it manages.
+The site pushes lead events to the dataLayer. Tag Manager container **GTM-WFP56VXL** forwards them to GA4 stream **G-F2YV2LBD5Q**. The container and the GA4 settings are kept in code, in [`scripts/tracking/config.mjs`](../scripts/tracking/config.mjs), and [`scripts/tracking/sync.mjs`](../scripts/tracking/sync.mjs) makes the live accounts match it. Change tracking in the config and run the sync. Don't edit by hand in Tag Manager: the next sync overwrites the items it manages.
 
 ## What is tracked
 
@@ -16,6 +16,10 @@ The site pushes lead events to the dataLayer. Tag Manager container **GTM-WFP56V
 Every event carries `link_location` (header, phone_bar, footer, closing, page) and, where it applies, `service`. Both are GA4 custom dimensions.
 
 The site loads Tag Manager only on the production deployment (`VERCEL_ENV=production`, in `src/layouts/BaseLayout.astro`). The events are pushed in `BaseLayout.astro` (links and chat) and `src/pages/contact-us.astro` (the form).
+
+## Page views
+
+Page views come from one tag in the container that loads G-F2YV2LBD5Q: Tag Manager's own **Google Analytics** tag ("Google Analytics G-F2YV2LBD5Q"), made in Tag Manager. The sync checks that exactly one tag loads the stream and never creates one. A second tag for the same stream makes Tag Manager refuse to publish ("Conflicting Google tag"), so the sync deletes any plain Google tag (type `googtag`) that duplicates it.
 
 ## Running it
 
@@ -57,10 +61,10 @@ To revoke access, delete the key in Cloud Console, or remove the service account
 - **New detail on events:** push the key with every event and add it to `parameters`. The sync adds the Tag Manager variable, the tag parameter and the GA4 dimension.
 - **Different container or stream:** change `container` and `measurementId` in the config, and the container ID in `src/layouts/BaseLayout.astro`, in the same commit.
 
-## Moving the site to GTM-WFP56VXL (20 November 2026)
+## Moving the site to GTM-WFP56VXL (done 20 November 2026)
 
 The site previously loaded GTM-NSZWBWT2, which only sent page views and which nobody could open. Order matters, or page views stop:
 
-1. Run **Tracking sync** with **check**, then with **publish**, so the new container has the Google tag live.
+1. Run **Tracking sync** with **publish**, so GTM-WFP56VXL is live with its Google Analytics tag (page views) and the lead-event tag.
 2. Only then change the container ID in `src/layouts/BaseLayout.astro` from GTM-NSZWBWT2 to GTM-WFP56VXL and deploy it to `main`. Until then the site still loads GTM-NSZWBWT2.
 3. On the live site, use Tag Manager **Preview**, or GA4 **DebugView**, to see a phone tap arrive as `click_to_call`.
