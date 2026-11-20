@@ -17,6 +17,10 @@ Every event carries `link_location` (header, phone_bar, footer, closing, page) a
 
 The site loads Tag Manager only on the production deployment (`VERCEL_ENV=production`, in `src/layouts/BaseLayout.astro`). The events are pushed in `BaseLayout.astro` (links and chat) and `src/pages/contact-us.astro` (the form).
 
+## Page views
+
+Page views come from one tag in the container that loads G-F2YV2LBD5Q: Tag Manager's own **Google Analytics** tag ("Google Analytics G-F2YV2LBD5Q"), made in Tag Manager. The sync checks that exactly one tag loads the stream and never creates one. A second tag for the same stream makes Tag Manager refuse to publish ("Conflicting Google tag"), so the sync deletes any plain Google tag (type `googtag`) that duplicates it.
+
 ## Running it
 
 **From GitHub (no setup on a computer):** Actions tab → **Tracking sync** → **Run workflow** → choose a mode. It uses the repository's Actions secret `GOOGLE_SERVICE_ACCOUNT_JSON` and runs `scripts/tracking` as it is on `main`. The log shows every difference found or written.
@@ -61,6 +65,6 @@ To revoke access, delete the key in Cloud Console, or remove the service account
 
 The site previously loaded GTM-NSZWBWT2, which only sent page views and which nobody could open. Order matters, or page views stop:
 
-1. Run **Tracking sync** with **check**, then with **publish**, so the new container has the Google tag live.
+1. Run **Tracking sync** with **publish**, so GTM-WFP56VXL is live with its Google Analytics tag (page views) and the lead-event tag.
 2. Only then change the container ID in `src/layouts/BaseLayout.astro` from GTM-NSZWBWT2 to GTM-WFP56VXL and deploy it to `main`. Until then the site still loads GTM-NSZWBWT2.
 3. On the live site, use Tag Manager **Preview**, or GA4 **DebugView**, to see a phone tap arrive as `click_to_call`.

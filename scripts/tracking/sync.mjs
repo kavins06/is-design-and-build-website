@@ -153,7 +153,15 @@ async function syncTagManager() {
   const loaders = tags.filter((t) => t.name !== want.names.eventTag && JSON.stringify(t.parameter || []).includes(want.measurementId));
   if (loaders.length === 1) log(`  = tag "${loaders[0].name}" loads ${want.measurementId}`);
   else if (!loaders.length) { changes++; log(`  ! no tag loads ${want.measurementId}, so page views are not sent. In Tag Manager add Tags → New → Google Analytics with that ID (see docs/tracking.md).`); }
-  else { changes++; log(`  ! ${loaders.length} tags load ${want.measurementId} (${loaders.map((t) => `"${t.name}"`).join(', ')}). Tag Manager will not publish until only one is left; delete the others in Tag Manager.`); }
+  else {
+    // Keep Tag Manager's own Google Analytics tag and drop plain Google tags (type googtag) for the same stream.
+    const extra = loaders.filter((t) => t.type === 'googtag');
+    if (!extra.length || extra.length === loaders.length) fail(`${loaders.length} tags load ${want.measurementId} (${loaders.map((t) => `"${t.name}"`).join(', ')}). Delete all but one in Tag Manager.`);
+    for (const t of extra) {
+      changes++; log(`  - delete tag "${t.name}": it loads ${want.measurementId} a second time, which stops Tag Manager publishing`);
+      if (write) await api('DELETE', `${GTM}/${t.path}`);
+    }
+  }
 
   const notFound = (e) => (e.status === 404 ? null : Promise.reject(e));
   const live = await api('GET', `${GTM}/${container.path}/versions:live`).catch(notFound);
