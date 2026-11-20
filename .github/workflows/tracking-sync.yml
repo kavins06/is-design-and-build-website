@@ -1,0 +1,26 @@
+name: Tracking sync
+# Makes Tag Manager and GA4 match scripts/tracking/config.mjs. See docs/tracking.md.
+# Run it from the Actions tab: "check" only reads; "publish" writes and makes the tags live.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: What to do
+        type: choice
+        options: [check, apply, publish]
+        default: check
+permissions:
+  contents: read
+concurrency: tracking-sync
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync (${{ inputs.mode }})
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: npm run "tracking:${{ inputs.mode }}"

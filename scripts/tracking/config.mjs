@@ -2,7 +2,7 @@
 // scripts/tracking/sync.mjs makes the live accounts match this file.
 // Change tracking here, never by hand in Tag Manager: a hand edit is overwritten on the next sync.
 
-export const container = 'GTM-WFP56VXL'; // must match the ID in src/layouts/BaseLayout.astro
+export const container = 'GTM-WFP56VXL'; // the site loads it once src/layouts/BaseLayout.astro is switched (docs/tracking.md)
 export const measurementId = 'G-F2YV2LBD5Q'; // the GA4 web stream
 
 // Events the site pushes to the dataLayer (BaseLayout.astro, contact-us.astro).
