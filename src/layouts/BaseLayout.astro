@@ -131,7 +131,9 @@ const ogImage = abs('/og.jpg');
           d.addEventListener('click', function (event) {
             var link = event.target instanceof Element ? event.target.closest('a[data-chat]') : null;
             if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.button) return;
-            var service = link.getAttribute('data-service') || '';
+            // Links without their own service (header, footer) take the service of the page they are on.
+            var pages = { '/kitchen-remodeling/': 'kitchen', '/bathroom-remodeling/': 'bathroom', '/whole-home-remodeling/': 'whole-home', '/home-additions/': 'addition', '/roofing/': 'roofing', '/home-remodeling/': 'remodeling', '/lead-paint-abatement/': 'lead' };
+            var service = link.getAttribute('data-service') || pages[location.pathname] || '';
             var where = link.closest('[data-m-bar]') ? 'phone_bar' : link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('#contact') ? 'closing' : 'page';
             (w.dataLayer = w.dataLayer || []).push({ event: 'chat_open', link_location: where, service: service || 'none' });
             event.preventDefault();
