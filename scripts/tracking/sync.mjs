@@ -14,7 +14,6 @@ const mode = process.argv.includes('--publish') ? 'publish' : process.argv.inclu
 const write = mode !== 'check';
 const GTM = 'https://tagmanager.googleapis.com/tagmanager/v2';
 const GA = 'https://analyticsadmin.googleapis.com/v1beta';
-const INITIALIZATION_ALL_PAGES = '2147479573'; // Tag Manager's built-in trigger ID
 const SCOPES = [
   'https://www.googleapis.com/auth/tagmanager.edit.containers',
   'https://www.googleapis.com/auth/tagmanager.edit.containerversions',
@@ -90,7 +89,6 @@ const desired = {
     customEventFilter: [{ type: 'matchRegex', parameter: [tpl('arg0', '{{_event}}'), tpl('arg1', regex)] }],
   }],
   tags: (triggerId) => [
-    { name: want.names.googleTag, type: 'googtag', parameter: [tpl('tagId', want.measurementId)], firingTriggerId: [INITIALIZATION_ALL_PAGES] },
     {
       name: want.names.eventTag,
       type: 'gaawe',
@@ -149,6 +147,13 @@ async function syncTagManager() {
   let trigger;
   for (const t of desired.triggers) trigger = await upsert('trigger', base, triggers, t, (f) => paramsMatch(f.customEventFilter?.[0]?.parameter, t.customEventFilter[0].parameter) && f.customEventFilter?.[0]?.type === 'matchRegex');
   for (const t of desired.tags(trigger.triggerId)) await upsert('tag', base, tags, t, (f) => paramsMatch(f.parameter, t.parameter) && sameSet(f.firingTriggerId, t.firingTriggerId));
+
+  // Page views come from the tag that loads the GA4 stream itself (Tag Manager's "Google Analytics" tag, made in
+  // Tag Manager). The sync never creates one: a second tag for the same stream makes Tag Manager refuse to publish.
+  const loaders = tags.filter((t) => t.name !== want.names.eventTag && JSON.stringify(t.parameter || []).includes(want.measurementId));
+  if (loaders.length === 1) log(`  = tag "${loaders[0].name}" loads ${want.measurementId}`);
+  else if (!loaders.length) { changes++; log(`  ! no tag loads ${want.measurementId}, so page views are not sent. In Tag Manager add Tags → New → Google Analytics with that ID (see docs/tracking.md).`); }
+  else { changes++; log(`  ! ${loaders.length} tags load ${want.measurementId} (${loaders.map((t) => `"${t.name}"`).join(', ')}). Tag Manager will not publish until only one is left; delete the others in Tag Manager.`); }
 
   const notFound = (e) => (e.status === 404 ? null : Promise.reject(e));
   const live = await api('GET', `${GTM}/${container.path}/versions:live`).catch(notFound);

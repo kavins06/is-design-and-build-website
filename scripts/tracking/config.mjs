@@ -27,7 +27,6 @@ export const keyEvents = ['click_to_call', 'email_click', 'generate_lead'];
 
 // Names in Tag Manager. sync.mjs finds items by these names, so renaming one here creates a new item.
 export const names = {
-  googleTag: 'Google tag – GA4',
   trigger: 'Site lead events',
   eventTag: 'GA4 – site lead events',
 };
