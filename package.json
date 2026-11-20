@@ -11,7 +11,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "tracking:check": "node scripts/tracking/sync.mjs",
+    "tracking:apply": "node scripts/tracking/sync.mjs --apply",
+    "tracking:publish": "node scripts/tracking/sync.mjs --publish"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

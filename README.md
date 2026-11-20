@@ -19,6 +19,7 @@ Open http://localhost:4321.
 | `npm run build` | Build the static site into `dist/` |
 | `npm run preview` | Serve the built site locally |
 | `npm run check` | Type-check `.astro` and TypeScript files |
+| `npm run tracking:check` | Compare Tag Manager and GA4 with `scripts/tracking/config.mjs` ([tracking](docs/tracking.md)) |
 
 ## Layout
 
