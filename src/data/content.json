@@ -8,7 +8,6 @@
   "image": "photos/kitchen-b",
   "headline": "Remodel one room or the whole house.",
   "lede": "Kitchens, bathrooms, whole-home renovations and additions in Washington, DC, Northern Virginia and Montgomery County, designed and built by one in-house team.",
-  "cta": "Discuss your renovation",
   "sections": [
    {
     "kind": "services",
@@ -56,7 +55,6 @@
   "image": "photos/kitchen-d",
   "headline": "Keep the layout, or change the whole kitchen.",
   "lede": "We design it with you, agree the scope and the estimate before we start, then build it. Kitchens across Washington, DC, Northern Virginia and Montgomery County.",
-  "cta": "Tell us about your kitchen",
   "sections": [
    {
     "kind": "gallery",
@@ -153,7 +151,6 @@
   "image": "photos/bath-b",
   "headline": "Bathrooms that use every inch.",
   "lede": "From a powder room to a primary suite, across Washington, DC, Northern Virginia and Montgomery County. We plan the plumbing, ventilation and waterproofing along with the tile you’ll see.",
-  "cta": "Tell us about your bathroom",
   "sections": [
    {
     "kind": "gallery",
@@ -247,7 +244,6 @@
   "image": "photos/kitchen-c",
   "headline": "The whole house, planned as one.",
   "lede": "Layout, structure, systems and finishes in one coordinated plan and one build. Whole homes across Washington, DC, Northern Virginia and Montgomery County.",
-  "cta": "Discuss your home renovation",
   "sections": [
    {
     "kind": "gallery",
@@ -339,7 +335,6 @@
   "image": "photos/deck-a",
   "headline": "More room, with the permits handled.",
   "lede": "We find out what your lot and the zoning allow, handle the permit applications and build an addition that matches the house. Across Washington, DC, Northern Virginia and Montgomery County.",
-  "cta": "Discuss an addition",
   "sections": [
    {
     "kind": "gallery",
@@ -419,7 +414,6 @@
   "image": "photos/roof-b",
   "headline": "Roof repair and replacement.",
   "lede": "Leaks, storm damage or a worn-out roof. Call now; out of office hours, leave your address and number and we’ll call you back. We tell you whether to repair or replace, and we fix the damage inside too.",
-  "cta": "Email photos of your roof",
   "phone": true,
   "sections": [
    {
@@ -468,7 +462,7 @@
      },
      {
       "q": "Can I send photographs?",
-      "a": "Yes. Email them to info@isenterprises.net. Use photographs you can take safely from the ground."
+      "a": "Yes. Email them to contact@isdesignandbuild.com, or send them in the chat. Use photographs you can take safely from the ground."
      },
      {
       "q": "What if water is coming in now?",
@@ -481,8 +475,7 @@
    "Water coming in?",
    "Call (202) 519-1831."
   ],
-  "ctaHref": "mailto:info@isenterprises.net?subject=Roof%20photos",
-  "kicker": "Roofing in Washington, DC"
+    "kicker": "Roofing in Washington, DC"
  },
  {
   "slug": "about-us",
@@ -492,7 +485,6 @@
   "image": "photos/roof-c",
   "headline": "Building in the DC area since 1989.",
   "lede": "Founded in 1989 by Italo Rodriguez and Eddie Migues. Formerly I.S. Enterprises, now I.S Design + Build, working across Washington, DC, Northern Virginia and Montgomery County.",
-  "cta": "Start a project",
   "sections": [
    {
     "kind": "facts"
@@ -542,14 +534,13 @@
   "image": "photos/kitchen-e",
   "headline": "Know what comes next.",
   "lede": "From first conversation to final walkthrough.",
-  "cta": "Tell us about your project",
   "sections": [
    {
     "kind": "steps",
     "items": [
      {
       "name": "Tell us about your home",
-      "text": "Call, email or send an inquiry. Share the location and what you want to change."
+      "text": "Call or start a chat. Share the location and what you want to change."
      },
      {
       "name": "We visit and talk it through",
@@ -605,7 +596,6 @@
   "image": "photos/roof-a",
   "headline": "DC, Montgomery County and Northern Virginia.",
   "lede": "Kitchens, bathrooms, whole-home renovations, additions and roofing, close to home.",
-  "cta": "Check coverage for your project",
   "sections": [
    {
     "kind": "points",
@@ -652,25 +642,30 @@
  },
  {
   "slug": "portfolio",
+  "rating": true,
   "title": "Remodeling Projects in DC: Our Work | I.S Design + Build",
   "description": "Photographs of kitchens, bathrooms, decks and rooms from projects completed by I.S Design + Build, with what clients say about working with us.",
   "label": "Our work",
   "image": null,
   "headline": "Rooms we’ve built.",
   "lede": "Kitchens, bathrooms, decks and more from our completed projects.",
-  "cta": "Discuss your project",
   "sections": [
    {
-    "kind": "gallery"
+    "kind": "gallery",
+    "quotes": [
+     "little",
+     "laurion",
+     "brown"
+    ]
    },
    {
     "kind": "reviews",
-    "label": "Projects in our clients’ words",
+    "label": "More from our clients",
     "keys": [
-     "brown",
+     "peytonResult",
      "jones",
-     "laurion",
-     "peyton"
+     "solerAway",
+     "yu"
     ]
    }
   ],
@@ -688,7 +683,6 @@
   "image": "photos/bath-d",
   "headline": "Straight answers before you start.",
   "lede": "Planning a room, a roof or a larger renovation? Start here.",
-  "cta": "Ask us something else",
   "sections": [
    {
     "kind": "faq",
@@ -697,7 +691,7 @@
     "items": [
      {
       "q": "What services do you offer?",
-      "a": "Kitchen and bathroom remodeling, whole-home renovations, home additions, roofing and lead-paint work. If your project includes something else, describe it in your inquiry."
+      "a": "Kitchen and bathroom remodeling, whole-home renovations, home additions, roofing and lead-paint work. If your project includes something else, tell us about it when you call or chat."
      },
      {
       "q": "Do you take smaller projects?",
@@ -761,7 +755,7 @@
      },
      {
       "q": "How do I speak to someone?",
-      "a": "Call (202) 519-1831 or email info@isenterprises.net."
+      "a": "Call (202) 519-1831, Monday to Friday, 9:00 AM to 5:00 PM, or email contact@isdesignandbuild.com. Outside those hours, use Chat now: Tony, our AI assistant, answers at any time and passes your details to our team."
      }
     ]
    },
@@ -788,7 +782,6 @@
   "image": "photos/powder-b",
   "headline": "Spread the cost of your project.",
   "lede": "Pay for a renovation or a new roof over time, through independent home-improvement lenders.",
-  "cta": "Ask about financing",
   "sections": [
    {
     "kind": "points",
@@ -862,7 +855,6 @@
   "image": "stock/town-05",
   "headline": "Lead-safe work for older DC homes and rentals.",
   "lede": "For homes and rentals built before 1978. We plan containment, dust control and clean-up into the scope from the first visit, and arrange the clearance testing at the end.",
-  "cta": "Tell us about your home",
   "sections": [
    {
     "kind": "statement",
@@ -926,7 +918,7 @@
      },
      {
       "q": "Is this a separate project?",
-      "a": "It can be part of a renovation or a request on its own. Describe what you need in your inquiry."
+      "a": "It can be part of a renovation or a request on its own. Tell us what you need when you call or chat."
      }
     ]
    }

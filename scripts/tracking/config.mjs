@@ -5,15 +5,14 @@
 export const container = 'GTM-WFP56VXL'; // must match the ID in src/layouts/BaseLayout.astro
 export const measurementId = 'G-F2YV2LBD5Q'; // the GA4 web stream
 
-// Events the site pushes to the dataLayer (BaseLayout.astro, contact-us.astro).
+// Events the site pushes to the dataLayer (BaseLayout.astro).
 // Adding an event here forwards it to GA4; the site must also push it.
 export const events = [
   'click_to_call', // a tel: link; link_location says where
   'email_click', // a mailto: link
-  'start_project_click', // a link to /contact-us/; service says which
-  'chat_open', // a [data-chat] button
-  'generate_lead', // the enquiry form delivered
-  'inquiry_fallback_shown', // the form fell back to the visitor's email app
+  'chat_open', // a Chat now button; service says which page's service, if any
+  'chat_unavailable', // the chat could not load, so the visitor was shown the phone number and email
+  'generate_lead', // the visitor gave Tony (Intercom) their email address in the chat
 ];
 
 // dataLayer keys sent with every event above, as GA4 event parameters and event-scoped custom dimensions.
@@ -22,7 +21,8 @@ export const parameters = [
   { key: 'service', displayName: 'Service' },
 ];
 
-// Events counted as leads in GA4. chat_open is deliberately not one: opening the chat is not an enquiry.
+// Events counted as leads in GA4. chat_open is deliberately not one: opening the chat is not an inquiry.
+// generate_lead is: the visitor has left a way to reach them.
 export const keyEvents = ['click_to_call', 'email_click', 'generate_lead'];
 
 // Names in Tag Manager. sync.mjs finds items by these names, so renaming one here creates a new item.

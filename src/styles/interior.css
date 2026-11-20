@@ -68,7 +68,6 @@
 .fq-list details[open] summary::after { transform: rotate(45deg); }
 .fq-list summary:hover { color: var(--signal); }
 .fq-list details p { max-width: 62ch; padding-bottom: 30px; font-size: 18px; line-height: 1.6; color: #55554f; }
-.ct-pills a.is-current { background: var(--signal); border-color: var(--signal); }
 .interior .rv blockquote p { font-size: clamp(26px, 3.6vw, 56px); }
 
 @media (max-width: 900px) {
@@ -134,7 +133,6 @@
   .cg-hero .hero-actions { flex-direction: column; align-items: stretch; gap: 6px; }
   .cg-hero .hero-actions .btn { text-align: center; }
   .page-hero h1 { font-size: clamp(42px, 12.5vw, 60px); }
-  .ct-pills a { padding: 13px 18px; }
   .fq-list summary { padding: 22px 0; }
 }
 @media (max-width: 540px) { .cg .hd-cta { display: none; } .cg .hd.menu-open .hd-cta { display: none; } }
@@ -153,11 +151,8 @@
   .cg .ex-list h3 { font-size: 30px; }
   .cg .ex-list p { margin-top: 6px; opacity: 1; transform: none; color: #ffffffcc; font-size: 15px; }
 }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.enquiry button[disabled] { opacity: .6; cursor: progress; }
-.enquiry-sent { border-color: var(--signal); }
 
-/* Contact: proof beside the form, optional details, and the orange primary action. */
+/* Contact: proof beside the ways to reach us. */
 .enquiry { align-items: start; }
 .enquiry-proof { display: grid; gap: 40px; align-content: start; }
 .enquiry-since b { display: block; font-size: clamp(64px, 7vw, 112px); font-weight: 400; line-height: 1; letter-spacing: -.055em; }
@@ -167,22 +162,10 @@
 .enquiry-review footer { margin-top: 14px; font-size: 14px; color: var(--mute); }
 .enquiry-review .text-link { margin-top: 10px; font-size: 15px; }
 .enquiry-proof .enquiry-office { margin-top: 0; }
-.more-details { border-block: 1px solid var(--line); }
-.more-details summary { display: flex; align-items: center; gap: 8px; min-height: 60px; font-size: 17px; font-weight: 500; cursor: pointer; list-style: none; }
-.more-details summary::-webkit-details-marker { display: none; }
-.more-details summary span { color: var(--mute); font-weight: 400; }
-.more-details summary::after { content: '+'; margin-left: auto; font: 400 24px 'Geist Mono Variable', monospace; color: var(--signal-text); }
-.more-details[open] summary::after { content: '−'; }
-.more-details > .form-grid { padding: 8px 0 28px; }
-.contact-options { margin-top: 4px; }
-.contact-options label { min-height: 44px; padding-right: 12px; cursor: pointer; }
-.enquiry .submit-row .btn { padding: 18px 36px; border: 0; background: var(--signal); color: #0c0c0c !important; font-size: 17px; }
-.enquiry .submit-row .btn:hover { background: #0c0c0c; color: #fff !important; }
 @media (min-width: 901px) { .enquiry-proof { position: sticky; top: 110px; } }
 @media (max-width: 900px) {
   .enquiry { padding-block: 48px 64px; }
   .enquiry-proof { order: 2; gap: 32px; padding-top: 48px; border-top: 1px solid var(--line); }
-  .enquiry .submit-row .btn { width: 100%; }
 }
 .hd-logo span, .footer-brand span { color: var(--signal); }
 /* Comfortable tap targets on touch screens */
@@ -201,10 +184,9 @@
 }
 /* Contrast (WCAG AA): dark text on orange, a deeper orange and grey for small text on light backgrounds. */
 .cg.cg { --mute: #62625c; --signal-text: #b83403; }
-.btn, .m-bar a.is-primary, .ct-pills a.is-current { color: #0c0c0c !important; }
+.btn, .m-bar a.is-primary { color: #0c0c0c !important; }
 .btn:hover { color: #0c0c0c !important; }
 .rm-track figcaption span, .cg .ex-list span, .related-services > a > span, .copy-section .cg-label { color: var(--signal-text); }
-.enquiry button:hover { color: #0c0c0c; }
 @media (max-width: 900px) { .cg .ex-list li a > span { color: #fff; } }
 @media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #76766f; } }
 
@@ -212,8 +194,6 @@
 .ct-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; margin-top: clamp(32px, 4vw, 56px); }
 .ct-actions .btn { padding: 18px 32px; font-size: 17px; }
 .ct-actions .text-link { color: #fff; font-size: 16px; }
-.cg .ct-pills { margin-top: 28px; }
-.cg .ct-pills a { padding: 12px 20px; font-size: clamp(15px, 1.2vw, 18px); border-color: #ffffff4d; }
 .ct-grid p { color: #fff; }
 @media (max-width: 540px) { .ct-actions .btn { width: 100%; text-align: center; } }
 
@@ -221,7 +201,7 @@
 .cg .hd-cta { background: var(--signal); border-color: var(--signal); color: #0c0c0c; }
 .cg .hd-cta:hover { background: #fff; border-color: #fff; color: #0c0c0c; }
 
-/* Phone menu: the Call / Start a project bar stays at the bottom while the menu is open. */
+/* Phone menu: the Call / Chat now bar stays at the bottom while the menu is open. */
 @media (max-width: 700px) {
   html.menu-locked .m-bar { transform: none; z-index: 60; }
   .cg .hd.menu-open nav { padding-bottom: 110px; }
@@ -344,7 +324,7 @@ html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
 .cg .cg-label { font-size: 12px; }
 
 /* Touch tablets: header targets at least 44px tall. (Phones keep the header button hidden:
-   the fixed Call / Start a project bar does that job.) */
+   the fixed Call / Chat now bar does that job.) */
 @media (min-width: 541px) and (max-width: 1100px) {
   .cg .hd-cta { display: inline-flex; align-items: center; min-height: 44px; }
 }
@@ -394,10 +374,6 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
 .hd-phone:hover { color: var(--signal); }
 @media (min-width: 1180px) { .cg .hd-phone { display: inline-flex; align-items: center; min-height: 44px; } }
 
-/* Contact form: optional marks and the note about the email address. */
-.field label .optional { color: var(--mute); font-weight: 400; }
-.enquiry-email-note { max-width: 34ch; color: var(--mute); font-size: 14px; line-height: 1.5; }
-.enquiry-email-note a { color: inherit; text-underline-offset: 3px; }
 
 /* Reviews page: rooms from our projects between the groups of reviews. */
 .rvw-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 22px); padding: 0 var(--pad) clamp(48px, 6vw, 96px); }
@@ -408,19 +384,17 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
   .rvw-strip figure:nth-child(3) { display: none; }
 }
 
-/* Chat: our own button opens the Intercom Messenger (loaded on demand). Wide screens get a small
-   pill in the corner; phones get a chat icon in the Call / Start a project bar instead, so nothing
-   floats over the main buttons. */
-.chat-launch { position: fixed; right: 20px; bottom: 20px; z-index: 45; display: inline-flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 20px 0 16px; border: 1px solid #ffffff3d; border-radius: 999px; background: #0c0c0c; color: #fff; font: 500 15px/1 'Geist Variable', 'Helvetica Neue', Arial, sans-serif; cursor: pointer; box-shadow: 0 8px 28px #0c0c0c59; transition: transform .25s, background .25s; }
-.chat-launch:hover { background: #262624; transform: translateY(-2px); }
-.chat-launch:focus-visible, .m-chat:focus-visible { outline: 2px solid #ff5418; outline-offset: 3px; }
-.chat-launch svg, .m-chat svg { width: 18px; height: 18px; fill: none; stroke: #ff8a5c; stroke-width: 1.8; stroke-linejoin: round; }
-.chat-launch[hidden], .m-chat[hidden] { display: none !important; }
-html.menu-locked .chat-launch, html.lb-open .chat-launch { display: none; }
-@media (max-width: 700px) {
-  .chat-launch { display: none !important; }
-  .m-bar.has-chat { grid-template-columns: 1fr 56px 1.6fr; }
-  .m-chat { display: grid; place-items: center; min-height: 54px; padding: 0; border: 0; border-left: 1px solid #ffffff33; background: #0c0c0c; color: #fff; cursor: pointer; }
-  .m-chat svg { width: 22px; height: 22px; }
+/* Contact page: the three ways to reach us. */
+.cg .contact-ways { margin: 0 0 48px; padding: 0; list-style: none; border-top: 1px solid var(--line); max-width: 800px; }
+.contact-ways li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 4px 24px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.contact-ways span { grid-row: span 3; padding-top: 10px; font: 500 12px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--signal-text); }
+.contact-ways a { justify-self: start; font-size: clamp(24px, 2.6vw, 38px); font-weight: 500; letter-spacing: -.03em; line-height: 1.2; text-decoration: none; overflow-wrap: anywhere; }
+.contact-ways a:hover { color: var(--signal-text); }
+.contact-ways a[data-chat] { padding: 10px 26px; background: var(--signal); color: #0c0c0c; font-size: clamp(20px, 1.8vw, 26px); }
+.contact-ways a[data-chat]:hover { background: #0c0c0c; color: #fff; }
+.contact-ways p { max-width: 52ch; margin-top: 8px; color: var(--mute); font-size: 15px; line-height: 1.5; }
+.contact-ways .contact-failed { padding: 12px 14px; border-left: 2px solid var(--signal); background: #fff4ee; color: #0c0c0c; }
+@media (max-width: 540px) {
+  .contact-ways li { grid-template-columns: 1fr; }
+  .contact-ways span { grid-row: auto; padding-top: 0; }
 }
-@media print { .chat-launch { display: none; } }

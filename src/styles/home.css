@@ -568,30 +568,6 @@ video {
 .ct-title span:last-child {
   color: var(--signal);
 }
-.ct-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: clamp(32px, 4vw, 64px);
-}
-.ct-pills a {
-  padding: 15px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 999px;
-  font-size: clamp(16px, 1.4vw, 21px);
-  text-decoration: none;
-  transition:
-    background 0.25s,
-    color 0.25s,
-    border-color 0.25s,
-    transform 0.25s;
-}
-.ct-pills a:hover {
-  background: #fff;
-  border-color: #fff;
-  color: var(--ink);
-  transform: translateY(-3px);
-}
 .ct-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

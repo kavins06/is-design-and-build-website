@@ -37,6 +37,6 @@ Open http://localhost:4321.
 
 `dist/` is build output and is not committed.
 
-Builds are noindex by default. Only `VERCEL_ENV=production` enables indexing of public pages. The contact form posts to `api/enquiry.js`, which emails the enquiry through Resend when `RESEND_API_KEY` is set in Vercel (optional: `ENQUIRY_TO`, `ENQUIRY_FROM`). Without the key the form falls back to preparing an email in the visitor's own email app.
+Builds are noindex by default. Only `VERCEL_ENV=production` enables indexing of public pages. The site has no inquiry form. Visitors call, chat with Tony (Intercom Fin, loaded when they tap Chat now) or email contact@isdesignandbuild.com. Every Chat now button is a link to /contact-us/ marked `data-chat`; if the chat cannot load, the visitor lands on the phone number and email.
 
 See [content implementation notes](docs/content-implementation.md) for sources, verification, future integration requirements and the remaining live-site migration work.

@@ -23,7 +23,6 @@ export function closingScenes() {
       scrollTrigger: { trigger: title, start: 'top 95%' },
     });
   }
-  rise('.ct-pills a', '.ct-pills', 0.05);
   rise('.ct-grid > div', '.ct-grid', 0.08);
   const mark = document.querySelector<HTMLElement>('.footer-mark');
   if (mark) {

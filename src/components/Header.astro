@@ -1,8 +1,9 @@
 ---
 const { home = false, overlay = false } = Astro.props;
-import { site } from '../data/site';
-const services = [['Remodeling overview', '/home-remodeling/'], ['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/'], ['Lead paint', '/lead-paint-abatement/']];
-const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['Service areas', '/service-areas/'], ['Financing', '/financing/'], ['FAQs', '/faqs/'], ['Guides', '/blogs/']];
+import { site, chatHref } from '../data/site';
+// Three items: what we do, the work (with what clients say about it), and who we are. Every other
+// page stays live and is linked from the footer and from the pages it belongs with.
+const services = [['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/'], ['Roofing', '/roofing/'], ['Lead paint', '/lead-paint-abatement/']];
 ---
 <a class="skip-link" href="#main">Skip to content</a>
 <header class:list={['hd', { 'is-solid': !home && !overlay }]} data-home={home || overlay}>
@@ -10,14 +11,12 @@ const about = [['Our story', '/about-us/'], ['Our process', '/our-process/'], ['
   <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
   <nav id="primary-nav" aria-label="Primary">
     <details class="nav-group"><summary>Services</summary><div class="nav-dropdown">{services.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
-    <a href="/roofing/">Roofing</a>
     <a href="/portfolio/">Our work</a>
-    <a href="/reviews/">Reviews</a>
-    <details class="nav-group"><summary>About</summary><div class="nav-dropdown">{about.map(([label, href]) => <a href={href}>{label}</a>)}</div></details>
+    <a href="/about-us/">About</a>
     <a class="mobile-phone" href={site.phoneHref}>{site.phone}</a>
   </nav>
   <a class="hd-phone" href={site.phoneHref}>{site.phone}</a>
-  <a class="hd-cta" href="/contact-us/">Start a project</a>
+  <a class="hd-cta" href={chatHref()} data-chat>Chat now</a>
 </header>
 <script>
   const header = document.querySelector<HTMLElement>('.hd');

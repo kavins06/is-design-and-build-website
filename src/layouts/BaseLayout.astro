@@ -82,7 +82,8 @@ const ogImage = abs('/og.jpg');
     {googleTag && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${googleTag}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>}
     <slot />
     <script is:inline>
-      // Lead signals for analytics: calls, emails and the start of an inquiry, with where on the page they came from.
+      // Lead signals for analytics: calls and emails, with where on the page they came from.
+      // Chat buttons are counted by the chat script below.
       document.addEventListener('click', function (event) {
         var link = event.target instanceof Element ? event.target.closest('a') : null;
         if (!link) return;
@@ -91,41 +92,61 @@ const ogImage = abs('/og.jpg');
         var where = link.closest('[data-m-bar]') ? 'phone_bar' : link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('#contact') ? 'closing' : 'page';
         if (href.indexOf('tel:') === 0) dl.push({ event: 'click_to_call', link_location: where });
         else if (href.indexOf('mailto:') === 0) dl.push({ event: 'email_click', link_location: where });
-        else if (href.indexOf('/contact-us/') === 0) dl.push({ event: 'start_project_click', link_location: where, service: new URL(link.href).searchParams.get('service') || 'none' });
       }, { capture: true });
     </script>
     {intercomAppId && (
-      <>
-        <button type="button" class="chat-launch" data-chat hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-6 4z" /></svg><span>Chat with us</span></button>
-        <script is:inline define:vars={{ intercomAppId }}>
-          // Intercom Messenger (Fin AI chatbot) for anonymous visitors, using Intercom's standard
-          // install snippet. The widget is about 1 MB and ties up a phone for up to a second while it
-          // starts, so it is fetched only when a visitor asks to chat, or, for someone who already has
-          // a conversation open, once the page has loaded and the browser is idle. Intercom's own
-          // launcher is hidden: our "Chat" buttons sit clear of the phone's Call / Start a project bar.
-          window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId, hide_default_launcher: true };
-          (function () {
-            var w = window; var d = document; var ic = w.Intercom;
-            if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
-            var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
-            var loaded = false;
-            var l = function () { if (loaded) return; loaded = true; var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId; d.head.appendChild(s); };
-            // On the contact page the visitor is already filling in the project form, so no chat button covers it.
-            var buttons = location.pathname.indexOf('/contact-us') === 0 ? [] : d.querySelectorAll('[data-chat]');
-            Array.prototype.forEach.call(buttons, function (button) {
-              button.hidden = false;
-              button.addEventListener('click', function () {
-                (w.dataLayer = w.dataLayer || []).push({ event: 'chat_open', link_location: button.closest('[data-m-bar]') ? 'phone_bar' : 'page' });
-                l(); w.Intercom('show');
-              });
-            });
-            if (d.cookie.indexOf('intercom-session-' + intercomAppId + '=') !== -1) {
-              var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(l, { timeout: 3000 }); else setTimeout(l, 1); };
-              if (d.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
-            }
-          })();
-        </script>
-      </>
+      <script is:inline define:vars={{ intercomAppId }}>
+        // Intercom Messenger, where Tony (Fin AI) answers first and takes the visitor's details.
+        // Uses Intercom's standard install snippet. The widget is about 1 MB and ties up a phone for
+        // up to a second while it starts, so it is fetched only when a visitor taps Chat now, or, for
+        // someone who already has a conversation open, once the page has loaded and the browser is
+        // idle. Intercom's own launcher is hidden: the Chat now buttons open it.
+        //
+        // Every Chat now button is a link to the contact page marked data-chat. If the chat script is
+        // blocked or does not open within a few seconds, the visitor is taken to that link (on the
+        // contact page itself, a note appears), so a tap never ends in nothing.
+        window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId, hide_default_launcher: true };
+        (function () {
+          var w = window; var d = document; var ic = w.Intercom;
+          if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
+          var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
+          var loaded = false; var failed = false; var shown = false; var pending = null; var lastService = '';
+          var fallback = function () {
+            if (!pending || shown) return;
+            var link = pending; pending = null;
+            (w.dataLayer = w.dataLayer || []).push({ event: 'chat_unavailable', service: link.getAttribute('data-service') || 'none' });
+            var note = d.querySelector('[data-chat-failed]');
+            if (note) { note.hidden = false; note.focus(); } else w.location.href = link.href;
+          };
+          var l = function () {
+            if (loaded) return; loaded = true;
+            var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId;
+            s.onerror = function () { failed = true; fallback(); };
+            d.head.appendChild(s);
+          };
+          w.Intercom('onShow', function () { shown = true; pending = null; });
+          w.Intercom('onHide', function () { shown = false; });
+          // A lead: the visitor gave Tony an email address in the chat.
+          w.Intercom('onUserEmailSupplied', function () { (w.dataLayer = w.dataLayer || []).push({ event: 'generate_lead', link_location: 'chat', service: lastService || 'none' }); });
+          d.addEventListener('click', function (event) {
+            var link = event.target instanceof Element ? event.target.closest('a[data-chat]') : null;
+            if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.button) return;
+            var service = link.getAttribute('data-service') || '';
+            var where = link.closest('[data-m-bar]') ? 'phone_bar' : link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('#contact') ? 'closing' : 'page';
+            (w.dataLayer = w.dataLayer || []).push({ event: 'chat_open', link_location: where, service: service || 'none' });
+            event.preventDefault();
+            if (failed) { pending = link; fallback(); return; }
+            // Tony sees which service the visitor was reading about.
+            if (service) { lastService = service; w.Intercom('update', { service_interest: service }); }
+            pending = link; l(); w.Intercom('show');
+            setTimeout(fallback, 8000);
+          });
+          if (d.cookie.indexOf('intercom-session-' + intercomAppId + '=') !== -1) {
+            var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(l, { timeout: 3000 }); else setTimeout(l, 1); };
+            if (d.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
+          }
+        })();
+      </script>
     )}
   </body>
 </html>
