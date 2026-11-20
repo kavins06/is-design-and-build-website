@@ -651,16 +651,3 @@ video {
     grid-template-columns: 1fr 1fr;
   }
 }
-
-/* Rooms on wider screens: a plain grid of six rooms, linking to the portfolio. It used to be a
-   pinned sideways gallery, which held the page still while visitors scrolled. */
-@media (min-width: 901px) {
-  .cg #rooms .rm-pin { min-height: 0; padding: clamp(90px, 10vw, 160px) 0; }
-  .cg #rooms .rm-hint { display: none; }
-  .cg #rooms .rm-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: clamp(28px, 3vw, 48px) clamp(16px, 2vw, 32px); width: auto; will-change: auto; }
-  .cg #rooms .rm-title { grid-column: 1 / -1; align-self: start; margin: 0 0 8px !important; white-space: normal; }
-  .cg #rooms .rm-track figure, .cg #rooms .rm-track figure.is-tall { width: auto; }
-  .cg #rooms .rm-track figure div, .cg #rooms .rm-track figure.is-tall div { height: auto; aspect-ratio: 4 / 3; }
-  .cg #rooms .rm-track img { width: 100%; margin-left: 0; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
-  .cg #rooms .rm-track figure a:hover img { transform: scale(1.03); }
-}

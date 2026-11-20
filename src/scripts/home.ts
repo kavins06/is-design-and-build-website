@@ -5,8 +5,8 @@ import { closingScenes, swipeRegion } from './scenes';
 // reduced motion requested, every section renders in its finished state.
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const motion = reduce ? false : startMotion();
-if (motion) {
+const lenis = reduce ? null : startMotion();
+if (lenis) {
   expertise();
   rooms();
   statement();
@@ -60,8 +60,8 @@ function processStory() {
     scrollTrigger: {
       trigger: '.pr-pin',
       start: 'top top',
-      // A fifth of a screen per stage: enough to see each step, short enough not to stall.
-      end: '+=100%',
+      // Under a third of a screen per stage: long enough to read, short enough not to stall.
+      end: '+=150%',
       pin: true,
       scrub: 0.5,
       onUpdate: (self) => {
@@ -146,9 +146,9 @@ function expertise() {
   });
 }
 
-/** Rooms: a swipe gallery on phones; on wider screens a plain grid that needs no script. */
+/** Rooms: vertical scroll drives a horizontal gallery with inner parallax. */
 function rooms() {
-  if (!motion) return;
+  if (!lenis) return;
   const track = document.querySelector<HTMLElement>('.rm-track');
   if (!track) return;
   // Phones get a native swipe gallery: a pinned sideways scroll fights the thumb.
@@ -162,7 +162,40 @@ function rooms() {
     swipeRegion(track);
     return;
   }
-  // Wider screens: a plain grid (home.css), so nothing holds the page while it scrolls.
+  const distance = () => track.scrollWidth - window.innerWidth;
+  // The gallery slides its full width in at most two screens of scrolling.
+  const hold = () => Math.min(distance(), window.innerHeight * 2);
+  const slide = gsap.to(track, {
+    x: () => -distance(),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.rm-pin',
+      start: 'top top',
+      end: () => `+=${hold()}`,
+      pin: true,
+      scrub: 0.5,
+      invalidateOnRefresh: true,
+    },
+  });
+  track.addEventListener('focusin', (event) => {
+    const figure = event.target instanceof Element ? event.target.closest('figure') : null;
+    const st = slide.scrollTrigger;
+    if (!figure || !st) return;
+    const left = figure.getBoundingClientRect().left - track.getBoundingClientRect().left - window.innerWidth * 0.15;
+    const progress = Math.min(1, Math.max(0, left / distance()));
+    lenis.scrollTo(st.start + progress * (st.end - st.start), { immediate: true });
+  });
+  gsap.utils.toArray<HTMLElement>('.rm-track figure img').forEach((img) => {
+    gsap.fromTo(
+      img,
+      { xPercent: -8 },
+      {
+        xPercent: 8,
+        ease: 'none',
+        scrollTrigger: { trigger: img, containerAnimation: slide, start: 'left right', end: 'right left', scrub: true },
+      },
+    );
+  });
 }
 
 /** Video band: grows from an inset frame to full bleed. */

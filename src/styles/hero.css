@@ -233,12 +233,3 @@
 @media (max-width: 900px) and (orientation: portrait) and (min-width: 541px) {
   .cg .cg-hero { --hero-photo: 50svh; }
 }
-
-/* The words are readable from the first frame: the headline does not wait for the room to be
-   built, the shade behind the words is there at once, and on wide screens the drawing stays
-   over the room, clear of the words. */
-.cg h1 span, .cg h1 span.is-built { animation: none; }
-.cg-hero-shade { animation: none; opacity: 1; }
-@media not ((max-width: 900px) and (orientation: portrait)) {
-  .cg-elev { -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 44%, #000 58%); mask-image: linear-gradient(90deg, transparent 0%, transparent 44%, #000 58%); }
-}
