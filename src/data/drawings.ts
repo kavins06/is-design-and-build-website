@@ -249,17 +249,17 @@ const river: [number, number][] = [[30, 76], [160, 130], [250, 190], [318, 236],
 const bank = (dx: number, dy: number) => smooth(river.map(([x, y]) => [x + dx, y + dy] as [number, number]));
 const riverPath = smooth(river);
 const dcPath = `M440 120L572 252L452 368` + smooth([[452, 368], [380, 300], [318, 236]]).replace(/^M[^C]+/, '') + 'L440 120Z';
-const moPath = 'M318 236L440 120L520 64L548 30L500 8L380 14L240 4L150 18L96 40L82 64' + smooth([[82, 64], [160, 130], [250, 190], [318, 236]]).replace(/^M[^C]+/, '') + 'Z';
+// Maryland: everything north and east of the Potomac except DC itself.
+const moPath = smooth([[30, 76], [160, 130], [250, 190], [318, 236]]) + 'L440 120L572 252L452 368' + smooth([[452, 368], [480, 440], [492, 520]]).replace(/^M[^C]+/, '') + 'L800 520L800 0L30 0Z';
 const vaPath = riverPath + 'L30 520Z';
 const map: Drawing = {
   name: 'Area map',
-  alt: 'Illustrative map of the Washington, DC area that develops point by point: Washington, DC, Montgomery County in Maryland, then Northern Virginia.',
+  alt: 'Illustrative map of the Washington, DC area that develops point by point: Washington, DC, Maryland, then Northern Virginia.',
   defs: `<clipPath id="dw-dc"><path d="${dcPath}"/></clipPath><clipPath id="dw-mo"><path d="${moPath}"/></clipPath><clipPath id="dw-va"><path d="${vaPath}"/></clipPath>`,
   base:
     draw(bank(-5, 4) + bank(5, -4)) +
     draw('M720 92V44M710 58L720 42L730 58') +
-    text(720, 110, 'N', 'dt') +
-    text(642, 300, 'Prince George’s', 'l') + text(642, 316, 'County', 'l'),
+    text(720, 110, 'N', 'dt'),
   parts: [
     // Washington, DC, with the office in Georgetown.
     draw(dcPath, 'f2') +
@@ -267,12 +267,10 @@ const map: Drawing = {
     draw(ring(352, 252, 7), 'f2') + draw(ring(352, 252, 2)) +
     text(486, 258, 'Washington, DC') +
     text(366, 248, 'Office', 'dt', 'start'),
-    // Montgomery County, including Bethesda and Chevy Chase.
+    // Maryland, north and east of DC.
     draw(moPath, 'f2') +
-    `<g clip-path="url(#dw-mo)">${draw(fill(60, 0, 560, 240, 14, 'h'), 't')}</g>` +
-    draw(ring(350, 172, 4) + ring(404, 144, 4)) +
-    text(340, 176, 'Bethesda', 'l', 'end') + text(396, 130, 'Chevy Chase', 'l', 'end') +
-    text(300, 80, 'Montgomery County'),
+    `<g clip-path="url(#dw-mo)">${draw(fill(30, 0, 800, 520, 14, 'h'), 't')}</g>` +
+    text(560, 120, 'Maryland'),
     // Northern Virginia, across the Potomac.
     draw(riverPath, 'f2') +
     `<g clip-path="url(#dw-va)">${draw(fill(20, 60, 500, 520, 16, 'b'), 't')}</g>` +

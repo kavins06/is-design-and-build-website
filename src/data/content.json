@@ -2,12 +2,12 @@
  {
   "slug": "home-remodeling",
   "title": "Home Remodeling in the DC Area | I.S Design + Build",
-  "description": "Explore kitchen, bathroom and whole-home remodeling, plus home additions. Serving Washington, DC, Northern Virginia and Montgomery County.",
+  "description": "Explore kitchen, bathroom and whole-home remodeling, plus home additions. Serving Washington, DC, Maryland and Northern Virginia.",
   "label": "Remodeling",
   "service": "remodeling",
   "image": "photos/kitchen-b",
   "headline": "Remodel one room or the whole house.",
-  "lede": "Kitchens, bathrooms, whole-home renovations and additions in Washington, DC, Northern Virginia and Montgomery County, designed and built by one in-house team.",
+  "lede": "Kitchens, bathrooms, whole-home renovations and additions in Washington, DC, Maryland and Northern Virginia, designed and built by one in-house team.",
   "sections": [
    {
     "kind": "services",
@@ -49,12 +49,12 @@
  {
   "slug": "kitchen-remodeling",
   "title": "Kitchen Remodeling in DC & Nearby | I.S Design + Build",
-  "description": "Plan a kitchen around how you cook and live. Explore layouts, storage and finishes with our in-house team in DC, Northern Virginia and Montgomery County.",
+  "description": "Plan a kitchen around how you cook and live. Explore layouts, storage and finishes with our in-house team in DC, Maryland and Northern Virginia.",
   "label": "Kitchens",
   "service": "kitchen",
   "image": "photos/kitchen-d",
   "headline": "Keep the layout, or change the whole kitchen.",
-  "lede": "We design it with you, agree the scope and the estimate before we start, then build it. Kitchens across Washington, DC, Northern Virginia and Montgomery County.",
+  "lede": "We design it with you, agree the scope and the estimate before we start, then build it. Kitchens across Washington, DC, Maryland and Northern Virginia.",
   "sections": [
    {
     "kind": "gallery",
@@ -145,12 +145,12 @@
  {
   "slug": "bathroom-remodeling",
   "title": "Bathroom Remodeling in DC & Nearby | I.S Design + Build",
-  "description": "Explore bathroom layouts, showers, storage and finishes with our in-house team. Serving DC, Northern Virginia and Montgomery County, Maryland.",
+  "description": "Explore bathroom layouts, showers, storage and finishes with our in-house team. Serving DC, Maryland and Northern Virginia.",
   "label": "Bathrooms",
   "service": "bathroom",
   "image": "photos/bath-b",
   "headline": "Bathrooms that use every inch.",
-  "lede": "From a powder room to a primary suite, across Washington, DC, Northern Virginia and Montgomery County. We plan the plumbing, ventilation and waterproofing along with the tile you’ll see.",
+  "lede": "From a powder room to a primary suite, across Washington, DC, Maryland and Northern Virginia. We plan the plumbing, ventilation and waterproofing along with the tile you’ll see.",
   "sections": [
    {
     "kind": "gallery",
@@ -238,12 +238,12 @@
  {
   "slug": "whole-home-remodeling",
   "title": "Whole-Home Renovations in DC | I.S Design + Build",
-  "description": "Coordinate layouts, systems and finishes across your home. Discuss a whole-home renovation in DC, Northern Virginia or Montgomery County.",
+  "description": "Coordinate layouts, systems and finishes across your home. Discuss a whole-home renovation in DC, Maryland or Northern Virginia.",
   "label": "Whole-home renovations",
   "service": "whole-home",
   "image": "photos/kitchen-c",
   "headline": "The whole house, planned as one.",
-  "lede": "Layout, structure, systems and finishes in one coordinated plan and one build. Whole homes across Washington, DC, Northern Virginia and Montgomery County.",
+  "lede": "Layout, structure, systems and finishes in one coordinated plan and one build. Whole homes across Washington, DC, Maryland and Northern Virginia.",
   "sections": [
    {
     "kind": "gallery",
@@ -329,12 +329,12 @@
  {
   "slug": "home-additions",
   "title": "Home Additions in the DC Area | I.S Design + Build",
-  "description": "Explore additional space and how it could connect to your existing home. Discuss a home addition in DC, Northern Virginia or Montgomery County.",
+  "description": "Explore additional space and how it could connect to your existing home. Discuss a home addition in DC, Maryland or Northern Virginia.",
   "label": "Home additions",
   "service": "addition",
   "image": "photos/deck-a",
   "headline": "More room, with the permits handled.",
-  "lede": "We find out what your lot and the zoning allow, handle the permit applications and build an addition that matches the house. Across Washington, DC, Northern Virginia and Montgomery County.",
+  "lede": "We find out what your lot and the zoning allow, handle the permit applications and build an addition that matches the house. Across Washington, DC, Maryland and Northern Virginia.",
   "sections": [
    {
     "kind": "gallery",
@@ -408,7 +408,7 @@
  {
   "slug": "roofing",
   "title": "Roof Repair & Replacement in DC | I.S Design + Build",
-  "description": "Discuss roof repairs, replacement and associated concerns with I.S Design + Build. Serving Washington, DC, Northern Virginia and Montgomery County.",
+  "description": "Discuss roof repairs, replacement and associated concerns with I.S Design + Build. Serving Washington, DC, Maryland and Northern Virginia.",
   "label": "Roofing",
   "service": "roofing",
   "image": "photos/roof-b",
@@ -484,7 +484,7 @@
   "label": "Our story",
   "image": "photos/roof-c",
   "headline": "Building in the DC area since 1989.",
-  "lede": "Founded in 1989 by Italo Rodriguez and Eddie Migues. Formerly I.S. Enterprises, now I.S Design + Build, working across Washington, DC, Northern Virginia and Montgomery County.",
+  "lede": "Founded in 1989 by Italo Rodriguez and Eddie Migues. Formerly I.S. Enterprises, now I.S Design + Build, working across Washington, DC, Maryland and Northern Virginia.",
   "sections": [
    {
     "kind": "facts"
@@ -591,10 +591,10 @@
  {
   "slug": "service-areas",
   "title": "DC, Virginia & Maryland Service Areas | I.S Design + Build",
-  "description": "Explore our coverage in Washington, DC, Northern Virginia and Montgomery County, including Bethesda and Chevy Chase. Confirm your project location.",
+  "description": "Explore our coverage in Washington, DC, Maryland and Northern Virginia. Confirm your project location.",
   "label": "Service areas",
   "image": "photos/roof-a",
-  "headline": "DC, Montgomery County and Northern Virginia.",
+  "headline": "DC, Maryland and Northern Virginia.",
   "lede": "Kitchens, bathrooms, whole-home renovations, additions and roofing, close to home.",
   "sections": [
    {
@@ -608,8 +608,8 @@
       "text": "From a single room to a full renovation or a new roof."
      },
      {
-      "name": "Montgomery County, Maryland",
-      "text": "Including Bethesda and Chevy Chase."
+      "name": "Maryland",
+      "text": "Share your town or ZIP code and we’ll confirm coverage."
      },
      {
       "name": "Northern Virginia",
@@ -698,7 +698,7 @@
      },
      {
       "q": "Where do you work?",
-      "a": "Washington, DC, Northern Virginia and Montgomery County, Maryland, including Bethesda and Chevy Chase. Share your town to confirm coverage."
+      "a": "Washington, DC, Maryland and Northern Virginia. Share your town or ZIP code to confirm coverage."
      },
      {
       "q": "Are you licensed and insured?",

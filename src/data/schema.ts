@@ -4,7 +4,7 @@ import { site } from './site';
 // site are stated here: no ratings or prices.
 const origin = 'https://isdesignandbuild.com';
 const businessId = `${origin}/#business`;
-const areas = ['Washington, DC', 'Northern Virginia', 'Montgomery County, Maryland', 'Bethesda, Maryland', 'Chevy Chase, Maryland'];
+const areas = ['Washington, DC', 'Maryland', 'Northern Virginia'];
 
 export const abs = (path: string) => new URL(path, origin).href;
 

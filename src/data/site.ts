@@ -10,7 +10,7 @@ export const site = {
   email: 'contact@isdesignandbuild.com',
   address: ['1010 Wisconsin Ave NW, Suite 300 #12', 'Washington, DC 20007'],
   hours: 'Monday to Friday, 9:00 AM to 5:00 PM',
-  area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
+  area: 'Washington, DC · Maryland · Northern Virginia',
 };
 
 // Intercom Messenger. It hosts Tony, the Fin AI assistant that answers chats first and takes
