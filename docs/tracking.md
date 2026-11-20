@@ -1,6 +1,6 @@
 # Tracking: Tag Manager and Google Analytics
 
-The site pushes lead events to the dataLayer. Tag Manager container **GTM-WFP56VXL** (once the site is switched to it; see the last section) forwards them to GA4 stream **G-F2YV2LBD5Q**. The container and the GA4 settings are kept in code, in [`scripts/tracking/config.mjs`](../scripts/tracking/config.mjs), and [`scripts/tracking/sync.mjs`](../scripts/tracking/sync.mjs) makes the live accounts match it. Change tracking in the config and run the sync. Don't edit by hand in Tag Manager: the next sync overwrites the items it manages.
+The site pushes lead events to the dataLayer. Tag Manager container **GTM-WFP56VXL** forwards them to GA4 stream **G-F2YV2LBD5Q**. The container and the GA4 settings are kept in code, in [`scripts/tracking/config.mjs`](../scripts/tracking/config.mjs), and [`scripts/tracking/sync.mjs`](../scripts/tracking/sync.mjs) makes the live accounts match it. Change tracking in the config and run the sync. Don't edit by hand in Tag Manager: the next sync overwrites the items it manages.
 
 ## What is tracked
 
@@ -61,7 +61,7 @@ To revoke access, delete the key in Cloud Console, or remove the service account
 - **New detail on events:** push the key with every event and add it to `parameters`. The sync adds the Tag Manager variable, the tag parameter and the GA4 dimension.
 - **Different container or stream:** change `container` and `measurementId` in the config, and the container ID in `src/layouts/BaseLayout.astro`, in the same commit.
 
-## Moving the site to GTM-WFP56VXL (20 November 2026)
+## Moving the site to GTM-WFP56VXL (done 20 November 2026)
 
 The site previously loaded GTM-NSZWBWT2, which only sent page views and which nobody could open. Order matters, or page views stop:
 
