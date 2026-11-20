@@ -1,13 +1,13 @@
 ---
 import InteriorLayout from '../layouts/InteriorLayout.astro';
-import { site, capabilities, credentials } from '../data/site';
+import { site, credentials, chatHref, assistant } from '../data/site';
 import photo from '../assets/photos/kitchen-f.jpg';
 import { reviews, googleReviews } from '../data/reviews';
 // A bid handled straight is what a visitor about to ask for one wants to read.
 const quote = reviews.peyton;
 ---
-<InteriorLayout title="Contact a DC Remodeling Contractor | I.S Design + Build" description="Tell us about your remodeling or roofing project. Contact I.S Design + Build at (202) 519-1831 or info@isenterprises.net." label="Start a project" headline="Tell us about your project." image={photo} photo="photos/kitchen-f" compact>
-  <Fragment slot="intro"><p>Five quick questions, or call if you’d rather talk it through.</p><div class="hero-actions"><a class="text-link" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={`mailto:${site.email}`}>{site.email}</a></div></Fragment>
+<InteriorLayout title="Contact a DC Remodeling Contractor | I.S Design + Build" description={`Talk to I.S Design + Build about your remodeling or roofing project. Call ${site.phone}, chat with us at any time, or email ${site.email}.`} label="Contact" headline="Tell us about your project." image={photo} photo="photos/kitchen-f" compact>
+  <Fragment slot="intro"><p>Call us, or start a chat at any time. Either way, tell us about the house and what you want to change.</p><div class="hero-actions"><a class="btn" href={chatHref()} data-chat>Chat now</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></div></Fragment>
   <section class="enquiry">
     <aside class="enquiry-proof" aria-label="About I.S Design + Build" data-reveal style="--d:120ms">
       <p class="enquiry-rating"><span aria-hidden="true">★★★★★</span><b>{googleReviews.rating}</b> on Google from {googleReviews.count} reviews</p>
@@ -15,91 +15,32 @@ const quote = reviews.peyton;
       <p class="enquiry-since"><b>{site.since}</b><span>In business in the DC area since {site.since}.</span></p>
       {credentials && <p class="enquiry-credentials">{credentials}</p>}
       <address class="enquiry-office">{site.address[0]}<br />{site.address[1]}<br />{site.hours}</address>
-      <p class="enquiry-email-note">Our email, <a href={`mailto:${site.email}`}>{site.email}</a>, still carries our former name, I.S. Enterprises.</p>
     </aside>
     <div class="enquiry-main" data-reveal>
-    <ol class="next-steps" aria-label="What happens next">
-      <li><b>01</b><span>You tell us about the house and what you want to change.</span></li>
-      <li><b>02</b><span>We get back to you to talk it through.</span></li>
-      <li><b>03</b><span>If it’s a fit, we visit the house and prepare the scope and estimate.</span></li>
-    </ol>
-    <noscript><p>To discuss a project, <a href={`mailto:${site.email}`}>email {site.email}</a> or <a href={site.phoneHref}>call {site.phone}</a>. Include the type of work and the property’s town.</p></noscript>
-    <form id="enquiry-form" hidden>
-      <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" tabindex="-1" autocomplete="off" /></div>
-      <div class="form-grid">
-        <div class="field full"><label for="service">What are you planning?</label><select name="service" id="service" required><option value="">Choose a project type</option>{capabilities.map(c => <option value={c.service}>{c.name}</option>)}<option value="remodeling">Remodeling, not sure where to start</option><option value="other">Something else</option><option value="unsure">Not sure yet</option></select></div>
-        <div class="field"><label for="town">Where is the property?</label><input id="town" name="town" autocomplete="address-level2" maxlength="100" required placeholder="Town or city" /></div>
-        <div class="field full"><label for="brief">Tell us a little about the work.</label><textarea id="brief" name="brief" required maxlength="1500" aria-describedby="brief-help"></textarea><small id="brief-help">What would you like to change, or what problem needs attention?</small></div>
-        <div class="field full" id="roofing-field" hidden><label for="water">Is water currently entering the property?</label><select id="water" name="water"><option>Not sure</option><option>Yes</option><option>No</option></select><small>If water is coming in now, call <a href={site.phoneHref}>{site.phone}</a>. It’s faster than this form, and sending the form doesn’t book a visit.</small></div>
-        <div class="field full"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required maxlength="100" /></div>
-        <fieldset class="field full"><legend>How should we contact you?</legend><div class="contact-options"><label><input type="radio" name="preferred" value="email" checked /> Email</label><label><input type="radio" name="preferred" value="phone" /> Phone</label></div></fieldset>
-        <div class="field full"><label for="reply">Your email address</label><input id="reply" name="reply" type="email" autocomplete="email" required maxlength="160" /></div>
-        <div class="field full"><label for="budget">Roughly what budget do you have in mind? <span class="optional">(optional)</span></label><select id="budget" name="budget"><option value="">Choose a range</option><option>Under $50,000</option><option>$50,000 to $150,000</option><option>$150,000 to $300,000</option><option>Over $300,000</option><option>Not sure yet</option></select></div>
-        <details class="field full more-details"><summary>When you hope to start <span>(optional)</span></summary><div class="form-grid">
-          <div class="field"><label for="timing">When are you hoping to start?</label><select id="timing" name="timing"><option value="">Choose one</option><option>As soon as practical</option><option>Within 3 months</option><option>3–6 months</option><option>Later</option><option>Just exploring</option></select></div>
-          
-        </div></details>
-      </div>
-      <p class="form-note">We use these details to reply to you. Our <a href="/privacy-policy/">Privacy Policy</a> explains how this site handles information.</p>
-      <div class="submit-row"><button type="submit" class="btn">Send my project details</button></div>
-      <section class="enquiry-result enquiry-sent" id="enquiry-sent" aria-labelledby="sent-heading" hidden><svg class="sent-mark" viewBox="0 0 56 56" aria-hidden="true"><path d="M28 3a25 25 0 1 1 0 50a25 25 0 1 1 0-50" pathLength="1" /><path d="M17 29l8 8l15-17" pathLength="1" /></svg><h2 id="sent-heading" tabindex="-1">Thanks. We have your project details.</h2><p>We’ll reply using the contact details you gave. For anything urgent, call <a href={site.phoneHref}>{site.phone}</a>.</p></section>
-      <section class="enquiry-result" id="enquiry-result" aria-labelledby="result-heading" hidden><h2 id="result-heading" tabindex="-1">One more step: send it from your email.</h2><p>We couldn’t send your details from this page, so they have not been sent yet. Open your email app to review and send it, or copy the text into an email to <a href={`mailto:${site.email}`}>{site.email}</a>.</p><label for="email-preview" class="cg-label">Your prepared message</label><textarea id="email-preview" readonly></textarea><a id="email-link" class="text-link" href={`mailto:${site.email}`}>Open my email app</a><button type="button" id="copy-email">Copy the message</button><p id="copy-status" role="status"></p></section>
-    </form>
+      <ul class="contact-ways" aria-label="Ways to reach us">
+        <li>
+          <span>Chat</span>
+          <a href={chatHref()} data-chat>Chat now</a>
+          <p>{assistant}, our AI assistant, answers at any time. Tell {assistant} about the project and how to reach you, and our team follows up.</p>
+          <p class="contact-failed" data-chat-failed hidden tabindex="-1" role="status">The chat couldn’t open in this browser. It may be blocked by a privacy setting or an ad blocker. Please call or email us instead.</p>
+        </li>
+        <li>
+          <span>Call</span>
+          <a href={site.phoneHref}>{site.phone}</a>
+          <p>{site.hours}.</p>
+        </li>
+        <li>
+          <span>Email</span>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <p>Photos of the space or the problem are welcome.</p>
+        </li>
+      </ul>
+      <ol class="next-steps" aria-label="What happens next">
+        <li><b>01</b><span>You tell us about the house and what you want to change.</span></li>
+        <li><b>02</b><span>We get back to you to talk it through.</span></li>
+        <li><b>03</b><span>If it’s a fit, we visit the house and prepare the scope and estimate.</span></li>
+      </ol>
+      <p class="form-note">Useful before you get in touch: <a href="/our-process/">how we work</a>, <a href="/financing/">financing</a> and <a href="/faqs/">common questions</a>.</p>
     </div>
   </section>
 </InteriorLayout>
-<script>
-  const form = document.querySelector<HTMLFormElement>('#enquiry-form');
-  const service = document.querySelector<HTMLSelectElement>('#service');
-  const roof = document.querySelector<HTMLElement>('#roofing-field');
-  const reply = document.querySelector<HTMLInputElement>('#reply');
-  const result = document.querySelector<HTMLElement>('#enquiry-result');
-  if (form && service && reply && result) {
-    form.hidden = false;
-    const requested = new URLSearchParams(window.location.search).get('service');
-    if (requested && Array.from(service.options).some(option => option.value === requested)) service.value = requested;
-    const showRoof = () => { if (roof) roof.hidden = service.value !== 'roofing'; };
-    showRoof(); service.addEventListener('change', showRoof);
-    form.querySelectorAll<HTMLInputElement>('input[name="preferred"]').forEach(radio => radio.addEventListener('change', () => {
-      const phone = radio.value === 'phone';
-      reply.type = phone ? 'tel' : 'email'; reply.autocomplete = phone ? 'tel' : 'email';
-      const label = form.querySelector('label[for="reply"]'); if (label) label.textContent = phone ? 'Your phone number' : 'Your email address';
-    }));
-    // Any edits invalidate the prepared email, so an earlier version cannot be sent accidentally.
-    form.addEventListener('input', event => { if (!(event.target instanceof HTMLTextAreaElement && event.target.id === 'email-preview')) result.hidden = true; });
-    const sentPanel = document.querySelector<HTMLElement>('#enquiry-sent');
-    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
-      if (!form.reportValidity()) return;
-      const data = new FormData(form);
-      const selected = service.selectedOptions[0].text;
-      const lines = [`Project: ${selected}`, `Location: ${data.get('town')}`, '', String(data.get('brief')), '', `Timing: ${data.get('timing') || 'Not specified'}`, `Budget: ${data.get('budget') || 'Not specified'}`, ...(service.value === 'roofing' ? [`Water currently entering: ${data.get('water')}`] : []), '', `Name: ${data.get('name')}`, `Preferred contact: ${data.get('preferred')}`, `Contact details: ${data.get('reply')}`];
-      const body = lines.join('\n');
-      const preview = document.querySelector<HTMLTextAreaElement>('#email-preview'); if (preview) preview.value = body;
-      const link = document.querySelector<HTMLAnchorElement>('#email-link'); if (link) link.href = `mailto:info@isenterprises.net?subject=${encodeURIComponent('Project inquiry — ' + selected)}&body=${encodeURIComponent(body)}`;
-      // Try to deliver the enquiry. If that is not possible, fall back to the visitor's own email app.
-      let delivered = false;
-      if (button) { button.disabled = true; button.textContent = 'Sending…'; }
-      try {
-        const response = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...Object.fromEntries(data), serviceLabel: selected }), signal: AbortSignal.timeout(10000) });
-        delivered = response.ok;
-      } catch { delivered = false; }
-      if (button) { button.disabled = false; button.textContent = 'Send my project details'; }
-      const layer = ((window as Window & { dataLayer?: object[] }).dataLayer ??= []);
-      layer.push({ event: delivered ? 'generate_lead' : 'inquiry_fallback_shown', service: service.value });
-      if (delivered && sentPanel) {
-        form.querySelector<HTMLElement>('.form-grid')!.hidden = true; form.querySelector<HTMLElement>('.submit-row')!.hidden = true; form.querySelector<HTMLElement>('.form-note')!.hidden = true;
-        sentPanel.hidden = false; document.querySelector<HTMLElement>('#sent-heading')?.focus();
-        return;
-      }
-      result.hidden = false; document.querySelector<HTMLElement>('#result-heading')?.focus();
-    });
-    document.querySelector('#copy-email')?.addEventListener('click', async () => {
-      const preview = document.querySelector<HTMLTextAreaElement>('#email-preview'); const status = document.querySelector('#copy-status');
-      if (!preview || !status) return;
-      try { await navigator.clipboard.writeText(preview.value); status.textContent = 'Copied. Paste this into your email and send when you’re ready.'; }
-      catch { preview.focus(); preview.select(); status.textContent = 'Select and copy the message above, then paste it into your email.'; }
-    });
-  }
-</script>

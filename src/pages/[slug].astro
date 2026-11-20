@@ -11,8 +11,9 @@ import Span from '../components/scenes/Span.astro';
 import Panels from '../components/scenes/Panels.astro';
 import Portfolio from '../components/scenes/Portfolio.astro';
 import Reviews from '../components/Reviews.astro';
+import { googleReviews } from '../data/reviews';
 import pages from '../data/content.json';
-import { site } from '../data/site';
+import { site, chatHref } from '../data/site';
 import { service, faqPage } from '../data/schema';
 export function getStaticPaths() { return pages.map(page => ({ params: { slug: page.slug }, props: { page } })); }
 const { page } = Astro.props as { page: any };
@@ -40,9 +41,8 @@ const firstSplit = page.sections.findIndex((s: any) => s.kind === 'split');
 <InteriorLayout title={page.title} description={page.description} label={page.label} headline={page.headline} kicker={page.kicker} schema={schema} image={page.image ? img(page.image) : undefined} photo={page.image ?? undefined} sheet={sheet}>
   <Fragment slot="intro">
     <p>{page.lede}</p>
-    {page.phone
-      ? <div class="hero-actions"><a class="btn" href={site.phoneHref}>Call {site.phone}</a><a class="text-link" href={page.ctaHref ?? `/contact-us/?service=${page.service}`}>{page.cta}</a></div>
-      : <div class="hero-actions"><a class="btn" href={`/contact-us/?service=${page.service || 'other'}`}>{page.cta}</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></div>}
+    {page.rating && <p class="page-rating"><span aria-hidden="true">★★★★★</span><b>{googleReviews.rating}</b> on Google from {googleReviews.count} reviews<a class="text-link" href="/reviews/">Read the reviews</a></p>}
+    <div class="hero-actions"><a class="btn" href={chatHref(page.service)} data-chat data-service={page.service}>Chat now</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></div>
   </Fragment>
   {page.sections.map((s: any, index: number) => (
     <>
@@ -89,7 +89,7 @@ const firstSplit = page.sections.findIndex((s: any) => s.kind === 'split');
           </div>
         </section>
       )}
-      {s.kind === 'gallery' && (s.category ? <Rail gallery={s.category} title={s.title} /> : <Portfolio />)}
+      {s.kind === 'gallery' && (s.category ? <Rail gallery={s.category} title={s.title} /> : <Portfolio quotes={s.quotes} />)}
       {s.kind === 'faq' && (
         <section class="fq">
           <div class="fq-head"><p class="cg-label">Questions</p><h2 data-split>{s.title}</h2></div>
@@ -100,5 +100,5 @@ const firstSplit = page.sections.findIndex((s: any) => s.kind === 'split');
       )}
     </>
   ))}
-  <Cta service={page.service} lines={page.closing} phone={page.phone} />
+  <Cta service={page.service} lines={page.closing} />
 </InteriorLayout>

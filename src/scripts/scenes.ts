@@ -23,19 +23,7 @@ export function closingScenes() {
       scrollTrigger: { trigger: title, start: 'top 95%' },
     });
   }
-  rise('.ct-pills a', '.ct-pills', 0.05);
   rise('.ct-grid > div', '.ct-grid', 0.08);
-  const mark = document.querySelector<HTMLElement>('.footer-mark');
-  if (mark) {
-    const split = SplitText.create(mark, { type: 'chars', mask: 'chars' });
-    gsap.from(split.chars, {
-      yPercent: 110,
-      duration: 1.2,
-      stagger: 0.035,
-      ease,
-      scrollTrigger: { trigger: mark, start: 'top 98%' },
-    });
-  }
 }
 
 /** Items rise in, one after another, when their group enters. */
@@ -123,8 +111,8 @@ export function plan(section: HTMLElement) {
     scrollTrigger: {
       trigger: pin,
       start: 'top top',
-      // About a quarter screen per stage: long enough to read each drawing, short enough not to stall.
-      end: `+=${n * 25}%`,
+      // About a sixth of a screen per stage: enough to see each drawing, short enough not to stall.
+      end: `+=${n * 16}%`,
       pin: true,
       scrub: 0.5,
       anticipatePin: 1,

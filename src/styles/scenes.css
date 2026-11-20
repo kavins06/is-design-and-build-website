@@ -72,8 +72,6 @@ html { background: #0c0c0c; }
 @media (max-width: 1050px) { .ph-block { display: none; } }
 
 /* ---------- Footer wordmark ---------- */
-.cg .footer-mark { margin: clamp(56px, 8vw, 120px) 0 -.06em; font-size: 13.1vw; font-weight: 500; line-height: .86; letter-spacing: -.06em; white-space: nowrap; color: #fff; user-select: none; }
-.footer-mark span { color: var(--signal); }
 
 /* Later pages in the same visit open straight onto the photograph. */
 .opened .ph-trace { display: none; }
@@ -210,7 +208,7 @@ html:not(.has-motion) .rail-foot { display: none; }
 .fq-list details::details-content { block-size: 0; overflow: hidden; transition: block-size .5s cubic-bezier(.2, .7, .2, 1), content-visibility .5s allow-discrete; }
 .fq-list details[open]::details-content { block-size: auto; }
 @media (prefers-reduced-motion: reduce) { .fq-list details::details-content { transition: none; } }
-/* Phones: leave room for the fixed Call / Start a project bar under the pinned sheet. */
+/* Phones: leave room for the fixed Call / Chat now bar under the pinned sheet. */
 @media (max-width: 700px) {
   .dw-pin { padding-bottom: 76px; }
   .dw-sheet svg { max-height: 30svh; }
@@ -384,14 +382,6 @@ html.lb-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .read-progress { display: none; } }
 
 /* ---------- Contact: an orange line draws under the field being filled in ---------- */
-.enquiry .field input, .enquiry .field select, .enquiry .field textarea { background-image: linear-gradient(var(--signal), var(--signal)); background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 2px; transition: background-size .45s cubic-bezier(.2, .7, .2, 1), border-color .25s; }
-.enquiry .field input:focus, .enquiry .field select:focus, .enquiry .field textarea:focus { background-size: 100% 2px; border-color: var(--ink); outline: none; }
-.enquiry .field select { background-image: linear-gradient(var(--signal), var(--signal)); }
-.sent-mark { display: block; width: 56px; height: 56px; margin-bottom: 18px; }
-.sent-mark path { fill: none; stroke: var(--signal); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.enquiry-sent:not([hidden]) .sent-mark path { animation: cg-draw .8s cubic-bezier(.4, 0, .2, 1) .1s forwards; }
-.enquiry-sent:not([hidden]) .sent-mark path + path { animation-delay: .6s; }
-@media (prefers-reduced-motion: reduce) { .sent-mark path { stroke-dashoffset: 0; } }
 
 /* ---------- Numbered points without a drawing: an orange line draws across the one in use ---------- */
 .pts-grid li { position: relative; }
@@ -429,3 +419,12 @@ html.lb-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .page-hero .ph-title .ph-kicker { opacity: 1; animation: none; } }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 #main:focus { outline: none; }
+
+/* Our work: a client's words after each room group, and the rating under the page intro. */
+.cg .pf-quote { max-width: 860px; margin: clamp(48px, 5vw, 80px) 0 0; padding-left: 22px; border-left: 2px solid var(--signal); }
+.pf-quote p { font-size: clamp(22px, 2.2vw, 34px); font-weight: 500; line-height: 1.25; letter-spacing: -.025em; }
+.pf-quote footer { margin-top: 14px; color: var(--mute); font-size: 14px; }
+.page-rating { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin-top: 18px; font-size: 16px; }
+.page-rating span { color: var(--signal); letter-spacing: .12em; }
+.page-rating b { font-size: 26px; font-weight: 500; letter-spacing: -.03em; }
+.page-rating .text-link { margin-left: 14px; font-size: 15px; }

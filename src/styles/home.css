@@ -478,10 +478,11 @@ video {
 .bd-frame h2 {
   z-index: 1;
 }
+/* Inside the frame's starting inset (home.ts), so the label is never cut off while the frame opens. */
 .bd-frame .bd-note {
-  top: 96px;
+  top: max(96px, calc(14% + 14px));
   bottom: auto;
-  right: var(--pad);
+  right: calc(18% + 14px);
 }
 .bd-frame h2 {
   position: relative;
@@ -568,30 +569,6 @@ video {
 .ct-title span:last-child {
   color: var(--signal);
 }
-.ct-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: clamp(32px, 4vw, 64px);
-}
-.ct-pills a {
-  padding: 15px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 999px;
-  font-size: clamp(16px, 1.4vw, 21px);
-  text-decoration: none;
-  transition:
-    background 0.25s,
-    color 0.25s,
-    border-color 0.25s,
-    transform 0.25s;
-}
-.ct-pills a:hover {
-  background: #fff;
-  border-color: #fff;
-  color: var(--ink);
-  transform: translateY(-3px);
-}
 .ct-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -673,4 +650,17 @@ video {
   .ct-grid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* Rooms on wider screens: a plain grid of six rooms, linking to the portfolio. It used to be a
+   pinned sideways gallery, which held the page still while visitors scrolled. */
+@media (min-width: 901px) {
+  .cg #rooms .rm-pin { min-height: 0; padding: clamp(90px, 10vw, 160px) 0; }
+  .cg #rooms .rm-hint { display: none; }
+  .cg #rooms .rm-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: clamp(28px, 3vw, 48px) clamp(16px, 2vw, 32px); width: auto; will-change: auto; }
+  .cg #rooms .rm-title { grid-column: 1 / -1; align-self: start; margin: 0 0 8px !important; white-space: normal; }
+  .cg #rooms .rm-track figure, .cg #rooms .rm-track figure.is-tall { width: auto; }
+  .cg #rooms .rm-track figure div, .cg #rooms .rm-track figure.is-tall div { height: auto; aspect-ratio: 4 / 3; }
+  .cg #rooms .rm-track img { width: 100%; margin-left: 0; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
+  .cg #rooms .rm-track figure a:hover img { transform: scale(1.03); }
 }

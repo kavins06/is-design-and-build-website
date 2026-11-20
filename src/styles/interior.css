@@ -68,7 +68,6 @@
 .fq-list details[open] summary::after { transform: rotate(45deg); }
 .fq-list summary:hover { color: var(--signal); }
 .fq-list details p { max-width: 62ch; padding-bottom: 30px; font-size: 18px; line-height: 1.6; color: #55554f; }
-.ct-pills a.is-current { background: var(--signal); border-color: var(--signal); }
 .interior .rv blockquote p { font-size: clamp(26px, 3.6vw, 56px); }
 
 @media (max-width: 900px) {
@@ -126,6 +125,8 @@
   html.menu-locked .m-bar { transform: translateY(110%); }
   .m-bar a { padding: 17px 12px; color: #fff; font-weight: 500; font-size: 16px; text-align: center; text-decoration: none; }
   .m-bar a.is-primary { background: var(--signal); }
+  .m-bar.has-number { grid-template-columns: 1.25fr 1fr; }
+  .m-bar.has-number a { padding-inline: 8px; white-space: nowrap; }
   .site-footer { padding-bottom: 96px; }
 }
 @media (max-width: 540px) {
@@ -134,7 +135,6 @@
   .cg-hero .hero-actions { flex-direction: column; align-items: stretch; gap: 6px; }
   .cg-hero .hero-actions .btn { text-align: center; }
   .page-hero h1 { font-size: clamp(42px, 12.5vw, 60px); }
-  .ct-pills a { padding: 13px 18px; }
   .fq-list summary { padding: 22px 0; }
 }
 @media (max-width: 540px) { .cg .hd-cta { display: none; } .cg .hd.menu-open .hd-cta { display: none; } }
@@ -148,16 +148,14 @@
   .cg .ex-list li a, .cg .ex-list li.is-on a { position: relative; display: block; aspect-ratio: 4 / 3; padding: 0; border: 0; overflow: hidden; background: #0c0c0c; color: #fff; }
   .cg .ex-thumb { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .cg .ex-list li a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #0c0c0c26 30%, #0c0c0ce6); }
-  .cg .ex-list li a > span { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
+  .cg .ex-list li a > span:not(.media-note) { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
+  .cg .ex-list li a > .ex-thumb-note { position: absolute; z-index: 1; top: 14px; right: 14px; left: auto; bottom: auto; }
   .cg .ex-list li a > div { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 18px; }
   .cg .ex-list h3 { font-size: 30px; }
   .cg .ex-list p { margin-top: 6px; opacity: 1; transform: none; color: #ffffffcc; font-size: 15px; }
 }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.enquiry button[disabled] { opacity: .6; cursor: progress; }
-.enquiry-sent { border-color: var(--signal); }
 
-/* Contact: proof beside the form, optional details, and the orange primary action. */
+/* Contact: proof beside the ways to reach us. */
 .enquiry { align-items: start; }
 .enquiry-proof { display: grid; gap: 40px; align-content: start; }
 .enquiry-since b { display: block; font-size: clamp(64px, 7vw, 112px); font-weight: 400; line-height: 1; letter-spacing: -.055em; }
@@ -167,22 +165,10 @@
 .enquiry-review footer { margin-top: 14px; font-size: 14px; color: var(--mute); }
 .enquiry-review .text-link { margin-top: 10px; font-size: 15px; }
 .enquiry-proof .enquiry-office { margin-top: 0; }
-.more-details { border-block: 1px solid var(--line); }
-.more-details summary { display: flex; align-items: center; gap: 8px; min-height: 60px; font-size: 17px; font-weight: 500; cursor: pointer; list-style: none; }
-.more-details summary::-webkit-details-marker { display: none; }
-.more-details summary span { color: var(--mute); font-weight: 400; }
-.more-details summary::after { content: '+'; margin-left: auto; font: 400 24px 'Geist Mono Variable', monospace; color: var(--signal-text); }
-.more-details[open] summary::after { content: '−'; }
-.more-details > .form-grid { padding: 8px 0 28px; }
-.contact-options { margin-top: 4px; }
-.contact-options label { min-height: 44px; padding-right: 12px; cursor: pointer; }
-.enquiry .submit-row .btn { padding: 18px 36px; border: 0; background: var(--signal); color: #0c0c0c !important; font-size: 17px; }
-.enquiry .submit-row .btn:hover { background: #0c0c0c; color: #fff !important; }
 @media (min-width: 901px) { .enquiry-proof { position: sticky; top: 110px; } }
 @media (max-width: 900px) {
   .enquiry { padding-block: 48px 64px; }
   .enquiry-proof { order: 2; gap: 32px; padding-top: 48px; border-top: 1px solid var(--line); }
-  .enquiry .submit-row .btn { width: 100%; }
 }
 .hd-logo span, .footer-brand span { color: var(--signal); }
 /* Comfortable tap targets on touch screens */
@@ -201,10 +187,9 @@
 }
 /* Contrast (WCAG AA): dark text on orange, a deeper orange and grey for small text on light backgrounds. */
 .cg.cg { --mute: #62625c; --signal-text: #b83403; }
-.btn, .m-bar a.is-primary, .ct-pills a.is-current { color: #0c0c0c !important; }
+.btn, .m-bar a.is-primary { color: #0c0c0c !important; }
 .btn:hover { color: #0c0c0c !important; }
 .rm-track figcaption span, .cg .ex-list span, .related-services > a > span, .copy-section .cg-label { color: var(--signal-text); }
-.enquiry button:hover { color: #0c0c0c; }
 @media (max-width: 900px) { .cg .ex-list li a > span { color: #fff; } }
 @media (min-width: 901px) { .cg .ex-list li:not(.is-on) a { color: #76766f; } }
 
@@ -212,8 +197,6 @@
 .ct-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; margin-top: clamp(32px, 4vw, 56px); }
 .ct-actions .btn { padding: 18px 32px; font-size: 17px; }
 .ct-actions .text-link { color: #fff; font-size: 16px; }
-.cg .ct-pills { margin-top: 28px; }
-.cg .ct-pills a { padding: 12px 20px; font-size: clamp(15px, 1.2vw, 18px); border-color: #ffffff4d; }
 .ct-grid p { color: #fff; }
 @media (max-width: 540px) { .ct-actions .btn { width: 100%; text-align: center; } }
 
@@ -221,11 +204,8 @@
 .cg .hd-cta { background: var(--signal); border-color: var(--signal); color: #0c0c0c; }
 .cg .hd-cta:hover { background: #fff; border-color: #fff; color: #0c0c0c; }
 
-/* Phone menu: the Call / Start a project bar stays at the bottom while the menu is open. */
-@media (max-width: 700px) {
-  html.menu-locked .m-bar { transform: none; z-index: 60; }
-  .cg .hd.menu-open nav { padding-bottom: 110px; }
-}
+/* Phone menu: the Call / Chat now bar steps away while the menu is open; the menu has its own
+   phone number, and the bar would cover it. */
 
 /* Reviews: the client's words beside the ask. */
 .rq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: clamp(32px, 6vw, 110px); padding: clamp(80px, 10vw, 160px) var(--pad); border-top: 1px solid var(--line); }
@@ -260,16 +240,19 @@
 .proof-stars { margin-right: 8px; color: var(--signal); }
 .cg .fc { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 540px) { .cg .fc { grid-template-columns: 1fr; row-gap: 28px; } }
-.cg-hero-copy .hero-urgent { margin-top: 18px; font-size: 15px; opacity: 1; }
-.hero-urgent a { color: #fff; text-underline-offset: 5px; }
-@media (max-width: 540px) { .cg-hero-copy .hero-urgent { margin-top: 12px; font-size: 14px; } }
+/* Home hero: the Google rating, linking to the reviews. */
+.cg-hero-copy .hero-rating a { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-height: 44px; color: #fff; text-decoration: none; }
+.cg-hero-copy .hero-rating a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.hero-stars { color: var(--signal); letter-spacing: .12em; }
+.hero-rating b { font-size: 1.5em; font-weight: 500; letter-spacing: -.03em; }
+@media (max-width: 900px) { .cg .cg-hero-copy > p.hero-rating:not(.hero-eyebrow):not(.hero-urgent) { order: 1; margin: -4px 0 10px; } }
 
 /* Reviews page */
 .rvw { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px clamp(32px, 6vw, 110px); padding: clamp(64px, 8vw, 120px) var(--pad); border-top: 1px solid var(--line); }
 .rvw-title { max-width: 12ch; font-size: clamp(26px, 2.6vw, 40px); line-height: 1.06; letter-spacing: -.035em; }
-.rvw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 48px; }
+.rvw-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; max-width: 760px; }
 .cg .rvw figure, .cg .rvw blockquote { margin: 0; padding: 0; }
-.rvw blockquote p { font-size: 19px; line-height: 1.5; color: #2f2f2c; }
+.rvw blockquote p { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #2f2f2c; }
 .rvw figcaption { display: grid; gap: 2px; margin-top: 16px; font-size: 15px; }
 .rvw figcaption span { color: var(--mute); font-size: 14px; }
 .cg .rvw-note { padding: 0 var(--pad) clamp(64px, 8vw, 110px); color: var(--mute); font-size: 14px; }
@@ -337,14 +320,14 @@ html:not(.has-motion) .pr-steps li p { display: block; max-height: none; margin-
 
 /* "What we build": the section label is always visible, and without motion every
    service shows its description. */
-.cg .ex-list > .cg-label { opacity: 1; transform: none; }
+.cg .ex-list > .cg-label { opacity: 1; transform: none; color: var(--mute); }
 html:not(.has-motion) .cg .ex-list li p { opacity: 1; transform: none; }
 
 /* Readable small labels. */
 .cg .cg-label { font-size: 12px; }
 
 /* Touch tablets: header targets at least 44px tall. (Phones keep the header button hidden:
-   the fixed Call / Start a project bar does that job.) */
+   the fixed Call / Chat now bar does that job.) */
 @media (min-width: 541px) and (max-width: 1100px) {
   .cg .hd-cta { display: inline-flex; align-items: center; min-height: 44px; }
 }
@@ -382,7 +365,7 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
    the phone and email, so the closing section does not repeat them, and the wordmark is left out. */
 @media (max-width: 700px) {
   .cg .ct { padding-top: 72px; }
-  .cg .ct-grid, .cg .footer-mark { display: none; }
+  .cg .ct-grid { display: none; }
   .cg .site-footer { padding-top: 48px; }
   .cg .footer-top { padding-bottom: 28px; }
   .cg .footer-columns { gap: 22px; }
@@ -394,10 +377,6 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
 .hd-phone:hover { color: var(--signal); }
 @media (min-width: 1180px) { .cg .hd-phone { display: inline-flex; align-items: center; min-height: 44px; } }
 
-/* Contact form: optional marks and the note about the email address. */
-.field label .optional { color: var(--mute); font-weight: 400; }
-.enquiry-email-note { max-width: 34ch; color: var(--mute); font-size: 14px; line-height: 1.5; }
-.enquiry-email-note a { color: inherit; text-underline-offset: 3px; }
 
 /* Reviews page: rooms from our projects between the groups of reviews. */
 .rvw-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 22px); padding: 0 var(--pad) clamp(48px, 6vw, 96px); }
@@ -408,19 +387,17 @@ html.has-motion .cg .pr.pr-static .pr-steps li p { display: block; position: sta
   .rvw-strip figure:nth-child(3) { display: none; }
 }
 
-/* Chat: our own button opens the Intercom Messenger (loaded on demand). Wide screens get a small
-   pill in the corner; phones get a chat icon in the Call / Start a project bar instead, so nothing
-   floats over the main buttons. */
-.chat-launch { position: fixed; right: 20px; bottom: 20px; z-index: 45; display: inline-flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 20px 0 16px; border: 1px solid #ffffff3d; border-radius: 999px; background: #0c0c0c; color: #fff; font: 500 15px/1 'Geist Variable', 'Helvetica Neue', Arial, sans-serif; cursor: pointer; box-shadow: 0 8px 28px #0c0c0c59; transition: transform .25s, background .25s; }
-.chat-launch:hover { background: #262624; transform: translateY(-2px); }
-.chat-launch:focus-visible, .m-chat:focus-visible { outline: 2px solid #ff5418; outline-offset: 3px; }
-.chat-launch svg, .m-chat svg { width: 18px; height: 18px; fill: none; stroke: #ff8a5c; stroke-width: 1.8; stroke-linejoin: round; }
-.chat-launch[hidden], .m-chat[hidden] { display: none !important; }
-html.menu-locked .chat-launch, html.lb-open .chat-launch { display: none; }
-@media (max-width: 700px) {
-  .chat-launch { display: none !important; }
-  .m-bar.has-chat { grid-template-columns: 1fr 56px 1.6fr; }
-  .m-chat { display: grid; place-items: center; min-height: 54px; padding: 0; border: 0; border-left: 1px solid #ffffff33; background: #0c0c0c; color: #fff; cursor: pointer; }
-  .m-chat svg { width: 22px; height: 22px; }
+/* Contact page: the three ways to reach us. */
+.cg .contact-ways { margin: 0 0 48px; padding: 0; list-style: none; border-top: 1px solid var(--line); max-width: 800px; }
+.contact-ways li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 4px 24px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.contact-ways span { grid-row: span 3; padding-top: 10px; font: 500 12px 'Geist Mono Variable', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--signal-text); }
+.contact-ways a { justify-self: start; font-size: clamp(24px, 2.6vw, 38px); font-weight: 500; letter-spacing: -.03em; line-height: 1.2; text-decoration: none; overflow-wrap: anywhere; }
+.contact-ways a:hover { color: var(--signal-text); }
+.contact-ways a[data-chat] { padding: 10px 26px; background: var(--signal); color: #0c0c0c; font-size: clamp(20px, 1.8vw, 26px); }
+.contact-ways a[data-chat]:hover { background: #0c0c0c; color: #fff; }
+.contact-ways p { max-width: 52ch; margin-top: 8px; color: var(--mute); font-size: 15px; line-height: 1.5; }
+.contact-ways .contact-failed { padding: 12px 14px; border-left: 2px solid var(--signal); background: #fff4ee; color: #0c0c0c; }
+@media (max-width: 540px) {
+  .contact-ways li { grid-template-columns: 1fr; }
+  .contact-ways span { grid-row: auto; padding-top: 0; }
 }
-@media print { .chat-launch { display: none; } }

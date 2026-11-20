@@ -8,14 +8,15 @@ The site pushes lead events to the dataLayer. Tag Manager container **GTM-WFP56V
 | --- | --- | --- |
 | `click_to_call` | a phone link is tapped | yes |
 | `email_click` | an email link is tapped | yes |
-| `generate_lead` | the enquiry form delivers | yes |
-| `start_project_click` | a link to /contact-us/ is clicked | no |
-| `chat_open` | a chat button is tapped | no: opening the chat is not an enquiry |
-| `inquiry_fallback_shown` | the form falls back to the visitor's email app | no |
+| `generate_lead` | the visitor gives Tony an email address in the chat (Intercom's `onUserEmailSupplied`) | yes |
+| `chat_open` | a Chat now button is tapped | no: opening the chat is not an inquiry |
+| `chat_unavailable` | the chat could not load, so the visitor was sent to the phone number and email | no |
 
-Every event carries `link_location` (header, phone_bar, footer, closing, page) and, where it applies, `service`. Both are GA4 custom dimensions.
+The site has no inquiry form. `generate_lead` comes from the chat, so it fires only when the Messenger asks for an email address; a phone number typed into the conversation is not counted. Check it fires before relying on the lead count.
 
-The site loads Tag Manager only on the production deployment (`VERCEL_ENV=production`, in `src/layouts/BaseLayout.astro`). The events are pushed in `BaseLayout.astro` (links and chat) and `src/pages/contact-us.astro` (the form).
+Every event carries `link_location` (header, phone_bar, footer, closing, page, or chat for `generate_lead`) and, where it applies, `service`. Both are GA4 custom dimensions.
+
+The site loads Tag Manager only on the production deployment (`VERCEL_ENV=production`, in `src/layouts/BaseLayout.astro`). The events are pushed in `BaseLayout.astro`.
 
 ## Page views
 

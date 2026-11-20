@@ -1,6 +1,13 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import { photos, portfolio } from '../../data/photos';
+import { reviews, type Review, type ReviewKey } from '../../data/reviews';
+interface Props {
+  /** A client's words after each room group, in group order. */
+  quotes?: ReviewKey[];
+}
+const { quotes = [] } = Astro.props;
+const quote = (key: ReviewKey): Review => reviews[key];
 // Completed work: the strongest photograph full width, then the rest grouped by room in two
 // large columns. Each opens full screen; without JavaScript the link opens the large image itself.
 const keys = [portfolio.lead, ...portfolio.groups.flatMap((g) => g.keys)];
@@ -16,7 +23,7 @@ const viewer = keys.map((key) => ({ src: large[key], alt: photos[key].alt, room:
     <a href={large[portfolio.lead]} data-view={index(portfolio.lead)}><Image src={lead.src} alt={lead.alt} widths={[800, 1400, 2000, 2560]} sizes="(min-width: 900px) calc(100vw - 112px), 100vw" loading="eager" fetchpriority="high" /></a>
     <figcaption>{lead.room}<span>{keys.length} photographs from our completed projects</span></figcaption>
   </figure>
-  {portfolio.groups.map((group) => (
+  {portfolio.groups.map((group, g) => (
     <div class="pf-group">
       <h2 data-split>{group.title}</h2>
       <div class="pf-grid">
@@ -26,6 +33,9 @@ const viewer = keys.map((key) => ({ src: large[key], alt: photos[key].alt, room:
           </figure>
         ))}
       </div>
+      {quotes[g] && (
+        <blockquote class="pf-quote" data-reveal><p>“{quote(quotes[g]).text}”</p><footer>{quote(quotes[g]).name}{quote(quotes[g]).job && `, ${quote(quotes[g]).job}`}, Google review</footer></blockquote>
+      )}
     </div>
   ))}
   <dialog class="lb" aria-label="Project photographs">

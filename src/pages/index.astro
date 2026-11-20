@@ -38,7 +38,7 @@ const rooms = ['bath-a', 'kitchen-f', 'powder-c', 'roof-c', 'bed-a', 'powder-b']
 const facts = [
   { n: googleReviews.rating, label: `On Google, from ${googleReviews.count} reviews` },
   { n: site.since, label: 'In business since' },
-  { n: 'Eddie', label: 'Our co-founder, named again and again in our Google reviews', word: true },
+  { n: new Date().getFullYear() - site.since, label: 'Years in business' },
 ];
 
 // Floor plan drawn in the process section. Each group belongs to one stage.
@@ -83,7 +83,7 @@ const fittings = [
 ];
 ---
 
-<BaseLayout preloadFonts title="Home Remodeling & Roofing in DC | I.S Design + Build" description="Kitchens, bathrooms, additions, whole-home renovations and roofing from an in-house team serving DC, Northern Virginia and Montgomery County.">
+<BaseLayout preloadFonts title="Home Remodeling & Roofing in DC | I.S Design + Build" description="Kitchens, bathrooms, additions, whole-home renovations and roofing from an in-house team serving DC, Maryland and Northern Virginia.">
   <div class="cg">
     <Header home />
     <main id="main" tabindex="-1">
@@ -210,14 +210,14 @@ const fittings = [
         {
           facts.map((f) => (
             <div>
-              <b class:list={{ 'fact-word': f.word }}>{f.n}</b>
+              <b>{f.n}</b>
               <span>{f.label}</span>
             </div>
           ))
         }
       </section>
 
-      <Reviews keys={['jackson', 'solerPrice']} label="Clients" />
+      <Reviews keys={['dean', 'solerPrice']} label="Clients" />
 
       <Cta />
     </main>

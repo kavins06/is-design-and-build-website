@@ -7,15 +7,22 @@ export const site = {
   since: 1989,
   phone: '(202) 519-1831',
   phoneHref: 'tel:+12025191831',
-  email: 'info@isenterprises.net',
+  email: 'contact@isdesignandbuild.com',
   address: ['1010 Wisconsin Ave NW, Suite 300 #12', 'Washington, DC 20007'],
   hours: 'Monday to Friday, 9:00 AM to 5:00 PM',
-  area: 'Washington, DC · Northern Virginia · Montgomery County, Maryland',
+  area: 'Washington, DC · Maryland · Northern Virginia',
 };
 
-// Intercom Messenger (hosts the Fin AI chatbot). A public workspace ID, not a secret.
+// Intercom Messenger. It hosts Tony, the Fin AI assistant that answers chats first and takes
+// the visitor's details. A public workspace ID, not a secret.
 // BaseLayout.astro loads the Messenger for anonymous visitors on every page.
 export const intercomAppId = 'lbyfepf8';
+export const assistant = 'Tony';
+
+// Every "Chat now" button is a link to the contact page marked data-chat. BaseLayout.astro opens
+// the chat instead and tells it which service the visitor was reading about. Without JavaScript,
+// or if the chat cannot load, the link still leads to the phone number and email.
+export const chatHref = (service?: string) => `/contact-us/${service ? `?service=${service}` : ''}`;
 
 // Licences, insurance and accreditation, exactly as the owner confirms them, for the footer
 // and the contact page. Leave null until confirmed: nothing is shown while it is null.

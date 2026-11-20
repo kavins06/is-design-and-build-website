@@ -5,6 +5,7 @@ import photo from '../assets/photos/bath-c.jpg';
 import { reviews, googleReviews, type Review, type ReviewKey } from '../data/reviews';
 import { Image } from 'astro:assets';
 import { photos } from '../data/photos';
+import { chatHref } from '../data/site';
 // Rooms from our completed projects between the groups, so the page is not all text. They are
 // not matched to the reviews beside them.
 const strips: Record<number, string[]> = { 0: ['kitchen-a', 'bath-b', 'kitchen-c'], 2: ['deck-a', 'powder-c', 'roof-c'] };
@@ -20,7 +21,7 @@ const groups: { title: string; keys: ReviewKey[] }[] = [
 <InteriorLayout title="Reviews from DC Homeowners | I.S Design + Build" description={`What clients say about I.S Design + Build, formerly I.S. Enterprises: rated ${googleReviews.rating} on Google from ${googleReviews.count} reviews of remodeling, roofing and repair work in the DC area.`} label="Reviews" headline="In our clients’ words." image={photo} imageAlt="Walk-in glass shower with two rain heads, from one of our projects" photo="photos/bath-c">
   <Fragment slot="intro">
     <p>Rated {googleReviews.rating} on Google from {googleReviews.count} reviews. Many of them use our former name, I.S. Enterprises.</p>
-    <div class="hero-actions"><a class="btn" href="/contact-us/">Start a project</a><a class="text-link" href={googleReviews.url} rel="noopener">Read them all on Google</a></div>
+    <div class="hero-actions"><a class="btn" href={chatHref()} data-chat>Chat now</a><a class="text-link" href={googleReviews.url} rel="noopener">Read them all on Google</a></div>
   </Fragment>
   {groups.map((g, gi) => (<>
     <section class="rvw">
