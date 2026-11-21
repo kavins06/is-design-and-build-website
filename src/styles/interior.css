@@ -148,8 +148,7 @@
   .cg .ex-list li a, .cg .ex-list li.is-on a { position: relative; display: block; aspect-ratio: 4 / 3; padding: 0; border: 0; overflow: hidden; background: #0c0c0c; color: #fff; }
   .cg .ex-thumb { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .cg .ex-list li a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #0c0c0c26 30%, #0c0c0ce6); }
-  .cg .ex-list li a > span:not(.media-note) { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
-  .cg .ex-list li a > .ex-thumb-note { position: absolute; z-index: 1; top: 14px; right: 14px; left: auto; bottom: auto; }
+  .cg .ex-list li a > .ex-num { position: absolute; z-index: 1; top: 16px; left: 18px; padding: 0; color: #fff; }
   .cg .ex-list li a > div { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 18px; }
   .cg .ex-list h3 { font-size: 30px; }
   .cg .ex-list p { margin-top: 6px; opacity: 1; transform: none; color: #ffffffcc; font-size: 15px; }
@@ -204,9 +203,6 @@
 .cg .hd-cta { background: var(--signal); border-color: var(--signal); color: #0c0c0c; }
 .cg .hd-cta:hover { background: #fff; border-color: #fff; color: #0c0c0c; }
 
-/* Phone menu: the Call / Chat now bar steps away while the menu is open; the menu has its own
-   phone number, and the bar would cover it. */
-
 /* Reviews: the client's words beside the ask. */
 .rq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: clamp(32px, 6vw, 110px); padding: clamp(80px, 10vw, 160px) var(--pad); border-top: 1px solid var(--line); }
 .rq-dark { background: #0c0c0c; color: #fff; border-top: 0; }
@@ -245,7 +241,7 @@
 .cg-hero-copy .hero-rating a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .hero-stars { color: var(--signal); letter-spacing: .12em; }
 .hero-rating b { font-size: 1.5em; font-weight: 500; letter-spacing: -.03em; }
-@media (max-width: 900px) { .cg .cg-hero-copy > p.hero-rating:not(.hero-eyebrow):not(.hero-urgent) { order: 1; margin: -4px 0 10px; } }
+@media (max-width: 900px) { .cg .cg-hero-copy > .hero-rating { margin: -4px 0 10px; } }
 
 /* Reviews page */
 .rvw { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px clamp(32px, 6vw, 110px); padding: clamp(64px, 8vw, 120px) var(--pad); border-top: 1px solid var(--line); }
