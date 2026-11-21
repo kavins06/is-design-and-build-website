@@ -215,21 +215,10 @@
 .opened .cg-dims text { animation-delay: .2s; }
 .opened .cg-photo { animation-duration: 1s; }
 
-/* Phones and tablets held upright: the room takes the top of the screen at full brightness and
-   the words sit below it on black, so neither covers the other. The drawing is sliced exactly
-   like the photograph, so its lines still land on the room. */
+/* Phones and tablets held upright: the opening fills the whole screen, as on wide screens: the
+   drawing, then the room built under it, with the words over the room. The shade runs up from
+   the bottom, where the words sit across the full width. */
 @media (max-width: 900px) and (orientation: portrait) {
-  .cg .cg-hero { display: block; height: auto; min-height: 100svh; padding: calc(var(--hero-photo) + 20px) var(--pad) 28px; --hero-photo: 41svh; }
-  .cg-stage { inset: 0 0 auto 0; height: var(--hero-photo); }
-  .cg-hero-shade { background: linear-gradient(180deg, rgba(12, 12, 12, .75) 0%, rgba(12, 12, 12, .6) 16%, rgba(12, 12, 12, 0) 40%), linear-gradient(0deg, rgba(12, 12, 12, .7) 0%, rgba(12, 12, 12, 0) 22%); }
-  /* Headline and actions first; the longer sentence follows them, just below. */
-  .cg-hero-copy { display: flex; flex-direction: column; }
-  .cg .cg-hero-copy .hero-eyebrow { order: 0; margin-bottom: 14px; }
-  .cg-hero-copy h1 { order: 1; }
-  .cg-hero-copy .hero-actions { order: 2; margin-top: 4px; }
-  .cg .cg-hero-copy > p:not(.hero-eyebrow):not(.hero-urgent) { order: 4; margin-top: 22px; }
-  .cg .cg-hero-copy h1 { margin-bottom: 18px; }
-}
-@media (max-width: 900px) and (orientation: portrait) and (min-width: 541px) {
-  .cg .cg-hero { --hero-photo: 50svh; }
+  .cg-hero-shade { background: linear-gradient(180deg, rgba(12, 12, 12, .6) 0%, rgba(12, 12, 12, 0) 18%), linear-gradient(0deg, rgba(12, 12, 12, .92) 0%, rgba(12, 12, 12, .8) 38%, rgba(12, 12, 12, .35) 62%, rgba(12, 12, 12, 0) 78%); }
+  .cg-hero-copy h1, .cg-hero-copy > p { text-shadow: 0 1px 14px #0c0c0ccc; }
 }
