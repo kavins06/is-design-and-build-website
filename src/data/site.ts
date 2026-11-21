@@ -10,7 +10,6 @@ export const site = {
   email: 'contact@isdesignandbuild.com',
   address: ['1010 Wisconsin Ave NW, Suite 300 #12', 'Washington, DC 20007'],
   hours: 'Monday to Friday, 9:00 AM to 5:00 PM',
-  area: 'Washington, DC · Maryland · Northern Virginia',
 };
 
 // Intercom Messenger. It hosts Tony, the Fin AI assistant that answers chats first and takes
@@ -37,6 +36,12 @@ export const capabilities = [
   { n: '05', name: 'Roofing', service: 'roofing', href: '/roofing/', text: 'Repairs and replacements, plus the leak damage inside.' },
   { n: '06', name: 'Lead paint', service: 'lead', href: '/lead-paint-abatement/', text: 'Lead-safe work in homes and rentals built before 1978.' },
 ];
+
+// The service each service page is about, by path. Chat links on that page tell Tony about it.
+export const serviceByPath: Record<string, string> = {
+  '/home-remodeling/': 'remodeling',
+  ...Object.fromEntries(capabilities.map((c) => [c.href, c.service])),
+};
 
 export const process = [
   { n: '01', name: 'Tell us about your home', text: 'What you want to change, and what matters most.' },

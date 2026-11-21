@@ -2,7 +2,7 @@
 import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import geistMono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
 
-import { launched, intercomAppId } from '../data/site';
+import { launched, intercomAppId, serviceByPath } from '../data/site';
 import { business, website, graph, abs } from '../data/schema';
 
 interface Props {
@@ -81,21 +81,21 @@ const ogImage = abs('/og.jpg');
   <body>
     {googleTag && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${googleTag}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>}
     <slot />
-    <script is:inline>
-      // Lead signals for analytics: calls and emails, with where on the page they came from.
-      // Chat buttons are counted by the chat script below.
-      document.addEventListener('click', function (event) {
-        var link = event.target instanceof Element ? event.target.closest('a') : null;
-        if (!link) return;
-        var href = link.getAttribute('href') || '';
-        var dl = (window.dataLayer = window.dataLayer || []);
-        var where = link.closest('[data-m-bar]') ? 'phone_bar' : link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('#contact') ? 'closing' : 'page';
-        if (href.indexOf('tel:') === 0) dl.push({ event: 'click_to_call', link_location: where });
-        else if (href.indexOf('mailto:') === 0) dl.push({ event: 'email_click', link_location: where });
-      }, { capture: true });
-    </script>
-    {intercomAppId && (
-      <script is:inline define:vars={{ intercomAppId }}>
+    <script is:inline define:vars={{ intercomAppId, serviceByPath }}>
+      // Lead signals for analytics (calls, emails, chats, with where on the page they came from),
+      // and the chat.
+      (function () {
+        var w = window; var d = document;
+        var track = function (data) { (w.dataLayer = w.dataLayer || []).push(data); };
+        var where = function (el) {
+          return el.closest('[data-m-bar]') ? 'phone_bar' : el.closest('header') ? 'header' : el.closest('footer') ? 'footer' : el.closest('#contact') ? 'closing' : 'page';
+        };
+        d.addEventListener('click', function (event) {
+          var link = event.target instanceof Element ? event.target.closest('a[href^="tel:"], a[href^="mailto:"]') : null;
+          if (link) track({ event: link.protocol === 'tel:' ? 'click_to_call' : 'email_click', link_location: where(link) });
+        }, { capture: true });
+        if (!intercomAppId) return;
+
         // Intercom Messenger, where Tony (Fin AI) answers first and takes the visitor's details.
         // Uses Intercom's standard install snippet. The widget is about 1 MB and ties up a phone for
         // up to a second while it starts, so it is fetched only when a visitor taps Chat now, or, for
@@ -105,50 +105,47 @@ const ogImage = abs('/og.jpg');
         // Every Chat now button is a link to the contact page marked data-chat. If the chat script is
         // blocked or does not open within a few seconds, the visitor is taken to that link (on the
         // contact page itself, a note appears), so a tap never ends in nothing.
-        window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId, hide_default_launcher: true };
-        (function () {
-          var w = window; var d = document; var ic = w.Intercom;
-          if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
-          var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
-          var loaded = false; var failed = false; var shown = false; var pending = null; var lastService = '';
-          var fallback = function () {
-            if (!pending || shown) return;
-            var link = pending; pending = null;
-            (w.dataLayer = w.dataLayer || []).push({ event: 'chat_unavailable', service: link.getAttribute('data-service') || 'none' });
-            var note = d.querySelector('[data-chat-failed]');
-            if (note) { note.hidden = false; note.focus(); } else w.location.href = link.href;
-          };
-          var l = function () {
-            if (loaded) return; loaded = true;
-            var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId;
-            s.onerror = function () { failed = true; fallback(); };
-            d.head.appendChild(s);
-          };
-          w.Intercom('onShow', function () { shown = true; pending = null; });
-          w.Intercom('onHide', function () { shown = false; });
-          // A lead: the visitor gave Tony an email address in the chat.
-          w.Intercom('onUserEmailSupplied', function () { (w.dataLayer = w.dataLayer || []).push({ event: 'generate_lead', link_location: 'chat', service: lastService || 'none' }); });
-          d.addEventListener('click', function (event) {
-            var link = event.target instanceof Element ? event.target.closest('a[data-chat]') : null;
-            if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.button) return;
-            // Links without their own service (header, footer) take the service of the page they are on.
-            var pages = { '/kitchen-remodeling/': 'kitchen', '/bathroom-remodeling/': 'bathroom', '/whole-home-remodeling/': 'whole-home', '/home-additions/': 'addition', '/roofing/': 'roofing', '/home-remodeling/': 'remodeling', '/lead-paint-abatement/': 'lead' };
-            var service = link.getAttribute('data-service') || pages[location.pathname] || '';
-            var where = link.closest('[data-m-bar]') ? 'phone_bar' : link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('#contact') ? 'closing' : 'page';
-            (w.dataLayer = w.dataLayer || []).push({ event: 'chat_open', link_location: where, service: service || 'none' });
-            event.preventDefault();
-            if (failed) { pending = link; fallback(); return; }
-            // Tony sees which service the visitor was reading about.
-            if (service) { lastService = service; w.Intercom('update', { service_interest: service }); }
-            pending = link; l(); w.Intercom('show');
-            setTimeout(fallback, 8000);
-          });
-          if (d.cookie.indexOf('intercom-session-' + intercomAppId + '=') !== -1) {
-            var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(l, { timeout: 3000 }); else setTimeout(l, 1); };
-            if (d.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
-          }
-        })();
-      </script>
-    )}
+        w.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: intercomAppId, hide_default_launcher: true };
+        var ic = w.Intercom;
+        if (typeof ic === 'function') { ic('reattach_activator'); ic('update', w.intercomSettings); return; }
+        var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i;
+        var loaded = false; var failed = false; var shown = false; var pending = null; var timer = 0; var service = ''; var sent = '';
+        var fallback = function () {
+          if (!pending || shown) return;
+          var link = pending; pending = null;
+          track({ event: 'chat_unavailable', service: service || 'none' });
+          var note = d.querySelector('[data-chat-failed]');
+          if (note) { note.hidden = false; note.focus(); } else w.location.href = link.href;
+        };
+        var load = function () {
+          if (loaded) return; loaded = true;
+          var s = d.createElement('script'); s.async = true; s.src = 'https://widget.intercom.io/widget/' + intercomAppId;
+          s.onerror = function () { failed = true; fallback(); };
+          d.head.appendChild(s);
+        };
+        w.Intercom('onShow', function () { shown = true; pending = null; clearTimeout(timer); });
+        w.Intercom('onHide', function () { shown = false; });
+        // A lead: the visitor gave Tony an email address in the chat.
+        w.Intercom('onUserEmailSupplied', function () { track({ event: 'generate_lead', link_location: 'chat', service: service || 'none' }); });
+        d.addEventListener('click', function (event) {
+          var link = event.target instanceof Element ? event.target.closest('a[data-chat]') : null;
+          if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.button) return;
+          // Links without their own service (header, footer) take the service of the page they are on.
+          service = link.getAttribute('data-service') || serviceByPath[location.pathname] || '';
+          track({ event: 'chat_open', link_location: where(link), service: service || 'none' });
+          event.preventDefault();
+          pending = link;
+          if (failed) { fallback(); return; }
+          // Tony sees which service the visitor was reading about.
+          if (service && service !== sent) { sent = service; w.Intercom('update', { service_interest: service }); }
+          load(); w.Intercom('show');
+          clearTimeout(timer); timer = setTimeout(fallback, 8000);
+        });
+        if (d.cookie.indexOf('intercom-session-' + intercomAppId + '=') !== -1) {
+          var later = function () { if ('requestIdleCallback' in w) w.requestIdleCallback(load, { timeout: 3000 }); else setTimeout(load, 1); };
+          if (d.readyState === 'complete') later(); else w.addEventListener('load', later, { once: true });
+        }
+      })();
+    </script>
   </body>
 </html>

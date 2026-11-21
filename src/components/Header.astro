@@ -1,9 +1,9 @@
 ---
 const { home = false, overlay = false } = Astro.props;
-import { site, chatHref } from '../data/site';
+import { site, chatHref, capabilities } from '../data/site';
 // Three items: what we do, the work (with what clients say about it), and who we are. Every other
 // page stays live and is linked from the footer and from the pages it belongs with.
-const services = [['Kitchens', '/kitchen-remodeling/'], ['Bathrooms', '/bathroom-remodeling/'], ['Whole-home renovations', '/whole-home-remodeling/'], ['Home additions', '/home-additions/'], ['Roofing', '/roofing/'], ['Lead paint', '/lead-paint-abatement/']];
+const services = capabilities.map((c) => [c.name, c.href]);
 ---
 <a class="skip-link" href="#main">Skip to content</a>
 <header class:list={['hd', { 'is-solid': !home && !overlay }]} data-home={home || overlay}>

@@ -23,19 +23,7 @@ export function closingScenes() {
       scrollTrigger: { trigger: title, start: 'top 95%' },
     });
   }
-  rise('.ct-pills a', '.ct-pills', 0.05);
   rise('.ct-grid > div', '.ct-grid', 0.08);
-  const mark = document.querySelector<HTMLElement>('.footer-mark');
-  if (mark) {
-    const split = SplitText.create(mark, { type: 'chars', mask: 'chars' });
-    gsap.from(split.chars, {
-      yPercent: 110,
-      duration: 1.2,
-      stagger: 0.035,
-      ease,
-      scrollTrigger: { trigger: mark, start: 'top 98%' },
-    });
-  }
 }
 
 /** Items rise in, one after another, when their group enters. */
